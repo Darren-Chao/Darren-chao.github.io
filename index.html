@@ -1,15 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Name — Portfolio</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Darren Chao — Portfolio</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
+  <div id="cursor-follower">View Project</div>
 
-  <h1>Hello, world.</h1>
-  <p>This is my portfolio website.</p>
+  <div class="container">
+
+    <header class="hero">
+      <h1 id="typing-text">
+        <span class="line black-text">Hello World, I am Darren Chao.</span>
+        <span class="line grey-text">I am a Design Engineer, Software Engineer, and Artist.</span>
+        <span class="line grey-text">Click around to learn more about me.</span>
+      </h1>
+
+      <div class="inline-icons">
+        <a href="https://www.linkedin.com/in/darrenchao5582/" target="_blank" class="icon-btn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <span class="spacer"></span>
+        <a href="mailto:darrenchao5582@gmail.com" class="icon-btn">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+
+      <div class="button-group">
+        <button class="tab-btn active" data-target="about">About Me</button>
+        <button class="tab-btn" data-target="projects">Projects</button>
+        <button class="tab-btn" data-target="illustrations">Assorted Illustrations</button>
+        <button class="tab-btn" data-target="portfolio">Portfolio</button>
+        <button class="tab-btn" data-target="resume">Resume</button>
+      </div>
+    </header>
+
+    <div id="tab-content">
+      <section id="about" class="tab-section active">
+        <h2>About Me</h2>
+        <p>Short bio, skills, etc.</p>
+      </section>
+
+      <section id="projects" class="tab-section">
+        <h2>Projects</h2>
+        <div class="projects-container">
+
+          <div class="project-card">
+            <div class="project-summary">
+              <div class="project-text">
+                <h3>Project Name 1</h3>
+                <p>Short description line 1.<br>Short description line 2.</p>
+                </div>
+              <div class="project-image">
+                <img src="https://via.placeholder.com/150" alt="Project 1 image">
+              </div>
+            </div>
+            <div class="project-details">
+              <h3>Project Name 1</h3>
+              <p>Full detailed description of Project 1 goes here.</p>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-summary">
+              <div class="project-text">
+                <h3>Project Name 2</h3>
+                <p>Short description line 1.<br>Short description line 2.</p>
+                </div>
+              <div class="project-image">
+                <img src="https://via.placeholder.com/150" alt="Project 2 image">
+              </div>
+            </div>
+            <div class="project-details">
+              <h3>Project Name 2</h3>
+              <p>Full detailed description of Project 2 goes here.</p>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-summary">
+              <div class="project-text">
+                <h3>Project Name 3</h3>
+                <p>Short description line 1.<br>Short description line 2.</p>
+                </div>
+              <div class="project-image">
+                <img src="https://via.placeholder.com/150" alt="Project 3 image">
+              </div>
+            </div>
+            <div class="project-details">
+              <h3>Project Name 3</h3>
+              <p>Full detailed description of Project 3 goes here.</p>
+            </div>
+          </div>
+          
+          </div>
+      </section>
+
+      <section id="illustrations" class="tab-section">
+        <h2>Assorted Illustrations</h2>
+        <p>Image gallery goes here.</p>
+      </section>
+
+      <section id="portfolio" class="tab-section">
+        <h2>Portfolio</h2>
+        <p>Portfolio PDF or preview goes here.</p>
+      </section>
+
+      <section id="resume" class="tab-section">
+        <h2>Resume</h2>
+        <p>Resume PDF or summary goes here.</p>
+      </section>
+    </div>
+
+    <footer>
+      <p>© 2026 Darren Chao</p>
+    </footer>
+  </div>
 
   <script src="js/main.js"></script>
 </body>
