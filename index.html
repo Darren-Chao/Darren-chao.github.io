@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Darren Chao — Portfolio</title>
   <link rel="stylesheet" href="css/style.css">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-</head>
+  </head>
 <body>
-  <div id="cursor-follower">View Project</div>
+  <div id="cursor-follower">Examine Card</div>
 
   <div class="container">
 
@@ -19,100 +18,178 @@
         <span class="line grey-text">Click around to learn more about me.</span>
       </h1>
 
-      <div class="inline-icons">
-        <a href="https://www.linkedin.com/in/darrenchao5582/" target="_blank" class="icon-btn">
-          <i class="fab fa-linkedin"></i>
+      <div class="social-group">
+        
+        <a href="https://www.linkedin.com/in/darrenchao5582/" target="_blank" class="social-btn" aria-label="LinkedIn">
+          <img src="assets/buttons/linkedin.png" class="btn-img-default" alt="LinkedIn">
+          <img src="assets/buttons/linkedin-hover.png" class="btn-img-hover" alt="LinkedIn Hover">
         </a>
+
         <span class="spacer"></span>
-        <a href="mailto:darrenchao5582@gmail.com" class="icon-btn">
-          <i class="fas fa-envelope"></i>
+
+        <a href="mailto:darrenchao5582@gmail.com" class="social-btn" aria-label="Email">
+          <img src="assets/buttons/mail.png" class="btn-img-default" alt="Email">
+          <img src="assets/buttons/mail-hover.png" class="btn-img-hover" alt="Email Hover">
         </a>
+
       </div>
 
-      <div class="button-group">
-        <button class="tab-btn active" data-target="about">About Me</button>
-        <button class="tab-btn" data-target="projects">Projects</button>
-        <button class="tab-btn" data-target="illustrations">Assorted Illustrations</button>
-        <button class="tab-btn" data-target="portfolio">Portfolio</button>
-        <button class="tab-btn" data-target="resume">Resume</button>
+      <div class="nav-group">
+        
+        <button class="nav-btn active" data-target="projects" aria-label="Projects">
+          <img src="assets/buttons/projects.png" class="btn-img-default" alt="Projects">
+          <img src="assets/buttons/projects-hover.png" class="btn-img-hover" alt="Projects Hover">
+          <img src="assets/buttons/projects-press.png" class="btn-img-press" alt="Projects Press">
+        </button>
+        
+        <button class="nav-btn" data-target="about" aria-label="About Me">
+          <img src="assets/buttons/about-me.png" class="btn-img-default" alt="About Me">
+          <img src="assets/buttons/about-me-hover.png" class="btn-img-hover" alt="About Me Hover">
+          <img src="assets/buttons/about-me-press.png" class="btn-img-press" alt="About Me Press">
+        </button>
+        
+        <button class="nav-btn" data-target="illustrations" aria-label="Assorted Illustrations">
+          <img src="assets/buttons/assorted-illustrations.png" class="btn-img-default" alt="Illustrations">
+          <img src="assets/buttons/assorted-illustrations-hover.png" class="btn-img-hover" alt="Illustrations Hover">
+          <img src="assets/buttons/assorted-illustrations-press.png" class="btn-img-press" alt="Illustrations Press">
+        </button>
+
       </div>
+
     </header>
 
     <div id="tab-content">
-      <section id="about" class="tab-section active">
-        <h2>About Me</h2>
-        <p>Short bio, skills, etc.</p>
-      </section>
-
-      <section id="projects" class="tab-section">
-        <h2>Projects</h2>
+      
+      <section id="projects" class="tab-section active">
         <div class="projects-container">
 
-          <div class="project-card">
-            <div class="project-summary">
-              <div class="project-text">
-                <h3>Project Name 1</h3>
-                <p>Short description line 1.<br>Short description line 2.</p>
-                </div>
-              <div class="project-image">
-                <img src="https://via.placeholder.com/150" alt="Project 1 image">
-              </div>
+          <div class="project-card custom-card text-black">
+            <img src="images/projects/jukebox/card.png" class="card-bg-img" alt="Jukebox 2.0 Card">
+            <div class="project-text overlay-text">
+              <h3>Jukebox 2.0</h3>
+              <p>An interactive music device that translates color input into sound. Lowers barriers to music-making.</p>
             </div>
             <div class="project-details">
-              <h3>Project Name 1</h3>
-              <p>Full detailed description of Project 1 goes here.</p>
+              <h3>Jukebox 2.0</h3>
+              <p>Full detailed description coming soon.</p>
             </div>
           </div>
 
-          <div class="project-card">
-            <div class="project-summary">
-              <div class="project-text">
-                <h3>Project Name 2</h3>
-                <p>Short description line 1.<br>Short description line 2.</p>
-                </div>
-              <div class="project-image">
-                <img src="https://via.placeholder.com/150" alt="Project 2 image">
-              </div>
+          <div class="project-card custom-card text-black">
+            <img src="images/projects/steadystix/card.png" class="card-bg-img" alt="Steady Stix Card">
+            <div class="project-text overlay-text">
+              <h3>Steady Stix</h3>
+              <p>A redesigned pair of chopsticks that improves stability for trembling hands.</p>
             </div>
             <div class="project-details">
-              <h3>Project Name 2</h3>
-              <p>Full detailed description of Project 2 goes here.</p>
+              <h3>Steady Stix</h3>
+              <p>Full detailed description coming soon.</p>
             </div>
           </div>
 
-          <div class="project-card">
-            <div class="project-summary">
-              <div class="project-text">
-                <h3>Project Name 3</h3>
-                <p>Short description line 1.<br>Short description line 2.</p>
-                </div>
-              <div class="project-image">
-                <img src="https://via.placeholder.com/150" alt="Project 3 image">
-              </div>
+          <div class="project-card custom-card text-black">
+            <img src="images/projects/sand-siege/card.png" class="card-bg-img" alt="Sand Siege Card">
+            <div class="project-text overlay-text">
+              <h3>Sand Siege</h3>
+              <p>A modular beach game that reimagines sandcastle building as a collaborative play experience.</p>
             </div>
             <div class="project-details">
-              <h3>Project Name 3</h3>
-              <p>Full detailed description of Project 3 goes here.</p>
+              <h3>Sand Siege</h3>
+              <p>Full detailed description coming soon.</p>
             </div>
           </div>
-          
+
+          <div class="project-card custom-card text-black">
+            <img src="images/projects/dripless/card.png" class="card-bg-img" alt="Dripless Card">
+            <div class="project-text overlay-text">
+              <h3>Dripless</h3>
+              <p>A hands-free umbrella-drying system developed through rapid, iterative physical prototyping.</p>
+            </div>
+            <div class="project-details">
+              <h3>Dripless</h3>
+              <p>Full detailed description coming soon.</p>
+            </div>
           </div>
+
+          <div class="project-card custom-card text-white">
+            <img src="images/projects/costume/card.png" class="card-bg-img" alt="Costume Fabrication Card">
+            <div class="project-text overlay-text">
+              <h3>Costumes</h3>
+              <p>A multi-year exploration of wearable design, materiality, and character expression.</p>
+            </div>
+            <div class="project-details">
+              <h3>Costume Fabrication</h3>
+              <p>Full detailed description coming soon.</p>
+            </div>
+          </div>
+
+          <div class="project-card custom-card text-black">
+            <img src="images/projects/freelens/card.png" class="card-bg-img" alt="FreeLens Card">
+            <div class="project-text overlay-text">
+              <h3>FreeLens</h3>
+              <p>A finance-tracking app concept designed to help freelancers manage expenses and optimize taxes.</p>
+            </div>
+            <div class="project-details">
+              <h3>FreeLens</h3>
+              <p>Full detailed description coming soon.</p>
+            </div>
+          </div>
+
+          <div class="project-card custom-card text-black">
+            <img src="images/projects/folded-reality/card.png" class="card-bg-img" alt="Folded Reality Card">
+            <div class="project-text overlay-text">
+              <h3>Folded Reality</h3>
+              <p>An exploration of popup book mechanics using laser-cut paper, wood, and acrylic.</p>
+            </div>
+            <div class="project-details">
+              <h3>Folded Reality</h3>
+              <p>Full detailed description coming soon.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="download-container">
+          <a href="assets/Darren_Chao_Portfolio.pdf" target="_blank" class="download-btn">
+             View Portfolio PDF
+          </a>
+          <a href="assets/Darren_Chao_Resume.pdf" target="_blank" class="download-btn">
+             Download Resume
+          </a>
+        </div>
+      </section>
+
+      <section id="about" class="tab-section">
+        <div class="about-container">
+          <div class="about-card-wrapper" id="about-card-3d">
+            <div class="about-card-inner">
+              <div class="card-name">Darren</div>
+              <img src="images/about-me-card.png" alt="Darren Pokemon Card" class="about-card-img">
+              <div class="about-card-glare"></div>
+            </div>
+          </div>
+
+          <div class="about-text-content">
+            <h2>About Me</h2>
+            <p>
+              Hi guys, I'm Darren. I'm a designer, undergrad at UC Berkeley EECS and 
+              currently a Master of Design Engineering student at Brown and RISD.
+            </p>
+            <p>
+              Excited about the crossover of technology and design and interested 
+              in anything art.
+            </p>
+          </div>
+        </div>
       </section>
 
       <section id="illustrations" class="tab-section">
         <h2>Assorted Illustrations</h2>
-        <p>Image gallery goes here.</p>
+        <div class="illustrations-grid">
+          <p>Gallery coming soon...</p>
+        </div>
       </section>
 
-      <section id="portfolio" class="tab-section">
-        <h2>Portfolio</h2>
-        <p>Portfolio PDF or preview goes here.</p>
-      </section>
-
-      <section id="resume" class="tab-section">
-        <h2>Resume</h2>
-        <p>Resume PDF or summary goes here.</p>
-      </section>
     </div>
 
     <footer>

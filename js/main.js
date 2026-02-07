@@ -27,29 +27,41 @@ window.addEventListener('DOMContentLoaded', () => {
     typeLine(lines[index], () => typeAllLines(lines, index + 1));
   }
 
-  typeAllLines(lines);
+  if(lines.length > 0) {
+      typeAllLines(lines);
+  }
 
   // ===== SPA Tabs =====
-  const tabButtons = document.querySelectorAll('.tab-btn');
+  // Updated selector to match the new 'nav-btn' class
+  const tabButtons = document.querySelectorAll('.nav-btn');
   const tabSections = document.querySelectorAll('.tab-section');
+
   tabButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       const target = btn.dataset.target;
+      
+      // Remove 'active' from all buttons (reverts them to default/hover state)
       tabButtons.forEach(b => b.classList.remove('active'));
+      
+      // Add 'active' to clicked button (locks it in 'press' state)
       btn.classList.add('active');
+      
+      // Show correct section
       tabSections.forEach(sec => sec.classList.remove('active'));
-      document.getElementById(target).classList.add('active');
+      const targetSection = document.getElementById(target);
+      if(targetSection) targetSection.classList.add('active');
     });
   });
 
   // ===== Cursor Follower Logic =====
   const cursorFollower = document.getElementById('cursor-follower');
   
-  // Track mouse movement globally to update cursor position
-  document.addEventListener('mousemove', (e) => {
-    cursorFollower.style.top = e.clientY + 'px';
-    cursorFollower.style.left = e.clientX + 'px';
-  });
+  if(cursorFollower) {
+      document.addEventListener('mousemove', (e) => {
+        cursorFollower.style.top = e.clientY + 'px';
+        cursorFollower.style.left = e.clientX + 'px';
+      });
+  }
 
   // ===== Project Cards Logic =====
   const overlay = document.createElement('div');
@@ -58,47 +70,38 @@ window.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.project-card').forEach(card => {
     
-    // 1. Handle Cursor Hover Effects
     card.addEventListener('mouseenter', () => {
-      cursorFollower.classList.add('active');
+      if(cursorFollower) cursorFollower.classList.add('active');
     });
     
     card.addEventListener('mouseleave', () => {
-      cursorFollower.classList.remove('active');
+      if(cursorFollower) cursorFollower.classList.remove('active');
     });
 
-    // 2. Handle Card Click (Modal Open)
     card.addEventListener('click', () => {
-      // Get project info
-      const projectTitle = card.querySelector('.project-text h3').textContent;
-      const projectDesc = card.querySelector('.project-text p').innerHTML;
+      const projectText = card.querySelector('.project-text h3');
+      const projectTitle = projectText ? projectText.textContent : 'Project';
+      const projectP = card.querySelector('.project-text p');
+      const projectDesc = projectP ? projectP.innerHTML : '';
       
-      // Note: We are grabbing the thumbnail here. 
-      // If you want high-res images from hidden details, you can query .project-details img instead.
       const projectImages = Array.from(card.querySelectorAll('.project-image img')).map(img => img.src);
 
-      // Force cursor to hide when modal opens
-      cursorFollower.classList.remove('active');
+      if(cursorFollower) cursorFollower.classList.remove('active');
 
-      // Clear overlay
       overlay.innerHTML = '';
 
-      // Create modal content
       const modal = document.createElement('div');
       modal.classList.add('project-modal');
 
-      // Back button
       const backBtn = document.createElement('button');
       backBtn.classList.add('back-btn');
       backBtn.textContent = '← Back';
       modal.appendChild(backBtn);
 
-      // Project title
       const titleEl = document.createElement('h3');
       titleEl.textContent = projectTitle;
       modal.appendChild(titleEl);
 
-      // Project images
       if (projectImages.length > 0) {
         const imagesContainer = document.createElement('div');
         imagesContainer.classList.add('details-images');
@@ -110,7 +113,6 @@ window.addEventListener('DOMContentLoaded', () => {
         modal.appendChild(imagesContainer);
       }
 
-      // Project description (grab full content if available, otherwise summary)
       const descEl = document.createElement('p');
       const fullDetails = card.querySelector('.project-details p');
       
@@ -121,14 +123,11 @@ window.addEventListener('DOMContentLoaded', () => {
       }
       modal.appendChild(descEl);
 
-      // Add modal to overlay
       overlay.appendChild(modal);
 
-      // Show overlay and modal
       overlay.style.display = 'flex';
       setTimeout(() => modal.classList.add('active'), 20);
 
-      // Close Logic
       const closeModal = () => {
         modal.classList.remove('active');
         setTimeout(() => {
@@ -137,7 +136,7 @@ window.addEventListener('DOMContentLoaded', () => {
       };
 
       backBtn.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent bubbling
+        e.stopPropagation();
         closeModal();
       });
 
@@ -148,4 +147,29 @@ window.addEventListener('DOMContentLoaded', () => {
       });
     });
   });
+
+  // ===== About Me Card 3D Tilt Logic =====
+  const aboutWrapper = document.getElementById('about-card-3d');
+  
+  if (aboutWrapper) {
+    const aboutInner = aboutWrapper.querySelector('.about-card-inner');
+
+    aboutWrapper.addEventListener('mousemove', (e) => {
+      const rect = aboutWrapper.getBoundingClientRect();
+      const width = rect.width;
+      const height = rect.height;
+
+      const mouseX = e.clientX - rect.left - width / 2;
+      const mouseY = e.clientY - rect.top - height / 2;
+
+      const rotateY = mouseX / 10; 
+      const rotateX = mouseY / 10 * -1; 
+
+      aboutInner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+    });
+
+    aboutWrapper.addEventListener('mouseleave', () => {
+      aboutInner.style.transform = `rotateX(0) rotateY(0) scale(1)`;
+    });
+  }
 });
