@@ -173,3 +173,132 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// =========================================
+  // === ADVANCED CUSTOM CURSOR LOGIC ===
+  // =========================================
+  const mainCursor = document.getElementById('main-cursor');
+  const arrowIcon = document.getElementById('cursor-arrow');
+  const pointIcon = document.getElementById('cursor-point');
+  const clickIcon = document.getElementById('cursor-click');
+  const examineFollower = document.getElementById('cursor-follower');
+
+  // Helper to switch icons
+  function setCursorState(state) {
+    // If we are currently "clicking", ignore hover changes until click is done
+    if (isClicking) return;
+
+    // Hide all
+    arrowIcon.classList.remove('active');
+    pointIcon.classList.remove('active');
+    clickIcon.classList.remove('active');
+
+    // Show target
+    if (state === 'arrow') arrowIcon.classList.add('active');
+    if (state === 'point') pointIcon.classList.add('active');
+    if (state === 'click') clickIcon.classList.add('active');
+  }
+
+  // 1. Movement Logic
+  document.addEventListener('mousemove', (e) => {
+    // Show cursor once mouse moves
+    mainCursor.style.opacity = 1;
+
+    // Move Main Cursor (Top-Left Hotspot)
+    mainCursor.style.top = e.clientY + 'px';
+    mainCursor.style.left = e.clientX + 'px';
+
+    // Move Examine Bubble (Centered Hotspot)
+    if(examineFollower) {
+      examineFollower.style.top = e.clientY + 'px';
+      examineFollower.style.left = e.clientX + 'px';
+    }
+  });
+
+  // 2. Hover Logic (Switch to Point Finger)
+  // We use "mouseover" on the document to catch ANY clickable element
+  document.addEventListener('mouseover', (e) => {
+    const target = e.target;
+    // Check if we are hovering a clickable element (link, button, social-btn)
+    const isClickable = target.closest('a') || 
+                        target.closest('button') || 
+                        target.closest('.social-btn') || 
+                        target.closest('.nav-btn');
+
+    if (isClickable) {
+      setCursorState('point');
+    } else {
+      setCursorState('arrow');
+    }
+  });
+
+  // 3. Click Logic (The "Press" Animation)
+// Helper to check if an element is clickable
+  function isInteractive(element) {
+    return element.closest('a') || 
+           element.closest('button') || 
+           element.closest('.social-btn') || 
+           element.closest('.nav-btn') ||
+           element.closest('.download-btn'); // added download buttons just in case
+  }
+
+  // 3. Click Logic (The "Press" Animation)
+  // ONLY trigger if hovering over a clickable element
+  document.addEventListener('mousedown', (e) => {
+    // Check if what we are clicking is interactive
+    if (isInteractive(e.target)) {
+      isClicking = true;
+      
+      // Switch to Click Icon
+      arrowIcon.classList.remove('active');
+      pointIcon.classList.remove('active');
+      clickIcon.classList.add('active');
+      
+      // Add a slight "squish" effect for juice
+      mainCursor.style.transform = "scale(0.9)";
+    }
+    // If NOT interactive, do nothing (keep arrow)
+  });
+
+  document.addEventListener('mouseup', () => {
+    // Only reset if we were actually clicking something
+    if (isClicking) {
+      // Reset scale
+      mainCursor.style.transform = "scale(1)";
+
+      // Keep the click image for a bit (e.g., 200ms) so it feels responsive
+      setTimeout(() => {
+        isClicking = false;
+        
+        // Check what we are hovering NOW (in case mouse moved)
+        // This ensures if you drag off the button, it goes back to arrow
+        const hoveredEl = document.elementFromPoint(
+          parseInt(mainCursor.style.left), 
+          parseInt(mainCursor.style.top)
+        );
+        
+        if (hoveredEl && isInteractive(hoveredEl)) {
+          setCursorState('point'); // Still on button -> Point
+        } else {
+          setCursorState('arrow'); // Moved off -> Arrow
+        }
+      }, 150); 
+    }
+  });
+
+  // 4. Integration with Project Cards (The Examine Bubble)
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      // Hide the main arrow/hand cursor
+      document.body.classList.add('examining'); 
+      // Show the orange "Examine" bubble
+      if(examineFollower) examineFollower.classList.add('active');
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      // Bring back main cursor
+      document.body.classList.remove('examining');
+      // Hide orange bubble
+      if(examineFollower) examineFollower.classList.remove('active');
+    });
+  });
