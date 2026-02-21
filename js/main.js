@@ -292,10 +292,78 @@ document.addEventListener('DOMContentLoaded', () => {
               }
               
               const paragraph = document.createElement('p');
-              paragraph.textContent = block.text;
-              textBlock.appendChild(paragraph);
               
+              // Check if text contains a URL and make it clickable
+              const urlRegex = /(https?:\/\/[^\s]+)/g;
+              const text = block.text;
+              
+              if (urlRegex.test(text)) {
+                // Replace URLs with clickable links
+                const parts = text.split(urlRegex);
+                parts.forEach(part => {
+                  if (part.match(urlRegex)) {
+                    const link = document.createElement('a');
+                    link.href = part;
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                    link.textContent = part;
+                    link.style.color = '#0066cc';
+                    link.style.textDecoration = 'underline';
+                    paragraph.appendChild(link);
+                  } else {
+                    paragraph.appendChild(document.createTextNode(part));
+                  }
+                });
+              } else {
+                paragraph.textContent = text;
+              }
+              
+              textBlock.appendChild(paragraph);
               modalDesc.appendChild(textBlock);
+            }
+            
+            else if (block.type === 'list') {
+              const listBlock = document.createElement('div');
+              listBlock.className = 'content-list-block';
+              
+              if (block.heading) {
+                const heading = document.createElement('h4');
+                heading.textContent = block.heading;
+                listBlock.appendChild(heading);
+              }
+              
+              const ul = document.createElement('ul');
+              ul.className = 'content-list';
+              
+              block.items.forEach(item => {
+                const li = document.createElement('li');
+                
+                if (typeof item === 'string') {
+                  // Simple bullet point
+                  li.textContent = item;
+                } else if (item.text) {
+                  // Bullet with sub-items
+                  li.innerHTML = item.text;
+                  
+                  if (item.subItems && item.subItems.length > 0) {
+                    const subUl = document.createElement('ul');
+                    subUl.className = 'content-sublist';
+                    
+                    item.subItems.forEach(subItem => {
+                      const subLi = document.createElement('li');
+                      subLi.textContent = subItem;
+                      subUl.appendChild(subLi);
+                    });
+                    
+                    li.appendChild(subUl);
+                  }
+                }
+                
+                ul.appendChild(li);
+              });
+              
+              listBlock.appendChild(ul);
+              modalDesc.appendChild(listBlock);
             }
             
             else if (block.type === 'image') {
@@ -346,7 +414,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const closeModal = () => {
     modalOverlay.classList.remove('active');
-    document.body.style.overflow = ''; 
+    document.body.style.overflow = '';
+    
+    // Reset scroll position to top
+    const modal = document.querySelector('.project-modal');
+    if (modal) {
+      modal.scrollTop = 0;
+    }
   };
   
   if(closeBtn) closeBtn.addEventListener('click', closeModal);
