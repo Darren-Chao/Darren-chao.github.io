@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Darren Chao — Portfolio</title>
   <link rel="stylesheet" href="css/style.css">
-  </head>
+</head>
 <body>
 
   <div id="main-cursor">
@@ -13,9 +13,10 @@
     <img src="assets/cursor/point.png" class="cursor-icon" id="cursor-point" alt="point">
     <img src="assets/cursor/click.png" class="cursor-icon" id="cursor-click" alt="click">
   </div>
+  
   <div id="cursor-follower">
-  <img src="assets/buttons/examine-card.png" alt="Examine Card">
-    </div>
+    <img src="assets/buttons/examine-card.png" alt="Examine Card">
+  </div>
 
   <div class="container">
 
@@ -23,27 +24,21 @@
       <h1 id="typing-text">
         <span class="line black-text">Hello World, I am Darren Chao.</span>
         <span class="line grey-text">I am a Design Engineer, Software Engineer, and Artist.</span>
-        <span class="line grey-text">Click around to learn more about me.</span>
       </h1>
 
       <div class="social-group">
-        
         <a href="https://www.linkedin.com/in/darrenchao5582/" target="_blank" class="social-btn" aria-label="LinkedIn">
           <img src="assets/buttons/linkedin.png" class="btn-img-default" alt="LinkedIn">
           <img src="assets/buttons/linkedin-hover.png" class="btn-img-hover" alt="LinkedIn Hover">
         </a>
-
         <span class="spacer"></span>
-
         <a href="mailto:darrenchao5582@gmail.com" class="social-btn" aria-label="Email">
           <img src="assets/buttons/mail.png" class="btn-img-default" alt="Email">
           <img src="assets/buttons/mail-hover.png" class="btn-img-hover" alt="Email Hover">
         </a>
-
       </div>
 
       <div class="nav-group">
-        
         <button class="nav-btn active" data-target="projects" aria-label="Projects">
           <img src="assets/buttons/projects.png" class="btn-img-default" alt="Projects">
           <img src="assets/buttons/projects-hover.png" class="btn-img-hover" alt="Projects Hover">
@@ -61,100 +56,25 @@
           <img src="assets/buttons/assorted-illustrations-hover.png" class="btn-img-hover" alt="Illustrations Hover">
           <img src="assets/buttons/assorted-illustrations-press.png" class="btn-img-press" alt="Illustrations Press">
         </button>
-
       </div>
-
     </header>
 
     <div id="tab-content">
       
       <section id="projects" class="tab-section active">
-        <div class="projects-container">
+        <div class="projects-container"></div>
 
-          <div class="project-card custom-card text-black">
-            <img src="assets/project-cards/jukebox.png" class="card-bg-img" alt="Jukebox 2.0 Card">
-            <div class="project-text overlay-text">
-              <h3>Jukebox 2.0</h3>
-              <p>An interactive music device that translates color input into sound. Lowers barriers to music-making.</p>
-            </div>
-            <div class="project-details">
-              <h3>Jukebox 2.0</h3>
-              <p>Full detailed description coming soon.</p>
+        <div class="project-modal-overlay" id="project-modal-overlay">
+          <div class="project-modal">
+            <button class="modal-close-btn" id="modal-close-btn">Close</button>
+            <div class="modal-content">
+              <h2 id="modal-title">Project Title</h2>
+              <div class="modal-gallery" id="modal-gallery"></div>
+              <div class="modal-text">
+                <p id="modal-desc">Description goes here...</p>
+              </div>
             </div>
           </div>
-
-          <div class="project-card custom-card text-black">
-            <img src="assets/project-cards/steady-stix.png" class="card-bg-img" alt="Steady Stix Card">
-            <div class="project-text overlay-text">
-              <h3>Steady Stix</h3>
-              <p>A redesigned pair of chopsticks that improves stability for trembling hands.</p>
-            </div>
-            <div class="project-details">
-              <h3>Steady Stix</h3>
-              <p>Full detailed description coming soon.</p>
-            </div>
-          </div>
-
-          <div class="project-card custom-card text-black">
-            <img src="assets/project-cards/sand-siege.png" class="card-bg-img" alt="Sand Siege Card">
-            <div class="project-text overlay-text">
-              <h3>Sand Siege</h3>
-              <p>A modular beach game that reimagines sandcastle building as a collaborative play experience.</p>
-            </div>
-            <div class="project-details">
-              <h3>Sand Siege</h3>
-              <p>Full detailed description coming soon.</p>
-            </div>
-          </div>
-
-          <div class="project-card custom-card text-black">
-            <img src="assets/project-cards/dripless.png" class="card-bg-img" alt="Dripless Card">
-            <div class="project-text overlay-text">
-              <h3>Dripless</h3>
-              <p>A hands-free umbrella-drying system developed through rapid, iterative physical prototyping.</p>
-            </div>
-            <div class="project-details">
-              <h3>Dripless</h3>
-              <p>Full detailed description coming soon.</p>
-            </div>
-          </div>
-
-          <div class="project-card custom-card text-black">
-            <img src="assets/project-cards/costume.png" class="card-bg-img" alt="Costume Fabrication Card">
-            <div class="project-text overlay-text">
-              <h3>Costumes</h3>
-              <p>A multi-year exploration of wearable design, materiality, and character expression.</p>
-            </div>
-            <div class="project-details">
-              <h3>Costume Fabrication</h3>
-              <p>Full detailed description coming soon.</p>
-            </div>
-          </div>
-
-          <div class="project-card custom-card text-black">
-            <img src="assets/project-cards/freelens.png" class="card-bg-img" alt="FreeLens Card">
-            <div class="project-text overlay-text">
-              <h3>FreeLens</h3>
-              <p>A finance-tracking app concept designed to help freelancers manage expenses and optimize taxes.</p>
-            </div>
-            <div class="project-details">
-              <h3>FreeLens</h3>
-              <p>Full detailed description coming soon.</p>
-            </div>
-          </div>
-
-          <div class="project-card custom-card text-black">
-            <img src="assets/project-cards/folded-reality.png" class="card-bg-img" alt="Folded Reality Card">
-            <div class="project-text overlay-text">
-              <h3>Folded Reality</h3>
-              <p>An exploration of popup book mechanics using laser-cut paper, wood, and acrylic.</p>
-            </div>
-            <div class="project-details">
-              <h3>Folded Reality</h3>
-              <p>Full detailed description coming soon.</p>
-            </div>
-          </div>
-
         </div>
 
         <div class="download-container">
@@ -172,7 +92,7 @@
           <div class="about-card-wrapper" id="about-card-3d">
             <div class="about-card-inner">
               <div class="card-name">Darren</div>
-              <img src="images/about-me-card.png" alt="Darren Pokemon Card" class="about-card-img">
+              <img src="assets/about-me-card.png" alt="Darren Pokemon Card" class="about-card-img">
               <div class="about-card-glare"></div>
             </div>
           </div>
@@ -194,7 +114,7 @@
       <section id="illustrations" class="tab-section">
         <h2>Assorted Illustrations</h2>
         <div class="illustrations-grid">
-          <p>Gallery coming soon...</p>
+          <p>Loading...</p>
         </div>
       </section>
 
@@ -205,6 +125,7 @@
     </footer>
   </div>
 
+  <script src="js/projects-data.js"></script> 
   <script src="js/main.js"></script>
 </body>
 </html>

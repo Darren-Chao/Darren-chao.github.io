@@ -1,5 +1,125 @@
-window.addEventListener('DOMContentLoaded', () => {
-  // ===== Typing effect =====
+document.addEventListener('DOMContentLoaded', () => {
+  
+  // =========================================
+  // === 1. CUSTOM CURSOR LOGIC ============
+  // =========================================
+  const mainCursor = document.getElementById('main-cursor');
+  const cursorArrow = document.getElementById('cursor-arrow');
+  const cursorPoint = document.getElementById('cursor-point');
+  const cursorClick = document.getElementById('cursor-click');
+  const follower = document.getElementById('cursor-follower');
+  
+  let isClicking = false;
+  
+  // Helper to switch icons
+  function setCursorState(state) {
+    // If we are currently "clicking", ignore hover changes until click is done
+    if (isClicking) return;
+
+    // Hide all
+    cursorArrow.classList.remove('active');
+    cursorPoint.classList.remove('active');
+    cursorClick.classList.remove('active');
+
+    // Show target
+    if (state === 'arrow') cursorArrow.classList.add('active');
+    if (state === 'point') cursorPoint.classList.add('active');
+    if (state === 'click') cursorClick.classList.add('active');
+  }
+
+  // 1. Movement Logic
+  document.addEventListener('mousemove', (e) => {
+    // Show cursor once mouse moves
+    mainCursor.style.opacity = 1;
+
+    // Move Main Cursor (Top-Left Hotspot)
+    mainCursor.style.top = e.clientY + 'px';
+    mainCursor.style.left = e.clientX + 'px';
+
+    // Move Examine Bubble (Centered Hotspot)
+    if(follower) {
+      follower.style.top = e.clientY + 'px';
+      follower.style.left = e.clientX + 'px';
+    }
+  });
+
+  // 2. Hover Logic (Switch to Point Finger)
+  document.addEventListener('mouseover', (e) => {
+    const target = e.target;
+    // Check if we are hovering a clickable element
+    const isClickable = target.closest('a') || 
+                        target.closest('button') || 
+                        target.closest('.social-btn') || 
+                        target.closest('.nav-btn') ||
+                        target.closest('.download-btn') ||
+                        target.closest('.modal-close-btn') ||
+                        target.closest('.lightbox-back-btn') ||
+                        target.closest('.illustrations-grid img');
+
+    if (isClickable) {
+      setCursorState('point');
+    } else {
+      setCursorState('arrow');
+    }
+  });
+
+  // Helper to check if an element is clickable
+  function isInteractive(element) {
+    return element.closest('a') || 
+           element.closest('button') || 
+           element.closest('.social-btn') || 
+           element.closest('.nav-btn') ||
+           element.closest('.download-btn') ||
+           element.closest('.modal-close-btn') ||
+           element.closest('.lightbox-back-btn') ||
+           element.closest('.illustrations-grid img');
+  }
+
+  // 3. Click Logic (The "Press" Animation)
+  document.addEventListener('mousedown', (e) => {
+    // Check if what we are clicking is interactive
+    if (isInteractive(e.target)) {
+      isClicking = true;
+      
+      // Switch to Click Icon
+      cursorArrow.classList.remove('active');
+      cursorPoint.classList.remove('active');
+      cursorClick.classList.add('active');
+      
+      // Add a slight "squish" effect for juice
+      mainCursor.style.transform = "scale(0.9)";
+    }
+  });
+
+  document.addEventListener('mouseup', () => {
+    // Only reset if we were actually clicking something
+    if (isClicking) {
+      // Reset scale
+      mainCursor.style.transform = "scale(1)";
+
+      // Keep the click image for a bit so it feels responsive
+      setTimeout(() => {
+        isClicking = false;
+        
+        // Check what we are hovering NOW
+        const hoveredEl = document.elementFromPoint(
+          parseInt(mainCursor.style.left), 
+          parseInt(mainCursor.style.top)
+        );
+        
+        if (hoveredEl && isInteractive(hoveredEl)) {
+          setCursorState('point');
+        } else {
+          setCursorState('arrow');
+        }
+      }, 150); 
+    }
+  });
+
+
+  // =========================================
+  // === 2. TYPING EFFECT ====================
+  // =========================================
   const lines = document.querySelectorAll('#typing-text .line');
   const typingSpeed = 40;
   const lineDelay = 400;
@@ -31,274 +151,290 @@ window.addEventListener('DOMContentLoaded', () => {
       typeAllLines(lines);
   }
 
-  // ===== SPA Tabs =====
-  // Updated selector to match the new 'nav-btn' class
-  const tabButtons = document.querySelectorAll('.nav-btn');
-  const tabSections = document.querySelectorAll('.tab-section');
 
-  tabButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.dataset.target;
-      
-      // Remove 'active' from all buttons (reverts them to default/hover state)
-      tabButtons.forEach(b => b.classList.remove('active'));
-      
-      // Add 'active' to clicked button (locks it in 'press' state)
-      btn.classList.add('active');
-      
-      // Show correct section
-      tabSections.forEach(sec => sec.classList.remove('active'));
-      const targetSection = document.getElementById(target);
-      if(targetSection) targetSection.classList.add('active');
-    });
-  });
-
-  // ===== Cursor Follower Logic =====
-  const cursorFollower = document.getElementById('cursor-follower');
-  
-  if(cursorFollower) {
-      document.addEventListener('mousemove', (e) => {
-        cursorFollower.style.top = e.clientY + 'px';
-        cursorFollower.style.left = e.clientX + 'px';
-      });
-  }
-
-  // ===== Project Cards Logic =====
-  const overlay = document.createElement('div');
-  overlay.classList.add('project-modal-overlay');
-  document.body.appendChild(overlay);
-
-  document.querySelectorAll('.project-card').forEach(card => {
-    
-    card.addEventListener('mouseenter', () => {
-      if(cursorFollower) cursorFollower.classList.add('active');
-    });
-    
-    card.addEventListener('mouseleave', () => {
-      if(cursorFollower) cursorFollower.classList.remove('active');
-    });
-
-    card.addEventListener('click', () => {
-      const projectText = card.querySelector('.project-text h3');
-      const projectTitle = projectText ? projectText.textContent : 'Project';
-      const projectP = card.querySelector('.project-text p');
-      const projectDesc = projectP ? projectP.innerHTML : '';
-      
-      const projectImages = Array.from(card.querySelectorAll('.project-image img')).map(img => img.src);
-
-      if(cursorFollower) cursorFollower.classList.remove('active');
-
-      overlay.innerHTML = '';
-
-      const modal = document.createElement('div');
-      modal.classList.add('project-modal');
-
-      const backBtn = document.createElement('button');
-      backBtn.classList.add('back-btn');
-      backBtn.textContent = '← Back';
-      modal.appendChild(backBtn);
-
-      const titleEl = document.createElement('h3');
-      titleEl.textContent = projectTitle;
-      modal.appendChild(titleEl);
-
-      if (projectImages.length > 0) {
-        const imagesContainer = document.createElement('div');
-        imagesContainer.classList.add('details-images');
-        projectImages.forEach(src => {
-          const img = document.createElement('img');
-          img.src = src;
-          imagesContainer.appendChild(img);
-        });
-        modal.appendChild(imagesContainer);
-      }
-
-      const descEl = document.createElement('p');
-      const fullDetails = card.querySelector('.project-details p');
-      
-      if(fullDetails) {
-         descEl.innerHTML = fullDetails.innerHTML;
-      } else {
-         descEl.innerHTML = projectDesc;
-      }
-      modal.appendChild(descEl);
-
-      overlay.appendChild(modal);
-
-      overlay.style.display = 'flex';
-      setTimeout(() => modal.classList.add('active'), 20);
-
-      const closeModal = () => {
-        modal.classList.remove('active');
-        setTimeout(() => {
-          overlay.style.display = 'none';
-        }, 300);
-      };
-
-      backBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        closeModal();
-      });
-
-      overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) {
-          closeModal();
-        }
-      });
-    });
-  });
-
-  // ===== About Me Card 3D Tilt Logic =====
-  const aboutWrapper = document.getElementById('about-card-3d');
-  
-  if (aboutWrapper) {
-    const aboutInner = aboutWrapper.querySelector('.about-card-inner');
-
-    aboutWrapper.addEventListener('mousemove', (e) => {
-      const rect = aboutWrapper.getBoundingClientRect();
-      const width = rect.width;
-      const height = rect.height;
-
-      const mouseX = e.clientX - rect.left - width / 2;
-      const mouseY = e.clientY - rect.top - height / 2;
-
-      const rotateY = mouseX / 10; 
-      const rotateX = mouseY / 10 * -1; 
-
-      aboutInner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-    });
-
-    aboutWrapper.addEventListener('mouseleave', () => {
-      aboutInner.style.transform = `rotateX(0) rotateY(0) scale(1)`;
-    });
-  }
-});
-
-// =========================================
-  // === ADVANCED CUSTOM CURSOR LOGIC ===
   // =========================================
-  const mainCursor = document.getElementById('main-cursor');
-  const arrowIcon = document.getElementById('cursor-arrow');
-  const pointIcon = document.getElementById('cursor-point');
-  const clickIcon = document.getElementById('cursor-click');
-  const examineFollower = document.getElementById('cursor-follower');
+  // === 3. TAB SWITCHING ====================
+  // =========================================
+  const navBtns = document.querySelectorAll('.nav-btn');
+  const sections = document.querySelectorAll('.tab-section');
 
-  // Helper to switch icons
-  function setCursorState(state) {
-    // If we are currently "clicking", ignore hover changes until click is done
-    if (isClicking) return;
+  navBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-target');
+      
+      // Check if we're already on this tab
+      const alreadyActive = btn.classList.contains('active');
+      
+      // 1. UI Update
+      navBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
 
-    // Hide all
-    arrowIcon.classList.remove('active');
-    pointIcon.classList.remove('active');
-    clickIcon.classList.remove('active');
+      // 2. Section Switch
+      sections.forEach(sec => sec.classList.remove('active'));
+      document.getElementById(targetId).classList.add('active');
 
-    // Show target
-    if (state === 'arrow') arrowIcon.classList.add('active');
-    if (state === 'point') pointIcon.classList.add('active');
-    if (state === 'click') clickIcon.classList.add('active');
+      // 3. Trigger Animations ONLY if switching TO projects (not already there)
+      if (targetId === 'projects' && !alreadyActive) {
+        runDealingAnimation();
+      }
+    });
+  });
+
+
+  // =========================================
+  // === 4. POPULATE & ANIMATE PROJECTS ======
+  // =========================================
+  const projectsContainer = document.querySelector('.projects-container');
+  
+  if (projectsContainer && typeof projectsData !== 'undefined') {
+    projectsContainer.innerHTML = ''; 
+
+    projectsData.forEach(project => {
+      const card = document.createElement('div');
+      card.className = 'project-card custom-card text-black';
+      card.setAttribute('data-id', project.id);
+      
+      card.innerHTML = `
+        <img src="${project.cardImage}" class="card-bg-img" alt="${project.title}">
+        <div class="project-text overlay-text">
+          <h3>${project.title}</h3>
+          <p>${project.shortDesc}</p>
+        </div>
+      `;
+      projectsContainer.appendChild(card);
+    });
   }
 
-  // 1. Movement Logic
-  document.addEventListener('mousemove', (e) => {
-    // Show cursor once mouse moves
-    mainCursor.style.opacity = 1;
+  function runDealingAnimation() {
+    const cards = document.querySelectorAll('.project-card'); 
+    if (cards.length === 0) return;
 
-    // Move Main Cursor (Top-Left Hotspot)
-    mainCursor.style.top = e.clientY + 'px';
-    mainCursor.style.left = e.clientX + 'px';
+    // Center of container (approx) for pile effect
+    const pileX = 300; 
+    const pileY = 200; 
 
-    // Move Examine Bubble (Centered Hotspot)
-    if(examineFollower) {
-      examineFollower.style.top = e.clientY + 'px';
-      examineFollower.style.left = e.clientX + 'px';
-    }
-  });
+    cards.forEach((card) => {
+      // Start in a random pile
+      const randomRot = Math.random() * 20 - 10; 
+      card.style.transition = 'none'; 
+      card.style.transform = `translate(0px, 100px) rotateZ(${randomRot}deg) scale(0.5)`;
+      card.style.opacity = '0';
+    });
 
-  // 2. Hover Logic (Switch to Point Finger)
-  // We use "mouseover" on the document to catch ANY clickable element
-  document.addEventListener('mouseover', (e) => {
-    const target = e.target;
-    // Check if we are hovering a clickable element (link, button, social-btn)
-    const isClickable = target.closest('a') || 
-                        target.closest('button') || 
-                        target.closest('.social-btn') || 
-                        target.closest('.nav-btn');
-
-    if (isClickable) {
-      setCursorState('point');
-    } else {
-      setCursorState('arrow');
-    }
-  });
-
-  // 3. Click Logic (The "Press" Animation)
-// Helper to check if an element is clickable
-  function isInteractive(element) {
-    return element.closest('a') || 
-           element.closest('button') || 
-           element.closest('.social-btn') || 
-           element.closest('.nav-btn') ||
-           element.closest('.download-btn'); // added download buttons just in case
+    // Deal them out
+    setTimeout(() => {
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+          card.style.transform = 'translate(0, 0) rotateZ(0deg) scale(1)';
+          card.style.opacity = '1';
+          
+          // Clean up transform so hover works
+          setTimeout(() => { card.style.transform = ''; }, 650); 
+        }, index * 100); 
+      });
+    }, 100); 
   }
+  // Run once on load
+  runDealingAnimation();
 
-  // 3. Click Logic (The "Press" Animation)
-  // ONLY trigger if hovering over a clickable element
-  document.addEventListener('mousedown', (e) => {
-    // Check if what we are clicking is interactive
-    if (isInteractive(e.target)) {
-      isClicking = true;
-      
-      // Switch to Click Icon
-      arrowIcon.classList.remove('active');
-      pointIcon.classList.remove('active');
-      clickIcon.classList.add('active');
-      
-      // Add a slight "squish" effect for juice
-      mainCursor.style.transform = "scale(0.9)";
-    }
-    // If NOT interactive, do nothing (keep arrow)
-  });
-
-  document.addEventListener('mouseup', () => {
-    // Only reset if we were actually clicking something
-    if (isClicking) {
-      // Reset scale
-      mainCursor.style.transform = "scale(1)";
-
-      // Keep the click image for a bit (e.g., 200ms) so it feels responsive
-      setTimeout(() => {
-        isClicking = false;
-        
-        // Check what we are hovering NOW (in case mouse moved)
-        // This ensures if you drag off the button, it goes back to arrow
-        const hoveredEl = document.elementFromPoint(
-          parseInt(mainCursor.style.left), 
-          parseInt(mainCursor.style.top)
-        );
-        
-        if (hoveredEl && isInteractive(hoveredEl)) {
-          setCursorState('point'); // Still on button -> Point
-        } else {
-          setCursorState('arrow'); // Moved off -> Arrow
-        }
-      }, 150); 
-    }
-  });
-
-  // 4. Integration with Project Cards (The Examine Bubble)
+  // ===== Examine Card Logic (must run after cards are created) =====
   document.querySelectorAll('.project-card').forEach(card => {
     card.addEventListener('mouseenter', () => {
       // Hide the main arrow/hand cursor
       document.body.classList.add('examining'); 
       // Show the orange "Examine" bubble
-      if(examineFollower) examineFollower.classList.add('active');
+      if(follower) follower.classList.add('active');
     });
     
     card.addEventListener('mouseleave', () => {
       // Bring back main cursor
       document.body.classList.remove('examining');
       // Hide orange bubble
-      if(examineFollower) examineFollower.classList.remove('active');
+      if(follower) follower.classList.remove('active');
     });
   });
+
+
+  // =========================================
+  // === 5. PROJECT MODAL LOGIC ============
+  // =========================================
+  const modalOverlay = document.getElementById('project-modal-overlay');
+  const modalTitle = document.getElementById('modal-title');
+  const modalDesc = document.getElementById('modal-desc');
+  const modalGallery = document.getElementById('modal-gallery');
+  const closeBtn = document.getElementById('modal-close-btn');
+
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const pid = card.getAttribute('data-id');
+      const data = projectsData.find(p => p.id === pid);
+
+      if (data) {
+        modalTitle.textContent = data.title;
+        
+        // Clear previous content
+        modalDesc.innerHTML = '';
+        modalGallery.innerHTML = '';
+        
+        // NEW: Render flexible content blocks
+        if (data.content && data.content.length > 0) {
+          data.content.forEach(block => {
+            
+            if (block.type === 'text') {
+              const textBlock = document.createElement('div');
+              textBlock.className = 'content-text-block';
+              
+              if (block.heading) {
+                const heading = document.createElement('h4');
+                heading.textContent = block.heading;
+                textBlock.appendChild(heading);
+              }
+              
+              const paragraph = document.createElement('p');
+              paragraph.textContent = block.text;
+              textBlock.appendChild(paragraph);
+              
+              modalDesc.appendChild(textBlock);
+            }
+            
+            else if (block.type === 'image') {
+              const imgContainer = document.createElement('div');
+              imgContainer.className = `content-image-block ${block.size || 'medium'}`;
+              
+              const img = document.createElement('img');
+              img.src = block.src;
+              img.alt = data.title;
+              
+              imgContainer.appendChild(img);
+              modalDesc.appendChild(imgContainer);
+            }
+            
+            else if (block.type === 'images-row') {
+              const rowContainer = document.createElement('div');
+              rowContainer.className = 'content-images-row';
+              
+              block.images.forEach(src => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = data.title;
+                rowContainer.appendChild(img);
+              });
+              
+              modalDesc.appendChild(rowContainer);
+            }
+            
+          });
+        } else {
+          // Fallback to old system if no content blocks
+          modalDesc.textContent = data.fullDesc || '';
+          
+          if (data.galleryImages && data.galleryImages.length > 0) {
+            data.galleryImages.forEach(src => {
+              const img = document.createElement('img');
+              img.src = src;
+              modalGallery.appendChild(img);
+            });
+          }
+        }
+        
+        modalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; 
+      }
+    });
+  });
+
+  const closeModal = () => {
+    modalOverlay.classList.remove('active');
+    document.body.style.overflow = ''; 
+  };
+  
+  if(closeBtn) closeBtn.addEventListener('click', closeModal);
+  if(modalOverlay) modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closeModal();
+  });
+
+
+  // =========================================
+  // === 6. ILLUSTRATIONS & LIGHTBOX =======
+  // =========================================
+  const galleryGrid = document.querySelector('.illustrations-grid');
+  
+  if (galleryGrid) {
+    // A. Create Lightbox (Paper Style)
+    const lightbox = document.createElement('div');
+    lightbox.className = 'illustration-lightbox';
+    
+    const lightboxImg = document.createElement('img');
+    lightboxImg.className = 'lightbox-img';
+    
+    const backBtn = document.createElement('button');
+    backBtn.className = 'lightbox-back-btn';
+    backBtn.textContent = '← Back'; 
+    
+    lightbox.appendChild(backBtn);
+    lightbox.appendChild(lightboxImg);
+    document.body.appendChild(lightbox);
+
+    const closeLightbox = () => {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+      setTimeout(() => { lightboxImg.src = ''; }, 300);
+    };
+
+    backBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    // B. Populate Grid
+    galleryGrid.innerHTML = ''; 
+    for (let i = 1; i <= 15; i++) {
+      const img = document.createElement('img');
+      img.src = `assets/assorted-illustrations/${i}.png`;
+      img.loading = "lazy"; 
+      img.style.opacity = '0';
+      img.style.animation = `fadeIn 0.5s ease forwards ${i * 0.1}s`; 
+      
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src; 
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+
+      galleryGrid.appendChild(img);
+    }
+  }
+
+
+  // =========================================
+  // === 7. ABOUT ME 3D TILT ===============
+  // =========================================
+  const aboutCardWrapper = document.querySelector('.about-card-wrapper');
+  const aboutCard = document.querySelector('.about-card-inner');
+  const glare = document.querySelector('.about-card-glare');
+
+  if (aboutCardWrapper && aboutCard) {
+    aboutCardWrapper.addEventListener('mousemove', (e) => {
+      const rect = aboutCardWrapper.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = ((y - centerY) / centerY) * -10; 
+      const rotateY = ((x - centerX) / centerX) * 10;  
+
+      aboutCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+      
+      if(glare) {
+        glare.style.background = `linear-gradient(${125 + rotateY * 2}deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 60%)`;
+      }
+    });
+
+    aboutCardWrapper.addEventListener('mouseleave', () => {
+      aboutCard.style.transform = 'rotateX(0) rotateY(0) scale(1)';
+    });
+  }
+});
