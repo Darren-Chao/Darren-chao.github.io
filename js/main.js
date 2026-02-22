@@ -463,7 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // B. Populate Grid
     galleryGrid.innerHTML = ''; 
-    for (let i = 1; i <= 15; i++) {
+    for (let i = 1; i <= 14; i++) {
       const img = document.createElement('img');
       img.src = `assets/assorted-illustrations/${i}.png`;
       img.loading = "lazy"; 
