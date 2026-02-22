@@ -6,6 +6,7 @@
   src: url('../assets/fonts/DarrenHandwriting-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  /* Use this for everything EXCEPT numbers */
   unicode-range: U+0000-002F, U+003A-007E, U+00A0-00FF;
 }
 
@@ -14,6 +15,7 @@
   src: url('../assets/fonts/DarrenNumber-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  /* Specifically target digits 0-9 */
   unicode-range: U+0030-0039;
 }
 
@@ -330,7 +332,7 @@ h1, h2, h3 {
 /* === ABOUT ME ============================ */
 /* ========================================= */
 .about-container {
-  display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: flex-start; justify-content: center;
   gap: 60px; max-width: 1000px; margin: 0 auto; padding: 60px 5px 20px;
 }
 .about-card-wrapper {
@@ -420,6 +422,56 @@ h1, h2, h3 {
 .download-btn:hover { background-color: #ff6600; transform: translateY(4px); box-shadow: none; }
 
 footer { text-align: center; margin-top: 80px; color: #555; padding-bottom: 40px;}
+
+/* ========================================= */
+/* === RESUME BUTTON ======================= */
+/* ========================================= */
+.resume-container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.resume-btn {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  position: relative;
+  display: inline-block;
+  height: clamp(40px, 5.5vw, 65px);
+}
+
+.resume-btn img {
+  display: block;
+  height: 100%;
+  width: auto;
+  transition: opacity 0.1s ease;
+}
+
+.resume-btn .btn-img-default {
+  opacity: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.resume-btn .btn-img-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.resume-btn:hover .btn-img-hover {
+  opacity: 1;
+  z-index: 2;
+}
+
+.resume-btn:hover .btn-img-default {
+  opacity: 0;
+}
 
 /* Hide custom cursor on touch devices */
 @media (hover: none) and (pointer: coarse) {
