@@ -11,42 +11,28 @@ document.addEventListener('DOMContentLoaded', () => {
   
   let isClicking = false;
   
-  // Helper to switch icons
   function setCursorState(state) {
-    // If we are currently "clicking", ignore hover changes until click is done
     if (isClicking) return;
-
-    // Hide all
     cursorArrow.classList.remove('active');
     cursorPoint.classList.remove('active');
     cursorClick.classList.remove('active');
-
-    // Show target
     if (state === 'arrow') cursorArrow.classList.add('active');
     if (state === 'point') cursorPoint.classList.add('active');
     if (state === 'click') cursorClick.classList.add('active');
   }
 
-  // 1. Movement Logic
   document.addEventListener('mousemove', (e) => {
-    // Show cursor once mouse moves
     mainCursor.style.opacity = 1;
-
-    // Move Main Cursor (Top-Left Hotspot)
     mainCursor.style.top = e.clientY + 'px';
     mainCursor.style.left = e.clientX + 'px';
-
-    // Move Examine Bubble (Centered Hotspot)
     if(follower) {
       follower.style.top = e.clientY + 'px';
       follower.style.left = e.clientX + 'px';
     }
   });
 
-  // 2. Hover Logic (Switch to Point Finger)
   document.addEventListener('mouseover', (e) => {
     const target = e.target;
-    // Check if we are hovering a clickable element
     const isClickable = target.closest('a') || 
                         target.closest('button') || 
                         target.closest('.social-btn') || 
@@ -55,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         target.closest('.modal-close-btn') ||
                         target.closest('.lightbox-back-btn') ||
                         target.closest('.illustrations-grid img');
-
     if (isClickable) {
       setCursorState('point');
     } else {
@@ -63,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Helper to check if an element is clickable
   function isInteractive(element) {
     return element.closest('a') || 
            element.closest('button') || 
@@ -75,38 +59,25 @@ document.addEventListener('DOMContentLoaded', () => {
            element.closest('.illustrations-grid img');
   }
 
-  // 3. Click Logic (The "Press" Animation)
   document.addEventListener('mousedown', (e) => {
-    // Check if what we are clicking is interactive
     if (isInteractive(e.target)) {
       isClicking = true;
-      
-      // Switch to Click Icon
       cursorArrow.classList.remove('active');
       cursorPoint.classList.remove('active');
       cursorClick.classList.add('active');
-      
-      // Add a slight "squish" effect for juice
       mainCursor.style.transform = "scale(0.9)";
     }
   });
 
   document.addEventListener('mouseup', () => {
-    // Only reset if we were actually clicking something
     if (isClicking) {
-      // Reset scale
       mainCursor.style.transform = "scale(1)";
-
-      // Keep the click image for a bit so it feels responsive
       setTimeout(() => {
         isClicking = false;
-        
-        // Check what we are hovering NOW
         const hoveredEl = document.elementFromPoint(
           parseInt(mainCursor.style.left), 
           parseInt(mainCursor.style.top)
         );
-        
         if (hoveredEl && isInteractive(hoveredEl)) {
           setCursorState('point');
         } else {
@@ -129,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
     line.textContent = '';
     line.style.opacity = 1;
     let i = 0;
-
     function typeChar() {
       if (i < text.length) {
         line.textContent += text.charAt(i);
@@ -148,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if(lines.length > 0) {
-      typeAllLines(lines);
+    typeAllLines(lines);
   }
 
 
@@ -161,19 +131,11 @@ document.addEventListener('DOMContentLoaded', () => {
   navBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const targetId = btn.getAttribute('data-target');
-      
-      // Check if we're already on this tab
       const alreadyActive = btn.classList.contains('active');
-      
-      // 1. UI Update
       navBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
-      // 2. Section Switch
       sections.forEach(sec => sec.classList.remove('active'));
       document.getElementById(targetId).classList.add('active');
-
-      // 3. Trigger Animations ONLY if switching TO projects (not already there)
       if (targetId === 'projects' && !alreadyActive) {
         runDealingAnimation();
       }
@@ -193,9 +155,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = document.createElement('div');
       card.className = 'project-card custom-card text-black';
       card.setAttribute('data-id', project.id);
+
+      // Derive hover image path by inserting -hover before the extension
+      const hoverImage = project.cardImage.replace(/(\.\w+)$/, '-hover$1');
       
       card.innerHTML = `
         <img src="${project.cardImage}" class="card-bg-img" alt="${project.title}">
+        <img src="${hoverImage}" class="card-hover-img" alt="${project.title} hover">
         <div class="project-text overlay-text">
           <h3>${project.title}</h3>
           <p>${project.shortDesc}</p>
@@ -209,48 +175,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const cards = document.querySelectorAll('.project-card'); 
     if (cards.length === 0) return;
 
-    // Center of container (approx) for pile effect
-    const pileX = 300; 
-    const pileY = 200; 
-
     cards.forEach((card) => {
-      // Start in a random pile
       const randomRot = Math.random() * 20 - 10; 
       card.style.transition = 'none'; 
       card.style.transform = `translate(0px, 100px) rotateZ(${randomRot}deg) scale(0.5)`;
       card.style.opacity = '0';
     });
 
-    // Deal them out
     setTimeout(() => {
       cards.forEach((card, index) => {
         setTimeout(() => {
           card.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
           card.style.transform = 'translate(0, 0) rotateZ(0deg) scale(1)';
           card.style.opacity = '1';
-          
-          // Clean up transform so hover works
           setTimeout(() => { card.style.transform = ''; }, 650); 
         }, index * 100); 
       });
     }, 100); 
   }
-  // Run once on load
+
   runDealingAnimation();
 
-  // ===== Examine Card Logic (must run after cards are created) =====
+  // ===== Examine Card Logic =====
   document.querySelectorAll('.project-card').forEach(card => {
     card.addEventListener('mouseenter', () => {
-      // Hide the main arrow/hand cursor
       document.body.classList.add('examining'); 
-      // Show the orange "Examine" bubble
       if(follower) follower.classList.add('active');
     });
-    
     card.addEventListener('mouseleave', () => {
-      // Bring back main cursor
       document.body.classList.remove('examining');
-      // Hide orange bubble
       if(follower) follower.classList.remove('active');
     });
   });
@@ -272,33 +225,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (data) {
         modalTitle.textContent = data.title;
-        
-        // Clear previous content
         modalDesc.innerHTML = '';
         modalGallery.innerHTML = '';
         
-        // NEW: Render flexible content blocks
         if (data.content && data.content.length > 0) {
           data.content.forEach(block => {
             
             if (block.type === 'text') {
               const textBlock = document.createElement('div');
               textBlock.className = 'content-text-block';
-              
               if (block.heading) {
                 const heading = document.createElement('h4');
                 heading.textContent = block.heading;
                 textBlock.appendChild(heading);
               }
-              
               const paragraph = document.createElement('p');
-              
-              // Check if text contains a URL and make it clickable
               const urlRegex = /(https?:\/\/[^\s]+)/g;
               const text = block.text;
-              
-              if (urlRegex.test(text)) {
-                // Replace URLs with clickable links
+              if (text && urlRegex.test(text)) {
                 const parts = text.split(urlRegex);
                 parts.forEach(part => {
                   if (part.match(urlRegex)) {
@@ -315,9 +259,8 @@ document.addEventListener('DOMContentLoaded', () => {
                   }
                 });
               } else {
-                paragraph.textContent = text;
+                paragraph.textContent = text || '';
               }
-              
               textBlock.appendChild(paragraph);
               modalDesc.appendChild(textBlock);
             }
@@ -325,43 +268,32 @@ document.addEventListener('DOMContentLoaded', () => {
             else if (block.type === 'list') {
               const listBlock = document.createElement('div');
               listBlock.className = 'content-list-block';
-              
               if (block.heading) {
                 const heading = document.createElement('h4');
                 heading.textContent = block.heading;
                 listBlock.appendChild(heading);
               }
-              
               const ul = document.createElement('ul');
               ul.className = 'content-list';
-              
               block.items.forEach(item => {
                 const li = document.createElement('li');
-                
                 if (typeof item === 'string') {
-                  // Simple bullet point
                   li.textContent = item;
                 } else if (item.text) {
-                  // Bullet with sub-items
                   li.innerHTML = item.text;
-                  
                   if (item.subItems && item.subItems.length > 0) {
                     const subUl = document.createElement('ul');
                     subUl.className = 'content-sublist';
-                    
                     item.subItems.forEach(subItem => {
                       const subLi = document.createElement('li');
                       subLi.textContent = subItem;
                       subUl.appendChild(subLi);
                     });
-                    
                     li.appendChild(subUl);
                   }
                 }
-                
                 ul.appendChild(li);
               });
-              
               listBlock.appendChild(ul);
               modalDesc.appendChild(listBlock);
             }
@@ -369,11 +301,9 @@ document.addEventListener('DOMContentLoaded', () => {
             else if (block.type === 'image') {
               const imgContainer = document.createElement('div');
               imgContainer.className = `content-image-block ${block.size || 'medium'}`;
-              
               const img = document.createElement('img');
               img.src = block.src;
               img.alt = data.title;
-              
               imgContainer.appendChild(img);
               modalDesc.appendChild(imgContainer);
             }
@@ -381,22 +311,17 @@ document.addEventListener('DOMContentLoaded', () => {
             else if (block.type === 'images-row') {
               const rowContainer = document.createElement('div');
               rowContainer.className = 'content-images-row';
-              
               block.images.forEach(src => {
                 const img = document.createElement('img');
                 img.src = src;
                 img.alt = data.title;
                 rowContainer.appendChild(img);
               });
-              
               modalDesc.appendChild(rowContainer);
             }
-            
           });
         } else {
-          // Fallback to old system if no content blocks
           modalDesc.textContent = data.fullDesc || '';
-          
           if (data.galleryImages && data.galleryImages.length > 0) {
             data.galleryImages.forEach(src => {
               const img = document.createElement('img');
@@ -415,12 +340,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeModal = () => {
     modalOverlay.classList.remove('active');
     document.body.style.overflow = '';
-    
-    // Reset scroll position to top
     const modal = document.querySelector('.project-modal');
-    if (modal) {
-      modal.scrollTop = 0;
-    }
+    if (modal) modal.scrollTop = 0;
   };
   
   if(closeBtn) closeBtn.addEventListener('click', closeModal);
@@ -435,17 +356,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const galleryGrid = document.querySelector('.illustrations-grid');
   
   if (galleryGrid) {
-    // A. Create Lightbox (Paper Style)
     const lightbox = document.createElement('div');
     lightbox.className = 'illustration-lightbox';
-    
     const lightboxImg = document.createElement('img');
     lightboxImg.className = 'lightbox-img';
-    
     const backBtn = document.createElement('button');
     backBtn.className = 'lightbox-back-btn';
     backBtn.textContent = '← Back'; 
-    
     lightbox.appendChild(backBtn);
     lightbox.appendChild(lightboxImg);
     document.body.appendChild(lightbox);
@@ -461,7 +378,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.target === lightbox) closeLightbox();
     });
 
-    // B. Populate Grid
     galleryGrid.innerHTML = ''; 
     for (let i = 1; i <= 14; i++) {
       const img = document.createElement('img');
@@ -469,13 +385,11 @@ document.addEventListener('DOMContentLoaded', () => {
       img.loading = "lazy"; 
       img.style.opacity = '0';
       img.style.animation = `fadeIn 0.5s ease forwards ${i * 0.1}s`; 
-      
       img.addEventListener('click', () => {
         lightboxImg.src = img.src; 
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
       });
-
       galleryGrid.appendChild(img);
     }
   }
@@ -493,20 +407,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const rect = aboutCardWrapper.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      
       const rotateX = ((y - centerY) / centerY) * -10; 
       const rotateY = ((x - centerX) / centerX) * 10;  
-
       aboutCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-      
       if(glare) {
         glare.style.background = `linear-gradient(${125 + rotateY * 2}deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 60%)`;
       }
     });
-
     aboutCardWrapper.addEventListener('mouseleave', () => {
       aboutCard.style.transform = 'rotateX(0) rotateY(0) scale(1)';
     });
