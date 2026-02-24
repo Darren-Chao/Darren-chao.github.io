@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <img src="${hoverImage}" class="card-hover-img" alt="${project.title} hover">
         <div class="project-text overlay-text">
           <h3>${project.title}</h3>
-          <p>${project.shortDesc}</p>
+          <p>${project.cardDesc || project.shortDesc}</p>
         </div>
       `;
       projectsContainer.appendChild(card);
@@ -224,7 +224,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = projectsData.find(p => p.id === pid);
 
       if (data) {
-        modalTitle.textContent = data.title;
+        // Combine title and tagline into one headline
+        const headline = data.shortDesc ? `${data.modalTitle || data.title} — ${data.shortDesc}` : (data.modalTitle || data.title);
+        modalTitle.textContent = headline;
+
+        // Remove any leftover subtitle from previous opens
+        const existingSubtitle = document.getElementById('modal-subtitle');
+        if (existingSubtitle) existingSubtitle.remove();
+
         modalDesc.innerHTML = '';
         modalGallery.innerHTML = '';
         
@@ -332,10 +339,43 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         modalOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden'; 
+        document.body.style.overflow = 'hidden';
+
+        // Wait for images to load then equalize row heights
+        const rowImgs = modalDesc.querySelectorAll('.content-images-row img');
+        let loadedCount = 0;
+        const total = rowImgs.length;
+        if (total === 0) return;
+        rowImgs.forEach(img => {
+          if (img.complete) {
+            loadedCount++;
+            if (loadedCount === total) equalizeImageRows();
+          } else {
+            img.addEventListener('load', () => {
+              loadedCount++;
+              if (loadedCount === total) equalizeImageRows();
+            });
+          }
+        });
       }
     });
   });
+
+  // Equalize heights in each images-row to the average natural height
+  function equalizeImageRows() {
+    document.querySelectorAll('.content-images-row').forEach(row => {
+      const imgs = Array.from(row.querySelectorAll('img'));
+      if (imgs.length === 0) return;
+      imgs.forEach(img => img.style.height = 'auto');
+      const loaded = imgs.filter(img => img.complete && img.naturalHeight > 0);
+      if (loaded.length === 0) return;
+      const avgHeight = loaded.reduce((sum, img) => sum + img.offsetHeight, 0) / loaded.length;
+      imgs.forEach(img => {
+        img.style.height = Math.round(avgHeight) + 'px';
+        img.style.objectFit = 'contain';
+      });
+    });
+  }
 
   const closeModal = () => {
     modalOverlay.classList.remove('active');
