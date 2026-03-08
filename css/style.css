@@ -142,10 +142,18 @@ h1, h2, h3 {
 .social-btn:hover .btn-img-default { opacity: 0; }
 
 .nav-btn { height: clamp(40px, 5.5vw, 65px); }
+
+/* Hover state */
 .nav-btn:hover .btn-img-hover { opacity: 1; z-index: 2; }
 .nav-btn:hover .btn-img-default { opacity: 0; }
-.nav-btn.active .btn-img-press { opacity: 1; z-index: 3; }
-.nav-btn.active .btn-img-default, .nav-btn.active .btn-img-hover { opacity: 0; }
+
+/* Temporary press state — only while .pressing class is on */
+.nav-btn.pressing .btn-img-press { opacity: 1; z-index: 3; }
+.nav-btn.pressing .btn-img-default,
+.nav-btn.pressing .btn-img-hover { opacity: 0; }
+
+/* NOTE: .nav-btn.active no longer has any special visual style.
+   The active class is kept only for JS tab-tracking logic. */
 
 
 /* ========================================= */

@@ -1,0 +1,1 @@
+# used to convert png to webp via imagemagick

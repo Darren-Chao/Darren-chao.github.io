@@ -132,10 +132,19 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       const targetId = btn.getAttribute('data-target');
       const alreadyActive = btn.classList.contains('active');
+
+      // Show press state briefly, then bounce back
+      btn.classList.add('pressing');
+      setTimeout(() => btn.classList.remove('pressing'), 200);
+
+      // Track active tab (no visual difference — purely for logic)
       navBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+
+      // Switch tab content
       sections.forEach(sec => sec.classList.remove('active'));
       document.getElementById(targetId).classList.add('active');
+
       if (targetId === 'projects' && !alreadyActive) {
         runDealingAnimation();
       }
@@ -224,11 +233,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = projectsData.find(p => p.id === pid);
 
       if (data) {
-        // Combine title and tagline into one headline
         const headline = data.shortDesc ? `${data.modalTitle || data.title} — ${data.shortDesc}` : (data.modalTitle || data.title);
         modalTitle.textContent = headline;
 
-        // Remove any leftover subtitle from previous opens
         const existingSubtitle = document.getElementById('modal-subtitle');
         if (existingSubtitle) existingSubtitle.remove();
 
@@ -311,6 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
               const img = document.createElement('img');
               img.src = block.src;
               img.alt = data.title;
+              img.loading = 'lazy';
               imgContainer.appendChild(img);
               modalDesc.appendChild(imgContainer);
             }
@@ -322,6 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const img = document.createElement('img');
                 img.src = src;
                 img.alt = data.title;
+                img.loading = 'lazy';
                 rowContainer.appendChild(img);
               });
               modalDesc.appendChild(rowContainer);
@@ -333,6 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
             data.galleryImages.forEach(src => {
               const img = document.createElement('img');
               img.src = src;
+              img.loading = 'lazy';
               modalGallery.appendChild(img);
             });
           }
@@ -341,7 +351,6 @@ document.addEventListener('DOMContentLoaded', () => {
         modalOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
 
-        // Wait for images to load then equalize row heights
         const rowImgs = modalDesc.querySelectorAll('.content-images-row img');
         let loadedCount = 0;
         const total = rowImgs.length;
@@ -361,7 +370,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Equalize heights in each images-row to the average natural height
   function equalizeImageRows() {
     document.querySelectorAll('.content-images-row').forEach(row => {
       const imgs = Array.from(row.querySelectorAll('img'));
@@ -421,8 +429,8 @@ document.addEventListener('DOMContentLoaded', () => {
     galleryGrid.innerHTML = ''; 
     for (let i = 1; i <= 14; i++) {
       const img = document.createElement('img');
-      img.src = `assets/assorted-illustrations/${i}.png`;
-      img.loading = "lazy"; 
+      img.src = `assets/assorted-illustrations/${i}.webp`;
+      img.loading = 'lazy'; 
       img.style.opacity = '0';
       img.style.animation = `fadeIn 0.5s ease forwards ${i * 0.1}s`; 
       img.addEventListener('click', () => {
