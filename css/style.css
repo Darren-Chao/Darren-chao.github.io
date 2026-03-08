@@ -2,6 +2,7 @@
 /* === FONTS =============================== */
 /* ========================================= */
 @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap');
 
 @font-face {
   font-family: 'DarrenHand';
@@ -204,36 +205,36 @@ h1, h2, h3 { transform: rotate(-0.5deg); color: #1a1a1a; }
 }
 .project-modal-overlay.active .project-modal { transform: scale(1); }
 .project-modal h2 {
-  font-family: 'Kalam', cursive; font-weight: 700; font-size: 2rem;
+  font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 2rem;
   margin-bottom: 32px; color: #111; padding-bottom: 28px;
   border-bottom: 1px solid #eee; transform: none; letter-spacing: -0.01em;
 }
 .project-modal p {
-  font-family: 'Kalam', cursive; font-weight: 400; font-size: 1.05rem;
+  font-family: 'Nunito', sans-serif; font-weight: 400; font-size: 1.05rem;
   color: #444; margin-bottom: 20px; transform: none; line-height: 1.75;
 }
-.project-modal button { font-family: 'Kalam', cursive; transform: none; }
+.project-modal button { font-family: 'Nunito', sans-serif; transform: none; }
 .modal-gallery img { width: 100%; height: auto; border-radius: 4px; margin-bottom: 20px; display: block; }
 .modal-close-btn {
   position: absolute; top: 20px; right: 20px;
   background: #f0f0f0; border: none; padding: 8px 16px;
-  border-radius: 4px; font-weight: 700; font-size: 0.95rem; font-family: 'Kalam', cursive;
+  border-radius: 4px; font-weight: 700; font-size: 0.95rem; font-family: 'Nunito', sans-serif;
 }
-.content-text-block { margin-bottom: 30px; }
+.content-text-block { margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto; }
 .content-text-block h4 {
-  font-family: 'Kalam', cursive; font-size: 1.25rem; font-weight: 700;
+  font-family: 'Nunito', sans-serif; font-size: 1.8rem; font-weight: 700;
   color: #111; margin-bottom: 10px; transform: none; letter-spacing: -0.01em;
 }
 .content-text-block p {
-  font-family: 'Kalam', cursive; font-size: 1.05rem; line-height: 1.75; color: #555; margin: 0;
+  font-family: 'Nunito', sans-serif; font-size: 1.2rem; line-height: 1.75; color: #555; margin: 0;
 }
-.content-list-block { margin-bottom: 30px; }
+.content-list-block { margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto; }
 .content-list-block h4 {
-  font-family: 'Kalam', cursive; font-size: 1.25rem; font-weight: 700;
+  font-family: 'Nunito', sans-serif; font-size: 1.8rem; font-weight: 700;
   color: #111; margin-bottom: 10px; transform: none;
 }
 .content-list {
-  font-family: 'Kalam', cursive; font-size: 1.05rem; line-height: 1.75; color: #555;
+  font-family: 'Nunito', sans-serif; font-size: 1.2rem; line-height: 1.75; color: #555;
   margin: 0; padding-left: 25px; list-style-type: disc;
 }
 .content-list li { margin-bottom: 8px; }
@@ -388,8 +389,8 @@ footer { text-align: center; margin-top: 80px; color: #555; padding-bottom: 40px
   .mobile-hint {
     display: block;
     font-family: 'DarrenHand', sans-serif;
-    font-size: 1rem;
-    color: #474747;
+    font-size: 0.85rem;
+    color: #999;
     margin-top: 10px;
     font-style: italic;
   }
