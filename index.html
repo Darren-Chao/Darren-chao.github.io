@@ -26,6 +26,9 @@
 
     <header class="hero">
       <h1 id="typing-text">
+        <!-- dust sits behind/left of character, hidden by default -->
+        <img id="dust-sprite" src="assets/sprite/dust1.webp" alt="">
+        <img id="walk-sprite" src="assets/sprite/walk1.webp" alt="walking man">
         <span class="line black-text">Hello World, I am Darren Chao.</span>
         <span class="line grey-text">I am a Design Engineer, Software Engineer, and Artist.</span>
       </h1>
@@ -48,13 +51,11 @@
           <img src="assets/buttons/projects-hover.webp" class="btn-img-hover" alt="Projects Hover">
           <img src="assets/buttons/projects-press.webp" class="btn-img-press" alt="Projects Press">
         </button>
-        
         <button class="nav-btn" data-target="about" aria-label="About Me">
           <img src="assets/buttons/about-me.webp" class="btn-img-default" alt="About Me">
           <img src="assets/buttons/about-me-hover.webp" class="btn-img-hover" alt="About Me Hover">
           <img src="assets/buttons/about-me-press.webp" class="btn-img-press" alt="About Me Press">
         </button>
-        
         <button class="nav-btn" data-target="illustrations" aria-label="Assorted Illustrations">
           <img src="assets/buttons/assorted-illustrations.webp" class="btn-img-default" alt="Illustrations">
           <img src="assets/buttons/assorted-illustrations-hover.webp" class="btn-img-hover" alt="Illustrations Hover">
@@ -64,10 +65,9 @@
     </header>
 
     <div id="tab-content">
-      
+
       <section id="projects" class="tab-section active">
         <div class="projects-container"></div>
-
         <div class="project-modal-overlay" id="project-modal-overlay">
           <div class="project-modal">
             <button class="modal-close-btn" id="modal-close-btn">Close</button>
@@ -80,7 +80,6 @@
             </div>
           </div>
         </div>
-
         <div class="resume-container">
           <a href="assets/resume.pdf" target="_blank" class="resume-btn" aria-label="Resume">
             <img src="assets/buttons/resume.webp" class="btn-img-default" alt="Resume">
@@ -99,24 +98,14 @@
               <div class="about-card-glare"></div>
             </div>
           </div>
-
           <div class="about-text-content">
             <h2>About Me</h2>
-            <p>
-              Hi, I'm Darren.
-            </p>
-            <p>
-              I'm a designer and engineer currently pursuing a Master of Design Engineering at Brown University and Rhode Island School of Design. Before that, I studied Electrical Engineering and Computer Science at UC Berkeley.
-            </p>
-            <p>
-              I'm interested in creating thoughtful, human centered objects and experiences. Sometimes that means solving real problems. Sometimes it means making something playful, strange, or simply enjoyable to exist alongside. I care about work that makes life feel a little more intentional and a little more alive.
-            </p>
-            <p>
-              If this resonates with you, I'd love to connect.
-            </p>
+            <p>Hi, I'm Darren.</p>
+            <p>I'm a designer and engineer currently pursuing a Master of Design Engineering at Brown University and Rhode Island School of Design. Before that, I studied Electrical Engineering and Computer Science at UC Berkeley.</p>
+            <p>I'm interested in creating thoughtful, human centered objects and experiences. Sometimes that means solving real problems. Sometimes it means making something playful, strange, or simply enjoyable to exist alongside. I care about work that makes life feel a little more intentional and a little more alive.</p>
+            <p>If this resonates with you, I'd love to connect.</p>
           </div>
         </div>
-
         <div class="resume-container">
           <a href="assets/resume.pdf" target="_blank" class="resume-btn" aria-label="Resume">
             <img src="assets/buttons/resume.webp" class="btn-img-default" alt="Resume">
@@ -139,7 +128,7 @@
     </footer>
   </div>
 
-  <script src="js/projects-data.js"></script> 
+  <script src="js/projects-data.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
