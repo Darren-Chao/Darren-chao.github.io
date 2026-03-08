@@ -88,6 +88,11 @@ h1, h2, h3 { transform: rotate(-0.5deg); color: #1a1a1a; }
 .black-text { color: #000; font-weight: bold; }
 .grey-text { color: #444; }
 
+/* Mobile hint — hidden on desktop */
+.mobile-hint {
+  display: none;
+}
+
 .social-group { display: flex; align-items: center; gap: 15px; margin: 20px 0; }
 .nav-group { margin-top: 30px; display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
 
@@ -116,7 +121,6 @@ h1, h2, h3 { transform: rotate(-0.5deg); color: #1a1a1a; }
 
 #walk-sprite {
   position: absolute;
-  /* Scales with viewport, matching the font's clamp rhythm */
   height: clamp(1.92rem, 4vw, 2.88rem);
   width: auto;
   image-rendering: pixelated;
@@ -125,7 +129,6 @@ h1, h2, h3 { transform: rotate(-0.5deg); color: #1a1a1a; }
   pointer-events: auto;
 }
 
-/* Hidden — dust no longer used in main flow but keep element available */
 #dust-sprite {
   display: none;
 }
@@ -134,7 +137,6 @@ h1, h2, h3 { transform: rotate(-0.5deg); color: #1a1a1a; }
 #walk-sprite.walking {
   transition: left 0.08s linear;
 }
-
 
 /* ========================================= */
 /* === PROJECTS GRID ======================= */
@@ -352,14 +354,64 @@ footer { text-align: center; margin-top: 80px; color: #555; padding-bottom: 40px
 .resume-btn:hover .btn-img-hover { opacity: 1; z-index: 2; }
 .resume-btn:hover .btn-img-default { opacity: 0; }
 
-@media (hover: none) and (pointer: coarse) {
-  #main-cursor, #cursor-follower { display: none !important; }
-  body.examining #main-cursor { display: none !important; }
-  #walk-sprite, #dust-sprite { display: none !important; }
-}
+/* ========================================= */
+/* === DESKTOP BASELINE ==================== */
+/* ========================================= */
 @media screen and (max-width: 900px) { .illustrations-grid { column-count: 2; } }
 @media screen and (max-width: 768px) {
   .about-container { flex-direction: column; text-align: center; }
   .about-card-wrapper { width: min(250px, 70vw); max-width: 300px; }
 }
 @media screen and (max-width: 600px) { .illustrations-grid { column-count: 1; } }
+
+/* ========================================= */
+/* === MOBILE (touch) ====================== */
+/* ========================================= */
+@media (hover: none) and (pointer: coarse) {
+
+  /* Restore normal cursor (no custom cursor on mobile) */
+  html, body, a, button, .project-card, .about-card-wrapper, .about-card-inner,
+  .project-modal-overlay, .project-modal { cursor: auto !important; }
+
+  /* Hide cursor + sprite entirely */
+  #main-cursor, #cursor-follower, #walk-sprite, #dust-sprite { display: none !important; }
+
+  /* Hero text: bigger, wrappable, always visible */
+  #typing-text .line {
+    font-size: clamp(1.6rem, 5.5vw, 2.2rem);
+    white-space: normal;
+    overflow-x: visible;
+    opacity: 1;
+  }
+
+  /* Show the laptop hint below hero text */
+  .mobile-hint {
+    display: block;
+    font-family: 'DarrenHand', sans-serif;
+    font-size: 1rem;
+    color: #474747;
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+  /* Disable all hover image swaps — they get stuck on touch */
+  .nav-btn:hover .btn-img-hover,
+  .social-btn:hover .btn-img-hover,
+  .resume-btn:hover .btn-img-hover,
+  .custom-card:hover .card-hover-img { opacity: 0 !important; }
+
+  .nav-btn:hover .btn-img-default,
+  .social-btn:hover .btn-img-default,
+  .resume-btn:hover .btn-img-default,
+  .custom-card:hover .card-bg-img { opacity: 1 !important; }
+
+  /* Disable card hover lift on touch */
+  .project-card:hover {
+    transform: none;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+  }
+
+  /* Keep pressing state working for nav buttons (tap feedback) */
+  .nav-btn.pressing .btn-img-press { opacity: 1 !important; z-index: 3; }
+  .nav-btn.pressing .btn-img-default { opacity: 0 !important; }
+}

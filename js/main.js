@@ -1,6 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // =========================================
+  // === 0. MOBILE DETECTION =================
+  // =========================================
+  const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+
+  if (isMobile) {
+    // Show all text immediately, allow wrapping on mobile
+    document.querySelectorAll('#typing-text .line').forEach(line => {
+      line.style.opacity = '1';
+      line.style.whiteSpace = 'normal';
+    });
+    // Hide sprite elements
+    const ws = document.getElementById('walk-sprite');
+    const ds = document.getElementById('dust-sprite');
+    if (ws) ws.style.display = 'none';
+    if (ds) ds.style.display = 'none';
+
+    // Fix stuck hover states on touch — blur after tap
+    document.addEventListener('touchend', (e) => {
+      const el = e.target.closest('a, button, .nav-btn, .social-btn, .resume-btn, .project-card');
+      if (el) setTimeout(() => el.blur(), 300);
+    }, { passive: true });
+  }
+
+
+  // =========================================
   // === 1. CUSTOM CURSOR ====================
   // =========================================
   const mainCursor = document.getElementById('main-cursor');
@@ -128,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sprite.style.top  = top + 'px';
   });
 
-  // Idle hover → jump (manual arc, same as teleport jump)
+  // Idle hover → jump
   let isJumping = false;
   sprite.addEventListener('mouseenter', () => {
     if (isJumping || walkInterval) return;
@@ -136,25 +161,20 @@ document.addEventListener('DOMContentLoaded', () => {
     doIdleJump(() => { isJumping = false; });
   });
 
-  // Generic idle jump arc using JS — no CSS animation so we fully control timing
   function doIdleJump(onDone) {
     const baseTop = parseFloat(sprite.style.top) || 0;
-    const PEAK_OFFSET = sprite.offsetHeight * 1.2; // how high above baseline
+    const PEAK_OFFSET = sprite.offsetHeight * 1.2;
     const RISE_MS = 220;
     const FALL_MS = 220;
 
     sprite.src = SPRITES.jump;
-    // Rise
     sprite.style.transition = `top ${RISE_MS}ms cubic-bezier(0.2, 0.8, 0.4, 1)`;
     sprite.style.top = (baseTop - PEAK_OFFSET) + 'px';
 
     setTimeout(() => {
-      // Fall back
       sprite.style.transition = `top ${FALL_MS}ms cubic-bezier(0.4, 0, 0.8, 0.6)`;
       sprite.style.top = baseTop + 'px';
-
       setTimeout(() => {
-        // Tiny squash on land
         sprite.style.transition = 'none';
         sprite.style.transform = 'scaleX(1.25) scaleY(0.75)';
         setTimeout(() => {
@@ -170,47 +190,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }, RISE_MS);
   }
 
-  // Teleport jump: rises, shrinks+fades at peak, reappears on line2 mid-air, falls and lands
   function doTeleportJump(line1X, line1El, line2X, line2El, onDone) {
     const baseLine1 = getSpriteTop(line1El);
     const baseLine2 = getSpriteTop(line2El);
-    const PEAK_OFFSET = sprite.offsetHeight * 1;
+    const PEAK_OFFSET = sprite.offsetHeight * 1.0;
     const RISE_MS  = 230;
     const FADE_MS  = 130;
     const FALL_MS  = 260;
 
-    // 1. Switch to jump sprite and rise
     sprite.src = SPRITES.jump;
     sprite.style.transition = `top ${RISE_MS}ms cubic-bezier(0.2, 0.9, 0.4, 1)`;
     sprite.style.top = (baseLine1 - PEAK_OFFSET) + 'px';
 
-    // 2. At peak: shrink + fade out
     setTimeout(() => {
       sprite.style.transition = `transform ${FADE_MS}ms ease-in, opacity ${FADE_MS}ms ease-in`;
       sprite.style.transform  = 'scale(0)';
       sprite.style.opacity    = '0';
 
-      // 3. While invisible: teleport position to line 2, same height above baseline
       setTimeout(() => {
         sprite.style.transition = 'none';
-        sprite.style.left    = line2X + 'px';
-        sprite.style.top     = (baseLine2 - PEAK_OFFSET) + 'px';
+        sprite.style.left      = line2X + 'px';
+        sprite.style.top       = (baseLine2 - PEAK_OFFSET) + 'px';
         sprite.style.transform = 'scale(0)';
-        // still opacity 0
 
-        void sprite.offsetWidth; // force reflow
+        void sprite.offsetWidth;
 
-        // 4. Expand + fade in — still in jump sprite, mid-air on line 2
         sprite.style.transition = `transform ${FADE_MS}ms ease-out, opacity ${FADE_MS}ms ease-out`;
         sprite.style.transform  = 'scale(1)';
         sprite.style.opacity    = '1';
 
-        // 5. Fall down to line 2 baseline
         setTimeout(() => {
           sprite.style.transition = `top ${FALL_MS}ms cubic-bezier(0.4, 0, 0.8, 0.6)`;
           sprite.style.top = baseLine2 + 'px';
 
-          // 6. Land: squash, switch to idle, then done
           setTimeout(() => {
             sprite.style.transition = 'none';
             sprite.style.transform  = 'scaleX(1.25) scaleY(0.75)';
@@ -224,11 +236,9 @@ document.addEventListener('DOMContentLoaded', () => {
               }, 120);
             }, 60);
           }, FALL_MS);
-
-        }, FADE_MS); // start falling as soon as he's reappeared
-
-      }, FADE_MS); // invisible — reposition instantly
-    }, RISE_MS);   // wait for rise to peak
+        }, FADE_MS);
+      }, FADE_MS);
+    }, RISE_MS);
   }
 
 
@@ -257,18 +267,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function startTypingSequence() {
+    if (isMobile) return; // skip on mobile
     if (!lines.length) return;
+
     const line1 = lines[0];
     const line2 = lines[1];
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
 
-        // --- LINE 1: walk right as text types ---
         sprite.classList.add('walking');
         placeSprite(TEXT_GAP, line1);
-        sprite.style.opacity    = '1';
-        sprite.style.transform  = 'scale(1)';
+        sprite.style.opacity   = '1';
+        sprite.style.transform = 'scale(1)';
         setWalkSpeed(WALK_SPEED_NORMAL);
 
         typeLine(
@@ -285,11 +296,9 @@ document.addEventListener('DOMContentLoaded', () => {
               return;
             }
 
-            // Stop walking, go idle briefly
             sprite.classList.remove('walking');
             stopWalking();
 
-            // Short idle pause, then teleport jump to line 2
             setTimeout(() => {
               isJumping = true;
               const line1X = parseFloat(sprite.style.left) || TEXT_GAP;
@@ -297,7 +306,6 @@ document.addEventListener('DOMContentLoaded', () => {
               doTeleportJump(line1X, line1, TEXT_GAP, line2, () => {
                 isJumping = false;
 
-                // Small settle, then walk and type line 2
                 setTimeout(() => {
                   sprite.classList.add('walking');
                   setWalkSpeed(WALK_SPEED_NORMAL);
