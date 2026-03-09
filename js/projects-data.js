@@ -25,8 +25,8 @@ const projectsData = [
       { type: "list", heading: "Skills and Contributions", items: [ "3D modeling and enclosure design", "Embedded programming and signal processing", "Sensor integration and hardware prototyping", "Custom PCB design and hand soldering", "Mechanical mechanism development using a hand crank system", "Sound mapping and interaction design", "Final fabrication and assembly" ] }
     ]
   },
-  
-  {
+
+    {
     id: "steadystix",
     title: "Steady Stix",
     modalTitle: "Steady Stix",
@@ -51,35 +51,8 @@ const projectsData = [
       { type: "list", heading: "Skills Demonstrated", items: [ "User research and ergonomic analysis", "Rapid prototyping and iterative testing", "Low fidelity exploration", "3D modeling and form development", "Physical prototyping and fabrication", "Constraint definition and specification development", "Human centered design thinking" ] }
     ]
   },
-  
-  {
-    id: "sandsiege",
-    title: "Sand Siege",
-    modalTitle: "Sand Siege",
-    shortDesc: "A Modular Beach Game Built for a Reimagined Day at the Shore",
-    cardDesc: "A modular beach game that reimagines sandcastle building as collaborative play.",
-    cardImage: "assets/project-cards/sand-siege.webp",
-    
-    content: [
-      { type: "image", src: "assets/project-images/sand-siege/1.webp", size: "large" },
-      { type: "text", heading: "Overview", text: "Sand Siege is a collaborative project with Angela Zhang, Aubrey Wong, Sage Rebello, and Tong Song focused on reimagining sandcastle play as a creative and competitive beach game for kids." },
-      { type: "text", text: "We began by observing that most sandcastle kits feel repetitive and prescriptive, often limiting creativity to the shapes provided by buckets and molds. Our goal was to design a system that encourages open ended building while introducing light competition and game mechanics to make a day at the beach more engaging." },
-      { type: "text", text: "Inspired by modular building systems and puzzle logic, we created a game where players build sand structures, hide treasure items, and take turns attacking or building using action prompts, blending imaginative play with simple strategy." },
-      { type: "text", heading: "Gameplay and System", text: "Players construct bases using modular sand bricks, place treasures within their structures, and take turns rolling a die that determines actions such as building, attacking, or modifying the playfield. A hand powered catapult is used to launch sand and attempt to knock down opponents' structures or reveal treasures." },
-      { type: "text", text: "The rules were intentionally designed to be understandable with minimal reading so children can quickly start playing." },
-      { type: "list", heading: "Key Design Considerations", items: [ "Make gameplay intuitive without heavy instructions", "Ensure pieces are large, visible, and safe for beach environments", "Prevent parts from being easily washed away", "Design sand interaction to be safe and low force", "Encourage creativity rather than constrain building" ] },
-      { type: "text", text: "A standout feature is the catapult, which only functions when anchored into sand. On hard surfaces it cannot stand, reinforcing that the toy belongs to the beach context. The launching action is powered purely by children's hands rather than springs or rubber bands, keeping forces gentle and safe." },
-      { type: "text", heading: "Prototyping the Bricks", text: "We iterated extensively on the modular building blocks, starting with cardboard prototypes to explore scale, ergonomics, and play patterns. This helped us quickly test how children might stack, carry, and connect pieces." },
-      { type: "images-row", images: [ "assets/project-images/sand-siege/2.webp", "assets/project-images/sand-siege/3.webp", "assets/project-images/sand-siege/4.webp", "assets/project-images/sand-siege/5.webp" ] },
-      { type: "text", text: "We explored connection strategies including magnets, which were abandoned due to corrosion risks near saltwater. The design shifted toward pressure fit connections, leading to multiple rounds of 3D modeling and printing to refine tolerances." },
-      { type: "text", heading: "Testing and Iteration", text: "Field testing at the beach revealed critical insights. Early versions included interior bumps that trapped sand and prevented smooth release, so the geometry was redesigned to allow clean packing and dumping. We repeatedly tested fit, durability, and usability in real sand conditions until the system felt reliable and satisfying." },
-      { type: "images-row", images: [ "assets/project-images/sand-siege/6.webp", "assets/project-images/sand-siege/7.webp", "assets/project-images/sand-siege/8.webp" ] },
-      { type: "text", heading: "Outcome", text: "The final system is a playful, modular game that transforms sandcastle building into a social experience that blends creativity, strategy, and physical play. By grounding the mechanics in the natural affordances of sand and children's intuition, Sand Siege creates a flexible play environment that feels both structured and open ended." },
-      { type: "list", heading: "Skills Demonstrated", items: [ "Collaborative design and teamwork", "Play research and user testing with children", "Game design and rule development", "Rapid prototyping from cardboard to 3D printing", "Mechanical thinking and context specific design", "Iteration through field testing", "Design for safety and environmental conditions" ] }
-    ]
-  },
-  
-  {
+
+    {
     id: "dripless",
     title: "Dripless",
     modalTitle: "Dripless",
@@ -115,8 +88,8 @@ const projectsData = [
       { type: "list", heading: "Skills Demonstrated", items: [ "Laser cutting and digital fabrication", "3D modeling and iterative CAD development", "Gear design and mechanical systems creation", "User research and usability testing", "Woodworking and physical fabrication", "Rapid prototyping and iteration", "Systems thinking for public space deployment" ] }
     ]
   },
-  
-  {
+
+    {
     id: "costumes",
     title: "Costumes",
     modalTitle: "Costumes",
@@ -150,8 +123,65 @@ const projectsData = [
       { type: "list", heading: "Technical Skills Demonstrated", items: [ "EVA foam patterning, heat forming, and structural fabrication", "Advanced surface finishing including texture simulation and weathering", "Spray painting, acrylic painting, and specialty effects (rust simulation with iron powder)", "Adhesive selection and bonding strategies (hot glue vs contact cement)", "3D pattern development and template translation", "Sewing fundamentals and textile integration", "Electronics integration (LED circuits, wiring, basic power systems)", "Iterative prototyping and build refinement", "Material experimentation and sustainable sourcing" ] }
     ]
   },
-  
-  {
+
+    {
+    id: "sandsiege",
+    title: "Sand Siege",
+    modalTitle: "Sand Siege",
+    shortDesc: "A Modular Beach Game Built for a Reimagined Day at the Shore",
+    cardDesc: "A modular beach game that reimagines sandcastle building as collaborative play.",
+    cardImage: "assets/project-cards/sand-siege.webp",
+    
+    content: [
+      { type: "image", src: "assets/project-images/sand-siege/1.webp", size: "large" },
+      { type: "text", heading: "Overview", text: "Sand Siege is a collaborative project with Angela Zhang, Aubrey Wong, Sage Rebello, and Tong Song focused on reimagining sandcastle play as a creative and competitive beach game for kids." },
+      { type: "text", text: "We began by observing that most sandcastle kits feel repetitive and prescriptive, often limiting creativity to the shapes provided by buckets and molds. Our goal was to design a system that encourages open ended building while introducing light competition and game mechanics to make a day at the beach more engaging." },
+      { type: "text", text: "Inspired by modular building systems and puzzle logic, we created a game where players build sand structures, hide treasure items, and take turns attacking or building using action prompts, blending imaginative play with simple strategy." },
+      { type: "text", heading: "Gameplay and System", text: "Players construct bases using modular sand bricks, place treasures within their structures, and take turns rolling a die that determines actions such as building, attacking, or modifying the playfield. A hand powered catapult is used to launch sand and attempt to knock down opponents' structures or reveal treasures." },
+      { type: "text", text: "The rules were intentionally designed to be understandable with minimal reading so children can quickly start playing." },
+      { type: "list", heading: "Key Design Considerations", items: [ "Make gameplay intuitive without heavy instructions", "Ensure pieces are large, visible, and safe for beach environments", "Prevent parts from being easily washed away", "Design sand interaction to be safe and low force", "Encourage creativity rather than constrain building" ] },
+      { type: "text", text: "A standout feature is the catapult, which only functions when anchored into sand. On hard surfaces it cannot stand, reinforcing that the toy belongs to the beach context. The launching action is powered purely by children's hands rather than springs or rubber bands, keeping forces gentle and safe." },
+      { type: "text", heading: "Prototyping the Bricks", text: "We iterated extensively on the modular building blocks, starting with cardboard prototypes to explore scale, ergonomics, and play patterns. This helped us quickly test how children might stack, carry, and connect pieces." },
+      { type: "images-row", images: [ "assets/project-images/sand-siege/2.webp", "assets/project-images/sand-siege/3.webp", "assets/project-images/sand-siege/4.webp", "assets/project-images/sand-siege/5.webp" ] },
+      { type: "text", text: "We explored connection strategies including magnets, which were abandoned due to corrosion risks near saltwater. The design shifted toward pressure fit connections, leading to multiple rounds of 3D modeling and printing to refine tolerances." },
+      { type: "text", heading: "Testing and Iteration", text: "Field testing at the beach revealed critical insights. Early versions included interior bumps that trapped sand and prevented smooth release, so the geometry was redesigned to allow clean packing and dumping. We repeatedly tested fit, durability, and usability in real sand conditions until the system felt reliable and satisfying." },
+      { type: "images-row", images: [ "assets/project-images/sand-siege/6.webp", "assets/project-images/sand-siege/7.webp", "assets/project-images/sand-siege/8.webp" ] },
+      { type: "text", heading: "Outcome", text: "The final system is a playful, modular game that transforms sandcastle building into a social experience that blends creativity, strategy, and physical play. By grounding the mechanics in the natural affordances of sand and children's intuition, Sand Siege creates a flexible play environment that feels both structured and open ended." },
+      { type: "list", heading: "Skills Demonstrated", items: [ "Collaborative design and teamwork", "Play research and user testing with children", "Game design and rule development", "Rapid prototyping from cardboard to 3D printing", "Mechanical thinking and context specific design", "Iteration through field testing", "Design for safety and environmental conditions" ] }
+    ]
+  },
+
+    {
+    id: "folded",
+    title: "Folded Reality",
+    modalTitle: "Folded Reality",
+    shortDesc: "A Pop-Up World Built from Paper, Wood, and Light",
+    cardDesc: "An exploration of popup book mechanics using laser-cut paper and wood.",
+    cardImage: "assets/project-cards/folded-reality.webp",
+    
+    content: [
+      { type: "image", src: "assets/project-images/folded-reality/1.webp", size: "large" },
+      { type: "text", heading: "Overview", text: "Folded Reality is an exploration of transforming flat materials into an immersive mechanical world through pop up structures and digital fabrication. The project investigates how careful folding, cutting, and assembly can create a sense of discovery, inviting the viewer to open the book as if stepping through a doorway into another dimension. Combining hand craft with laser cutting across paper, wood, and acrylic, the final piece presents a portal like scene where a creature emerges from within, blurring the boundary between page and environment." },
+      { type: "text", heading: "Intent", text: "I wanted the experience of opening the book to feel cinematic and slightly magical, as if uncovering a hidden world tucked inside an ordinary object." },
+      { type: "text", heading: "Origins \u2014 Interest in Pop Up Structures", text: "This project grew out of an early fascination with pop up books and the intricate engineering behind folds, joints, and motion. Through initial exploration, I studied how simple cuts and hinges could create volume, movement, and surprise. These experiments helped me understand the mechanical logic behind transforming a flat sheet into a dynamic spatial experience." },
+      { type: "images-row", images: [ "assets/project-images/folded-reality/2.webp", "assets/project-images/folded-reality/3.webp" ] },
+      { type: "text", heading: "Workflow \u2014 Sketching Through Making", text: "The process began with hands on experimentation. I sketched by cutting paper directly, playing with random shapes, folds, and connections to see how forms behaved in motion. This tactile approach allowed unexpected ideas to emerge quickly." },
+      { type: "text", text: "Once a promising structure appeared, I carefully disassembled it, documented the parts, and translated them into precise templates in Adobe Illustrator. This step allowed me to understand the geometry behind each fold and prepare for digital fabrication." },
+      { type: "images-row", images: [ "assets/project-images/folded-reality/4.webp", "assets/project-images/folded-reality/5.webp" ] },
+      { type: "text", heading: "Iteration \u2014 Laser Cut Prototyping", text: "Using Illustrator files, I laser cut paper prototypes and repeatedly assembled them to test alignment, motion, and durability. Multiple iterations were produced to refine proportions, improve fold behavior, and ensure the mechanism opened smoothly." },
+      { type: "text", text: "This stage was critical in bridging intuition with precision, allowing rapid testing while maintaining accuracy." },
+      { type: "images-row", images: [ "assets/project-images/folded-reality/6.webp", "assets/project-images/folded-reality/7.webp", "assets/project-images/folded-reality/8.webp" ] },
+      { type: "text", heading: "Final Fabrication \u2014 Templates to Object", text: "After refining the mechanism, I hand illustrated the visual elements, printed them, and laser cut the final components. The book structure itself was fabricated from laser cut wood, with hinges installed so the object opens like a door, reinforcing the idea of entering another space." },
+      { type: "text", text: "Laser cut and etched acrylic elements were integrated to evoke a portal, adding depth and contrast between materials. Final assembly required careful alignment to ensure smooth motion and structural stability." },
+      { type: "images-row", images: [ "assets/project-images/folded-reality/9.webp", "assets/project-images/folded-reality/10.webp", "assets/project-images/folded-reality/11.webp" ] },
+      { type: "list", heading: "Challenges", items: [ "Preventing thin wood panels from warping after laser cutting", "Maintaining alignment of larger pop up elements through repeated opening", "Precisely registering printed graphics with laser cut geometry", "Balancing structural strength with delicate motion" ] },
+      { type: "text", text: "These constraints pushed me to refine both fabrication technique and assembly strategy." },
+      { type: "text", heading: "Outcome", text: "Folded Reality demonstrates how digital fabrication can expand traditional paper engineering into a multi material experience. The final piece invites viewers to engage physically, revealing a layered environment that unfolds through interaction." },
+      { type: "list", heading: "Skills Demonstrated", items: [ "Laser cutting across paper, wood, and acrylic", "Physical prototyping and iterative testing", "Adobe Illustrator template development", "Mechanical paper engineering", "Precision assembly", "Material integration", "Hinged construction", "Visual storytelling through objects", "Craft driven experimentation" ] }
+    ]
+  },
+
+    {
     id: "freelens",
     title: "FreeLens",
     modalTitle: "FreeLens",
@@ -184,38 +214,24 @@ const projectsData = [
       { type: "list", heading: "Skills Demonstrated", items: [ "UI/UX design", "User research", "Product strategy", "Information architecture", "Interaction design", "Workflow mapping", "Figma prototyping", "Collaborative design", "Data informed problem framing", "Pitch storytelling" ] }
     ]
   },
-  
-  {
-    id: "folded",
-    title: "Folded Reality",
-    modalTitle: "Folded Reality",
-    shortDesc: "A Pop-Up World Built from Paper, Wood, and Light",
-    cardDesc: "An exploration of popup book mechanics using laser-cut paper and wood.",
-    cardImage: "assets/project-cards/folded-reality.webp",
-    
+
+    {
+    id: "foodiecam",
+    title: "FoodieCam",
+    modalTitle: "FoodieCam",
+    shortDesc: "An AI Camera That Turns Food into Printed Recipes",
+    cardDesc: "A camera that saves food as printed recipes.",
+    cardImage: "assets/project-cards/foodiecam.webp",
+
     content: [
-      { type: "image", src: "assets/project-images/folded-reality/1.webp", size: "large" },
-      { type: "text", heading: "Overview", text: "Folded Reality is an exploration of transforming flat materials into an immersive mechanical world through pop up structures and digital fabrication. The project investigates how careful folding, cutting, and assembly can create a sense of discovery, inviting the viewer to open the book as if stepping through a doorway into another dimension. Combining hand craft with laser cutting across paper, wood, and acrylic, the final piece presents a portal like scene where a creature emerges from within, blurring the boundary between page and environment." },
-      { type: "text", heading: "Intent", text: "I wanted the experience of opening the book to feel cinematic and slightly magical, as if uncovering a hidden world tucked inside an ordinary object." },
-      { type: "text", heading: "Origins \u2014 Interest in Pop Up Structures", text: "This project grew out of an early fascination with pop up books and the intricate engineering behind folds, joints, and motion. Through initial exploration, I studied how simple cuts and hinges could create volume, movement, and surprise. These experiments helped me understand the mechanical logic behind transforming a flat sheet into a dynamic spatial experience." },
-      { type: "images-row", images: [ "assets/project-images/folded-reality/2.webp", "assets/project-images/folded-reality/3.webp" ] },
-      { type: "text", heading: "Workflow \u2014 Sketching Through Making", text: "The process began with hands on experimentation. I sketched by cutting paper directly, playing with random shapes, folds, and connections to see how forms behaved in motion. This tactile approach allowed unexpected ideas to emerge quickly." },
-      { type: "text", text: "Once a promising structure appeared, I carefully disassembled it, documented the parts, and translated them into precise templates in Adobe Illustrator. This step allowed me to understand the geometry behind each fold and prepare for digital fabrication." },
-      { type: "images-row", images: [ "assets/project-images/folded-reality/4.webp", "assets/project-images/folded-reality/5.webp" ] },
-      { type: "text", heading: "Iteration \u2014 Laser Cut Prototyping", text: "Using Illustrator files, I laser cut paper prototypes and repeatedly assembled them to test alignment, motion, and durability. Multiple iterations were produced to refine proportions, improve fold behavior, and ensure the mechanism opened smoothly." },
-      { type: "text", text: "This stage was critical in bridging intuition with precision, allowing rapid testing while maintaining accuracy." },
-      { type: "images-row", images: [ "assets/project-images/folded-reality/6.webp", "assets/project-images/folded-reality/7.webp", "assets/project-images/folded-reality/8.webp" ] },
-      { type: "text", heading: "Final Fabrication \u2014 Templates to Object", text: "After refining the mechanism, I hand illustrated the visual elements, printed them, and laser cut the final components. The book structure itself was fabricated from laser cut wood, with hinges installed so the object opens like a door, reinforcing the idea of entering another space." },
-      { type: "text", text: "Laser cut and etched acrylic elements were integrated to evoke a portal, adding depth and contrast between materials. Final assembly required careful alignment to ensure smooth motion and structural stability." },
-      { type: "images-row", images: [ "assets/project-images/folded-reality/9.webp", "assets/project-images/folded-reality/10.webp", "assets/project-images/folded-reality/11.webp" ] },
-      { type: "list", heading: "Challenges", items: [ "Preventing thin wood panels from warping after laser cutting", "Maintaining alignment of larger pop up elements through repeated opening", "Precisely registering printed graphics with laser cut geometry", "Balancing structural strength with delicate motion" ] },
-      { type: "text", text: "These constraints pushed me to refine both fabrication technique and assembly strategy." },
-      { type: "text", heading: "Outcome", text: "Folded Reality demonstrates how digital fabrication can expand traditional paper engineering into a multi material experience. The final piece invites viewers to engage physically, revealing a layered environment that unfolds through interaction." },
-      { type: "list", heading: "Skills Demonstrated", items: [ "Laser cutting across paper, wood, and acrylic", "Physical prototyping and iterative testing", "Adobe Illustrator template development", "Mechanical paper engineering", "Precision assembly", "Material integration", "Hinged construction", "Visual storytelling through objects", "Craft driven experimentation" ] }
+      { type: "image", src: "assets/project-images/foodiecam/1.webp", size: "medium" },
+      { type: "text", heading: "Overview", text: "I've always liked saving memories as physical artifacts, like Polaroids or small souvenirs. When it comes to food, though, we usually just take photos; the camera eats first. But photos only capture how something looked, not what it tasted like." },
+      { type: "text", text: "FoodieCam explores a different way of preserving food memories: saving them in a form you can recreate later. The camera uses computer vision and an AI API to recognize a dish and generate a recipe, which is printed instantly as a receipt." },
+      { type: "text", text: "Built using an Arduino Uno Q, AI image recognition and computer vision, and a thermal receipt printer, the device turns a quick food photo into a physical recipe—so you can relive the meal by cooking it again." }
     ]
   },
 
-  {
+    {
     id: "idleearth",
     title: "Idle Earth",
     modalTitle: "Idle Earth",
@@ -224,26 +240,12 @@ const projectsData = [
     cardImage: "assets/project-cards/idle-earth.webp",
 
     content: [
+      { type: "image", src: "assets/project-images/idle-earth/1.webp", size: "large" },
       { type: "text", heading: "Overview", text: "I've always liked websites where people can create something small, like drawing a flower, and leave it somewhere on the internet forever. But those things usually never change, which means there is little reason to come back and check on them." },
       { type: "text", text: "Idle Earth explores what happens if those digital artifacts could actually live and evolve." },
       { type: "text", text: "The project is a web-based Earth simulation where users place a digital version of themselves into a shared world. Instead of rigid systems or dropdown-based character creation, users freely describe their personality and traits. AI then generates an autonomous agent that continues to live and grow on this digital Earth over time." },
       { type: "text", text: "When users return, they can check what their digital self has been doing and how their story has evolved." },
       { type: "text", text: "Built with Three.js, Google Firebase for authentication and data storage, and AI-driven agent simulation. (Currently under development.)" }
-    ]
-  },
-
-  {
-    id: "recicam",
-    title: "ReciCam",
-    modalTitle: "ReciCam",
-    shortDesc: "An AI Camera That Turns Food into Printed Recipes",
-    cardDesc: "A camera that saves food as printed recipes.",
-    cardImage: "assets/project-cards/recicam.webp",
-
-    content: [
-      { type: "text", heading: "Overview", text: "I've always liked saving memories as physical artifacts, like Polaroids or small souvenirs. When it comes to food, though, we usually just take photos; the camera eats first. But photos only capture how something looked, not what it tasted like." },
-      { type: "text", text: "ReciCam explores a different way of preserving food memories: saving them in a form you can recreate later. The camera uses computer vision and an AI API to recognize a dish and generate a recipe, which is printed instantly as a receipt." },
-      { type: "text", text: "Built using an Arduino Uno Q, AI image recognition and computer vision, and a thermal receipt printer, the device turns a quick food photo into a physical recipe—so you can relive the meal by cooking it again." }
     ]
   }
 ];
