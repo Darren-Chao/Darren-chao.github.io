@@ -213,5 +213,37 @@ const projectsData = [
       { type: "text", heading: "Outcome", text: "Folded Reality demonstrates how digital fabrication can expand traditional paper engineering into a multi material experience. The final piece invites viewers to engage physically, revealing a layered environment that unfolds through interaction." },
       { type: "list", heading: "Skills Demonstrated", items: [ "Laser cutting across paper, wood, and acrylic", "Physical prototyping and iterative testing", "Adobe Illustrator template development", "Mechanical paper engineering", "Precision assembly", "Material integration", "Hinged construction", "Visual storytelling through objects", "Craft driven experimentation" ] }
     ]
+  },
+
+  {
+    id: "idleearth",
+    title: "Idle Earth",
+    modalTitle: "Idle Earth",
+    shortDesc: "A Living World Built from Every Visitor",
+    cardDesc: "Every visitor creates a digital self that continues living on Earth while you're away.",
+    cardImage: "assets/project-cards/idle-earth.webp",
+
+    content: [
+      { type: "text", heading: "Overview", text: "I've always liked websites where people can create something small, like drawing a flower, and leave it somewhere on the internet forever. But those things usually never change, which means there is little reason to come back and check on them." },
+      { type: "text", text: "Idle Earth explores what happens if those digital artifacts could actually live and evolve." },
+      { type: "text", text: "The project is a web-based Earth simulation where users place a digital version of themselves into a shared world. Instead of rigid systems or dropdown-based character creation, users freely describe their personality and traits. AI then generates an autonomous agent that continues to live and grow on this digital Earth over time." },
+      { type: "text", text: "When users return, they can check what their digital self has been doing and how their story has evolved." },
+      { type: "text", text: "Built with Three.js, Google Firebase for authentication and data storage, and AI-driven agent simulation. (Currently under development.)" }
+    ]
+  },
+
+  {
+    id: "recicam",
+    title: "ReciCam",
+    modalTitle: "ReciCam",
+    shortDesc: "An AI Camera That Turns Food into Printed Recipes",
+    cardDesc: "A camera that saves food as printed recipes.",
+    cardImage: "assets/project-cards/recicam.webp",
+
+    content: [
+      { type: "text", heading: "Overview", text: "I've always liked saving memories as physical artifacts, like Polaroids or small souvenirs. When it comes to food, though, we usually just take photos; the camera eats first. But photos only capture how something looked, not what it tasted like." },
+      { type: "text", text: "ReciCam explores a different way of preserving food memories: saving them in a form you can recreate later. The camera uses computer vision and an AI API to recognize a dish and generate a recipe, which is printed instantly as a receipt." },
+      { type: "text", text: "Built using an Arduino Uno Q, AI image recognition and computer vision, and a thermal receipt printer, the device turns a quick food photo into a physical recipe—so you can relive the meal by cooking it again." }
+    ]
   }
 ];
