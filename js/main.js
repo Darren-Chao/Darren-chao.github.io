@@ -6,18 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
   if (isMobile) {
-    // Show all text immediately, allow wrapping on mobile
     document.querySelectorAll('#typing-text .line').forEach(line => {
       line.style.opacity = '1';
       line.style.whiteSpace = 'normal';
     });
-    // Hide sprite elements
     const ws = document.getElementById('walk-sprite');
     const ds = document.getElementById('dust-sprite');
     if (ws) ws.style.display = 'none';
     if (ds) ds.style.display = 'none';
 
-    // Fix stuck hover states on touch — blur after tap
     document.addEventListener('touchend', (e) => {
       const el = e.target.closest('a, button, .nav-btn, .social-btn, .resume-btn, .project-card');
       if (el) setTimeout(() => el.blur(), 300);
@@ -153,7 +150,6 @@ document.addEventListener('DOMContentLoaded', () => {
     sprite.style.top  = top + 'px';
   });
 
-  // Idle hover → jump
   let isJumping = false;
   sprite.addEventListener('mouseenter', () => {
     if (isJumping || walkInterval) return;
@@ -267,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function startTypingSequence() {
-    if (isMobile) return; // skip on mobile
+    if (isMobile) return;
     if (!lines.length) return;
 
     const line1 = lines[0];
@@ -418,6 +414,48 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalGallery = document.getElementById('modal-gallery');
   const closeBtn     = document.getElementById('modal-close-btn');
 
+  // -----------------------------------------
+  // Helper: build the metadata bar
+  // -----------------------------------------
+  function buildMetadataBar(data) {
+    if (!data.metadata) return null;
+
+    const { role, timeline, collaborators, tools } = data.metadata;
+    const bar = document.createElement('div');
+    bar.className = 'project-metadata-bar';
+
+    const items = [
+      { label: 'Role',           value: role },
+      { label: 'Timeline',       value: timeline },
+      { label: 'Collaborators',  value: collaborators },
+      { label: 'Tools & Skills', value: tools },
+    ];
+
+    items.forEach(item => {
+      if (!item.value) return;
+      const cell = document.createElement('div');
+      cell.className = 'metadata-cell';
+
+      const label = document.createElement('div');
+      label.className = 'metadata-label';
+      label.textContent = item.label;
+
+      const valueWrap = document.createElement('div');
+      valueWrap.className = 'metadata-value';
+      item.value.split(',').forEach(part => {
+        const line = document.createElement('div');
+        line.textContent = part.trim();
+        valueWrap.appendChild(line);
+      });
+
+      cell.appendChild(label);
+      cell.appendChild(valueWrap);
+      bar.appendChild(cell);
+    });
+
+    return bar;
+  }
+
   document.querySelectorAll('.project-card').forEach(card => {
     card.addEventListener('click', () => {
       const pid  = card.getAttribute('data-id');
@@ -434,7 +472,41 @@ document.addEventListener('DOMContentLoaded', () => {
       modalGallery.innerHTML = '';
 
       if (data.content && data.content.length > 0) {
+        let firstImageInserted = false;
+        let metadataInserted   = false;
+
         data.content.forEach(block => {
+
+          // -------------------------------------------------------
+          // FEATURE 1 + 2: First image gets hero treatment,
+          // metadata bar injected immediately after it.
+          // -------------------------------------------------------
+          if (block.type === 'image' && !firstImageInserted) {
+            firstImageInserted = true;
+
+            // Full-width hero image (overrides the size attr on block 0)
+            const heroWrap = document.createElement('div');
+            heroWrap.className = 'content-image-block modal-hero-image';
+
+            const img = document.createElement('img');
+            img.src = block.src;
+            img.alt = data.title;
+            img.loading = 'lazy';
+
+            heroWrap.appendChild(img);
+            modalDesc.appendChild(heroWrap);
+
+            // Metadata bar goes right after first image
+            if (!metadataInserted) {
+              metadataInserted = true;
+              const bar = buildMetadataBar(data);
+              if (bar) modalDesc.appendChild(bar);
+            }
+
+            return; // skip normal rendering for this block
+          }
+
+          // Normal block rendering (all remaining blocks unchanged)
           if (block.type === 'text') {
             const tb = document.createElement('div'); tb.className = 'content-text-block';
             if (block.heading) { const h = document.createElement('h4'); h.textContent = block.heading; tb.appendChild(h); }
@@ -449,7 +521,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   p.appendChild(a);
                 } else { p.appendChild(document.createTextNode(part)); }
               });
-            } else { p.textContent = block.text || ''; }
+            } else { p.innerHTML = (block.text || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>'); }
             tb.appendChild(p); modalDesc.appendChild(tb);
           }
           else if (block.type === 'list') {
@@ -472,6 +544,7 @@ document.addEventListener('DOMContentLoaded', () => {
             lb.appendChild(ul); modalDesc.appendChild(lb);
           }
           else if (block.type === 'image') {
+            // Subsequent images render with their own size class normally
             const ic = document.createElement('div'); ic.className = `content-image-block ${block.size || 'medium'}`;
             const img = document.createElement('img'); img.src = block.src; img.alt = data.title; img.loading = 'lazy';
             ic.appendChild(img); modalDesc.appendChild(ic);
@@ -482,6 +555,13 @@ document.addEventListener('DOMContentLoaded', () => {
             modalDesc.appendChild(rc);
           }
         });
+
+        // Edge case: project has no image block — inject metadata at the very top
+        if (!metadataInserted) {
+          const bar = buildMetadataBar(data);
+          if (bar) modalDesc.insertBefore(bar, modalDesc.firstChild);
+        }
+
       } else {
         modalDesc.textContent = data.fullDesc || '';
         (data.galleryImages || []).forEach(src => { const img = document.createElement('img'); img.src = src; img.loading = 'lazy'; modalGallery.appendChild(img); });

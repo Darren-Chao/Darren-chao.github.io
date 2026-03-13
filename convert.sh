@@ -1,32 +1,9 @@
 #!/bin/bash
-# Run from your project root: bash convert-new-projects.sh
+# Convert idle-earth card images to .webp
+# Run from your project root
+# Requires: cwebp (install via `brew install webp`)
 
-QUALITY=90
+cwebp -q 90 "assets/project-cards/idle-earth.png" -o "assets/project-cards/idle-earth.webp"
+cwebp -q 90 "assets/project-cards/idle-earth-hover.png" -o "assets/project-cards/idle-earth-hover.webp"
 
-echo "=== Checking what's in project-images ==="
-ls assets/project-images/
-
-echo ""
-echo "=== Checking foodiecam folder ==="
-ls assets/project-images/foodiecam/ 2>/dev/null || ls assets/project-images/FoodieCam/ 2>/dev/null || echo "folder not found under either name"
-
-echo ""
-echo "=== Checking idle-earth folder ==="
-ls assets/project-images/idle-earth/ 2>/dev/null || ls assets/project-images/idle-world/ 2>/dev/null || ls assets/project-images/IdleEarth/ 2>/dev/null || echo "folder not found under any expected name"
-
-echo ""
-echo "=== Converting everything found ==="
-for folder in assets/project-images/foodiecam assets/project-images/FoodieCam assets/project-images/idle-earth assets/project-images/idle-world assets/project-images/IdleEarth; do
-  if [ -d "$folder" ]; then
-    echo "Found folder: $folder"
-    for img in "$folder"/*.png "$folder"/*.PNG "$folder"/*.jpg "$folder"/*.JPG "$folder"/*.jpeg; do
-      [ -f "$img" ] || continue
-      base="${img%.*}"
-      cwebp -q $QUALITY "$img" -o "${base}.webp"
-      echo "✅  $img → ${base}.webp"
-    done
-  fi
-done
-
-echo ""
 echo "Done!"

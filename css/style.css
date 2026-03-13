@@ -416,3 +416,87 @@ footer { text-align: center; margin-top: 80px; color: #555; padding-bottom: 40px
   .nav-btn.pressing .btn-img-press { opacity: 1 !important; z-index: 3; }
   .nav-btn.pressing .btn-img-default { opacity: 0 !important; }
 }
+
+/* =========================================
+   === MODAL: HERO IMAGE (first image) =====
+   ========================================= */
+
+/* First project image — full container width, left-aligned, no centering */
+.content-image-block.hero-image {
+  max-width: 100%;
+  margin: 0 0 0 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.content-image-block.hero-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =========================================
+   === MODAL: HERO IMAGE (first image) =====
+   ========================================= */
+
+/* First project image — full container width, left-aligned, no centering */
+.content-image-block.hero-image {
+  max-width: 100%;
+  margin: 0 0 0 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.content-image-block.hero-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+/* =========================================
+   === METADATA BAR ========================
+   ========================================= */
+
+.project-metadata-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin: 28px auto 36px auto;
+  max-width: 800px;
+}
+
+.metadata-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  padding: 0 24px 0 0;
+}
+
+.metadata-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #999;
+}
+
+.metadata-value {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  line-height: 1.4;
+}
+
+/* Mobile: 2x2 grid */
+@media (max-width: 600px) {
+  .project-metadata-bar {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 0;
+  }
+
+  .metadata-item {
+    padding-right: 0;
+  }
+}
