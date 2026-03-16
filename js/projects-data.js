@@ -5,7 +5,7 @@ const projectsData = [
     id: "jukebox",
     title: "Jukebox 2.0",
     modalTitle: "Jukebox 2.0",
-    shortDesc: "Making Music Accessible through a Color-Driven Instrument",
+    shortDesc: "How Might We Make Music Creating Easier and More Fun For Kids?",
     cardDesc: "An interactive music device that translates color input into sound.",
     cardImage: "assets/project-cards/jukebox.webp",
 
@@ -40,7 +40,7 @@ const projectsData = [
     id: "steadystix",
     title: "Steady Stix",
     modalTitle: "Steady Stix",
-    shortDesc: "Designing with Empathy for Trembling Hands",
+    shortDesc: "Designing with Empathy for my Grandfather's Trembling Hands",
     cardDesc: "A redesigned pair of chopsticks that improves stability for trembling hands.",
     cardImage: "assets/project-cards/steady-stix.webp",
 
@@ -68,54 +68,11 @@ const projectsData = [
     ]
   },
 
-  {
-    id: "dripless",
-    title: "Dripless",
-    modalTitle: "Dripless",
-    shortDesc: "Rethinking an Overlooked Everyday Moment through Iterative Design",
-    cardDesc: "A hands-free umbrella-drying system developed through rapid prototyping.",
-    cardImage: "assets/project-cards/dripless.webp",
-
-    metadata: {
-      role: "Product Developer",
-      timeline: "3 Weeks",
-      collaborators: "Solo",
-      tools: "Laser Cutter, 3D Printing, Fusion 360, User Research, Prototyping"
-    },
-
-    content: [
-      { type: "image", src: "assets/project-images/dripless/1.webp", size: "large" },
-      { type: "text", heading: "Background", text: "Over 4000 years after the invention of the umbrella, **the indoor experience of using one has barely changed**. People still carry wet umbrellas into buildings where they drip onto floors, create slipping hazards, and soak bags or furniture. Traditional umbrella stands collect water but remain messy and unreliable, while **plastic sleeves trap moisture and create environmental waste**. Neither approach meaningfully solves the problem." },
-      { type: "text", text: "DripLess rethinks this everyday moment by creating a **clean, fast, contact free way to remove water from umbrellas** at building entryways, helping keep shared spaces safer and easier to maintain." },
-      { type: "text", heading: "Need", text: "Who: **People entering universities, offices, and other high traffic public buildings** in rainy climates." },
-      { type: "text", text: "Current situation: Wet umbrellas are brought indoors, creating **mess, safety risks, and custodial burden**." },
-      { type: "text", text: "Improved situation: A **compact mechanical drying device** that quickly removes water without plastic waste, reducing friction for both users and facilities." },
-      { type: "text", heading: "View", text: "People need a **simple, intuitive way to remove water from their umbrella** immediately upon entering a building." },
-      { type: "text", heading: "Ideation and Exploration", text: "We generated **over 60 visualizations** exploring attachments, drop off stations, wall mounted systems, and standalone devices. Early exploration focused on understanding how people naturally handle umbrellas when transitioning indoors and what interactions feel effortless." },
-      { type: "images-row", images: [ "assets/project-images/dripless/2.webp", "assets/project-images/dripless/3.webp", "assets/project-images/dripless/4.webp" ] },
-      { type: "text", text: "Through **filtering**, we ruled out personal attachments, at home solutions, and wall mounted concepts that created awkward interactions. This process led us toward a **shared, ground based public device**." },
-      { type: "text", heading: "Prototyping Journey", text: "Early prototypes explored **form, height, and interaction** using rough constructions to test how users approach the device while carrying bags. We examined **different layouts, spinning concepts, and mechanical pathways** to translate foot input into rotational motion." },
-      { type: "images-row", images: [ "assets/project-images/dripless/5.webp", "assets/project-images/dripless/6.webp", "assets/project-images/dripless/7.webp" ] },
-      { type: "text", text: "As the concept matured, we developed **mechanism focused prototypes to refine gear ratios, bowl geometry, and pedal ergonomics**, ensuring reliable drying without electricity." },
-      { type: "images-row", images: [ "assets/project-images/dripless/8.webp", "assets/project-images/dripless/9.webp" ] },
-      { type: "list", heading: "Constraints", items: [ "Public space deployability with safe operation around water", "No electricity, fully mechanical operation", "Fabrication using laser cut parts, 3D printing, and off the shelf hardware", "Accommodation of varied folding umbrella sizes", "Compact footprint within entryway circulation" ] },
-      { type: "list", heading: "Specifications", items: [ "Each pedal cycle produces 3 to 6 bowl revolutions", "Removes at least 80 percent of surface water after three cycles", "Base footprint within 24 by 18 inches", "Stable containment of water during operation" ] },
-      { type: "text", heading: "Surveys, Tests, and Verification", text: "We **surveyed over 40 participants** and found that more than 85 percent own folding umbrellas, guiding our decision to design specifically for compact umbrellas." },
-      { type: "text", text: "User tests revealed that people prefer a quick drop in motion without bending or carefully positioning the umbrella, especially when carrying bags." },
-      { type: "text", text: "We **measured water retention by weighing umbrellas before and after simulated rain**, confirming that rotational drying significantly reduces dripping. Iterative testing refined bowl geometry to maximize water removal while preventing splashing." },
-      { type: "text", text: "**Final verification placed the prototype in a lobby environment** where real users interacted with it and provided feedback on usability and clarity." },
-      { type: "text", heading: "Filter \u2192 Verify \u2192 Validate", text: "Filter: Narrowed from many concepts to a shared public device based on feasibility and impact." },
-      { type: "text", text: "Verify: Tested mechanical approaches and confirmed that pedal powered rotation is safe, quiet, and effective compared to powered air systems." },
-      { type: "text", text: "Validate: User feedback confirmed that the step action feels intuitive and satisfying, and that visible mechanics help users understand how the device works." },
-      { type: "text", heading: "Final Refined Prototype", text: "DripLess uses a **pedal powered mechanism to convert vertical foot motion into controlled rotation**. A two part bowl stabilizes the umbrella while centrifugal force sheds water into a lower basin, balancing drying performance, containment, and maintainability." },
-    ]
-  },
-
-  {
+    {
     id: "costumes",
     title: "Costumes",
     modalTitle: "Costumes",
-    shortDesc: "Wearable Character Design as a Multi-Year Craft Practice",
+    shortDesc: "My Most Original Passion for Making!",
     cardDesc: "A multi-year exploration of wearable design and character expression.",
     cardImage: "assets/project-cards/costume.webp",
 
@@ -130,6 +87,8 @@ const projectsData = [
       { type: "image", src: "assets/project-images/costumes/1.webp", size: "large" },
       { type: "text", heading: "Overview", text: "This ongoing exploration investigates how different materials, patterning techniques, and fabrication workflows can be used to **bring character designs to life through wearable costumes**. Across multiple builds, the focus has been on developing technical proficiency in **translating visual concepts into physical forms** while balancing durability, comfort, and visual accuracy." },
       { type: "text", text: "Working primarily with **high density EVA foam** alongside fabric, cardboard, paints, and embedded electronics, each costume served as a **testbed for new construction methods, surface finishing techniques, and structural solutions**." },
+      { type: "text", heading: "Materials and Technical Scope", text: "Materials: **High density EVA foam, fabric, cardboard, spray paint, acrylic paint, iron powder, electronic components**, hot glue, contact cement, recycled materials" },
+      { type: "text", text: "Skills involved: **3D pattern making, foam fabrication, surface finishing, structural assembly, electronics integration**" },
       { type: "text", heading: "Sketches and Template Creation", text: "Designs typically begin as digital sketches, followed by **template development through cardboard mockups or digital patterning**. This stage focuses on **translating complex shapes into flat patterns** that can be cut, formed, and assembled." },
       { type: "images-row", images: [ "assets/project-images/costumes/2.webp", "assets/project-images/costumes/3.webp" ] },
       { type: "text", heading: "Fabrication Process", text: "EVA foam is used extensively due to its ability to be **heat formed, carved, and finished into durable lightweight structures**. Fabrication involves cutting patterns, heat shaping, laminating layers, and reinforcing stress points, often **incorporating recycled materials to reduce waste**. Surface finishing includes **priming, painting, and texture work** to achieve realistic effects." },
@@ -167,11 +126,53 @@ const projectsData = [
 
     content: [
       { type: "image", src: "assets/project-images/idle-earth/1.webp", size: "large" },
-      { type: "text", heading: "Inspiration", text: "I was inspired by the idea that people often leave little **digital artifacts online** and return to them from time to time. But most of these artifacts stay completely static. They do not change, they do not really represent a person over time, and they do not give someone much reason to keep checking back. I started wondering if **artificial intelligence could create something more alive**. Instead of leaving a static trace online, what if people could **anchor a small digital version of themselves** somewhere on the internet that **continues evolving**." },
+      { type: "text", heading: "Inspiration", text: "I was inspired by the idea that people often leave little digital artifacts online and return to them from time to time. But most of these artifacts **stay completely static**. They do not change, they do not really represent a person over time, and they do not give someone much reason to keep checking back. I started wondering if **artificial intelligence could create something more alive**. Instead of leaving a static trace online, what if people could **anchor a small digital version of themselves** somewhere on the internet that continues evolving." },
       { type: "text", heading: "Overview", text: "Idle Earth is a **web experience where users create a small AI-driven digital self** that lives on a shared virtual planet. Users define attributes like age, personality, and identity traits, and **the system generates a small agent that continues living on the platform**. It is not really a game. Instead, users create their digital self and occasionally return to see what it has been up to. Over time, **the planet slowly fills with these small autonomous digital lives**, creating a quiet world populated by many different users." },
       { type: "images-row", images: [ "assets/project-images/idle-earth/3.webp", "assets/project-images/idle-earth/4.webp" ] },
       { type: "text", heading: "Process", text: "The project combines a **custom visual environment with an AI-driven simulation layer**. I built the interactive Earth using **3D rendering and hand-drawn visual assets**, then integrated an AI system that **generates updates about each digital self over time**. Users log in, create their digital self, and can later return to view its activity log. Each visit updates the state of the world and reveals what their digital self is currently doing, while other users appear on the planet with **limited, privacy-safe summaries**." },
-      { type: "image", src: "assets/project-images/idle-earth/5.webp", size: "large" }
+    ]
+  },
+
+  {
+    id: "dripless",
+    title: "Dripless",
+    modalTitle: "Dripless",
+    shortDesc: "Rethinking an Overlooked Everyday Moment through Iterative Design",
+    cardDesc: "A hands-free umbrella-drying system developed through rapid prototyping.",
+    cardImage: "assets/project-cards/dripless.webp",
+
+    metadata: {
+      role: "Product Developer",
+      timeline: "3 Weeks",
+      collaborators: "Solo",
+      tools: "Laser Cutter, 3D Printing, Fusion 360, User Research, Prototyping"
+    },
+
+    content: [
+      { type: "image", src: "assets/project-images/dripless/1.webp", size: "large" },
+      { type: "text", heading: "Background", text: "Over 4000 years after the invention of the umbrella, **the indoor experience of using one has barely changed**. People still carry wet umbrellas into buildings where they drip onto floors, create slipping hazards, and soak bags or furniture. Traditional umbrella stands collect water but remain messy and unreliable, while **plastic sleeves trap moisture and create environmental waste**. Neither approach meaningfully solves the problem." },
+      { type: "text", text: "DripLess rethinks this everyday moment by creating a **clean, fast, contact free way to remove water from umbrellas** at building entryways, helping keep shared spaces safer and easier to maintain." },
+      { type: "text", heading: "Need", text: "Who: **People entering universities, offices, and other high traffic public buildings** in rainy climates." },
+      { type: "text", text: "Current situation: Wet umbrellas are brought indoors, creating **mess, safety risks, and custodial burden**." },
+      { type: "text", text: "Improved situation: A **compact mechanical drying device** that quickly removes water without plastic waste, reducing friction for both users and facilities." },
+      { type: "text", heading: "View", text: "People need a **simple, intuitive way to remove water from their umbrella** immediately upon entering a building." },
+      { type: "text", heading: "Ideation and Exploration", text: "We generated **over 60 visualizations** exploring attachments, drop off stations, wall mounted systems, and standalone devices. Early exploration focused on understanding **how people naturally handle umbrellas when transitioning indoors** and what interactions feel effortless." },
+      { type: "images-row", images: [ "assets/project-images/dripless/2.webp", "assets/project-images/dripless/3.webp", "assets/project-images/dripless/4.webp" ] },
+      { type: "text", text: "Through filtering, we **ruled out personal attachments, at home solutions, and wall mounted concepts** that created awkward interactions. This process led us toward a **shared, ground based public device**." },
+      { type: "text", heading: "Prototyping Journey", text: "Early prototypes explored **form, height, and interaction** using rough constructions to test how users approach the device while carrying bags. We examined **different layouts, spinning concepts, and mechanical pathways** to translate foot input into rotational motion." },
+      { type: "images-row", images: [ "assets/project-images/dripless/5.webp", "assets/project-images/dripless/6.webp", "assets/project-images/dripless/7.webp" ] },
+      { type: "text", text: "As the concept matured, we developed **mechanism focused prototypes to refine gear ratios, bowl geometry, and pedal ergonomics**, ensuring reliable drying without electricity." },
+      { type: "images-row", images: [ "assets/project-images/dripless/8.webp", "assets/project-images/dripless/9.webp" ] },
+      { type: "list", heading: "Constraints", items: [ "Public space deployability with safe operation around water", "No electricity, fully mechanical operation", "Fabrication using laser cut parts, 3D printing, and off the shelf hardware", "Accommodation of varied folding umbrella sizes", "Compact footprint within entryway circulation" ] },
+      { type: "list", heading: "Specifications", items: [ "Each pedal cycle produces 3 to 6 bowl revolutions", "Removes at least 80 percent of surface water after three cycles", "Base footprint within 24 by 18 inches", "Stable containment of water during operation" ] },
+      { type: "text", heading: "Surveys, Tests, and Verification", text: "We **surveyed over 40 participants** and found that more than 85 percent own folding umbrellas, guiding our decision to design specifically for compact umbrellas." },
+      { type: "text", text: "User tests revealed that people prefer a **quick drop in motion without bending** or carefully positioning the umbrella, especially when carrying bags." },
+      { type: "text", text: "We **measured water retention by weighing umbrellas before and after simulated rain**, confirming that rotational drying significantly reduces dripping. Iterative testing refined bowl geometry to maximize water removal while preventing splashing." },
+      { type: "text", text: "**Final verification placed the prototype in a lobby environment** where real users interacted with it and provided feedback on usability and clarity." },
+      { type: "text", heading: "Filter \u2192 Verify \u2192 Validate", text: "Filter: **Narrowed from many concepts to a shared public device** based on feasibility and impact." },
+      { type: "text", text: "Verify: Tested mechanical approaches and confirmed that **pedal powered rotation is safe, quiet, and effective** compared to powered air systems." },
+      { type: "text", text: "Validate: User feedback confirmed that the **step action feels intuitive and satisfying**, and that visible mechanics help users understand how the device works." },
+      { type: "text", heading: "Final Refined Prototype", text: "DripLess uses a **pedal powered mechanism to convert vertical foot motion into controlled rotation**. A two part bowl stabilizes the umbrella while **centrifugal force sheds water into a lower basin**, balancing drying performance, containment, and maintainability." },
     ]
   },
 
@@ -179,7 +180,7 @@ const projectsData = [
     id: "sandsiege",
     title: "Sand Siege",
     modalTitle: "Sand Siege",
-    shortDesc: "A Modular Beach Game Built for a Reimagined Day at the Shore",
+    shortDesc: "Making a Beach Day More Competitive... and Fun!",
     cardDesc: "A modular beach game that reimagines sandcastle building as collaborative play.",
     cardImage: "assets/project-cards/sand-siege.webp",
 
@@ -193,7 +194,7 @@ const projectsData = [
     content: [
       { type: "image", src: "assets/project-images/sand-siege/1.webp", size: "large" },
       { type: "text", heading: "Overview", text: "Sand Siege **reimagines sandcastle play as a creative and competitive beach game for kids**." },
-      { type: "text", text: "We began by observing that most sandcastle kits feel repetitive and prescriptive, often limiting creativity to the shapes provided by buckets and molds. Our goal was to design a system that **encourages open ended building while introducing light competition and game mechanics** to make a day at the beach more engaging." },
+      { type: "text", text: "We began by observing that most sandcastle kits feel **repetitive and prescriptive**, often limiting creativity to the shapes provided by buckets and molds. Our goal was to design a system that **encourages open ended building while introducing light competition and game mechanics** to make a day at the beach more engaging." },
       { type: "text", text: "Inspired by modular building systems and puzzle logic, we created **a game where players build sand structures, hide treasure items, and take turns attacking or building** using action prompts, blending imaginative play with simple strategy." },
       { type: "text", heading: "Gameplay and System", text: "Players construct bases using **modular sand bricks**, place treasures within their structures, and take turns rolling a die that determines actions such as building, attacking, or modifying the playfield. A **hand powered catapult** is used to launch sand and attempt to knock down opponents' structures or reveal treasures." },
       { type: "text", text: "The rules were intentionally designed to be **understandable with minimal reading** so children can quickly start playing." },
@@ -201,8 +202,8 @@ const projectsData = [
       { type: "text", text: "A standout feature is the catapult, which **only functions when anchored into sand**. On hard surfaces it cannot stand, reinforcing that the toy belongs to the beach context. The launching action is **powered purely by children's hands** rather than springs or rubber bands, keeping forces gentle and safe." },
       { type: "text", heading: "Prototyping the Bricks", text: "We iterated extensively on the modular building blocks, **starting with cardboard prototypes** to explore scale, ergonomics, and play patterns. This helped us quickly test how children might stack, carry, and connect pieces." },
       { type: "images-row", images: [ "assets/project-images/sand-siege/2.webp", "assets/project-images/sand-siege/3.webp", "assets/project-images/sand-siege/4.webp", "assets/project-images/sand-siege/5.webp" ] },
-      { type: "text", text: "We explored connection strategies including magnets, which were abandoned due to corrosion risks near saltwater. The design shifted toward **pressure fit connections**, leading to multiple rounds of 3D modeling and printing to refine tolerances." },
-      { type: "text", heading: "Testing and Iteration", text: "**Field testing at the beach** revealed critical insights. Early versions included interior bumps that trapped sand and prevented smooth release, so the geometry was redesigned to allow clean packing and dumping. We repeatedly tested fit, durability, and usability in **real sand conditions** until the system felt reliable and satisfying." },
+      { type: "text", text: "We explored connection strategies including magnets, which were **abandoned due to corrosion risks near saltwater**. The design shifted toward **pressure fit connections**, leading to multiple rounds of 3D modeling and printing to refine tolerances." },
+      { type: "text", heading: "Testing and Iteration", text: "**Field testing at the beach** revealed critical insights. Early versions included **interior bumps that trapped sand** and prevented smooth release, so the geometry was redesigned to allow clean packing and dumping. We repeatedly tested fit, durability, and usability in **real sand conditions** until the system felt reliable and satisfying." },
       { type: "images-row", images: [ "assets/project-images/sand-siege/6.webp", "assets/project-images/sand-siege/7.webp", "assets/project-images/sand-siege/8.webp" ] },
       { type: "text", heading: "Outcome", text: "The final system is a playful, modular game that **transforms sandcastle building into a social experience** that blends creativity, strategy, and physical play. By grounding the mechanics in the **natural affordances of sand and children's intuition**, Sand Siege creates a flexible play environment that feels both structured and open ended." },
     ]
@@ -225,14 +226,14 @@ const projectsData = [
 
     content: [
       { type: "image", src: "assets/project-images/folded-reality/1.webp", size: "large" },
-      { type: "text", heading: "Overview", text: "Folded Reality is an exploration of **transforming flat materials into an immersive mechanical world** through **pop up structures** and digital fabrication. The project investigates how **careful folding, cutting, and assembly can create a sense of discovery**, inviting the viewer to open the book as if stepping through a doorway into another dimension. Combining hand craft with **laser cutting across paper, wood, and acrylic**, the final piece presents a portal like scene where a creature emerges from within, blurring the boundary between page and environment." },
+      { type: "text", heading: "Overview", text: "Folded Reality is an exploration of **transforming flat materials into an immersive mechanical world** through pop up structures and digital fabrication. The project investigates how **careful folding, cutting, and assembly can create a sense of discovery**, inviting the viewer to open the book as if stepping through a doorway into another dimension. Combining hand craft with **laser cutting across paper, wood, and acrylic**, the final piece presents a portal like scene where a creature emerges from within, blurring the boundary between page and environment." },
       { type: "text", heading: "Intent", text: "I wanted the experience of opening the book to feel **cinematic and slightly magical**, as if uncovering a hidden world tucked inside an ordinary object." },
       { type: "text", heading: "Origins \u2014 Interest in Pop Up Structures", text: "This project grew out of an early fascination with pop up books and **the intricate engineering behind folds, joints, and motion**. Through initial exploration, I studied how simple cuts and hinges could create **volume, movement, and surprise**. These experiments helped me understand the **mechanical logic behind transforming a flat sheet into a dynamic spatial experience**." },
       { type: "images-row", images: [ "assets/project-images/folded-reality/2.webp", "assets/project-images/folded-reality/3.webp" ] },
       { type: "text", heading: "Workflow \u2014 Sketching Through Making", text: "The process began with **hands on experimentation**. I sketched by cutting paper directly, playing with random shapes, folds, and connections to see how forms behaved in motion. This **tactile approach allowed unexpected ideas to emerge quickly**." },
       { type: "text", text: "Once a promising structure appeared, I carefully disassembled it, documented the parts, and **translated them into precise templates in Adobe Illustrator**. This step allowed me to understand the geometry behind each fold and prepare for digital fabrication." },
       { type: "images-row", images: [ "assets/project-images/folded-reality/4.webp", "assets/project-images/folded-reality/5.webp" ] },
-      { type: "text", heading: "Iteration \u2014 Laser Cut Prototyping", text: "Using Illustrator files, I **laser cut paper prototypes** and repeatedly assembled them to test **alignment, motion, and durability**. Multiple iterations were produced to **refine proportions, improve fold behavior, and ensure the mechanism opened smoothly**." },
+      { type: "text", heading: "Iteration \u2014 Laser Cut Prototyping", text: "Using Illustrator files, I **laser cut paper prototypes and repeatedly assembled them** to test alignment, motion, and durability. Multiple iterations were produced to **refine proportions, improve fold behavior, and ensure the mechanism opened smoothly**." },
       { type: "text", text: "This stage was critical in **bridging intuition with precision**, allowing rapid testing while maintaining accuracy." },
       { type: "images-row", images: [ "assets/project-images/folded-reality/6.webp", "assets/project-images/folded-reality/7.webp", "assets/project-images/folded-reality/8.webp" ] },
       { type: "text", heading: "Final Fabrication \u2014 Templates to Object", text: "After refining the mechanism, I hand illustrated the visual elements, printed them, and **laser cut the final components**. The book structure itself was **fabricated from laser cut wood**, with hinges installed so the object opens like a door, reinforcing the idea of entering another space." },
@@ -261,7 +262,8 @@ const projectsData = [
 
     content: [
       { type: "image", src: "assets/project-images/freelens/1.webp", size: "large" },
-      { type: "text", heading: "Overview", text: "FreeLens is a **concept extension to Expensify** designed to help **freelancers track expenses at the project level, reduce administrative burden, and avoid missed tax deductions**. The project involved designing a streamlined experience that allows users to capture receipts, automatically organize spending, and separate personal and business finances, culminating in an **investment style pitch** demonstrating product strategy, market opportunity, and user value." },
+      { type: "text", heading: "Overview", text: "FreeLens is a **concept extension to Expensify** designed to help freelancers **track expenses at the project level, reduce administrative burden, and avoid missed tax deductions**. The project involved designing a streamlined experience that allows users to capture receipts, automatically organize spending, and separate personal and business finances, culminating in an **investment style pitch** demonstrating product strategy, market opportunity, and user value." },
+      { type: "text", heading: "My Role", text: "Collaborated on **user research, feature definition, workflow design, and high fidelity interface development in Figma**. Contributed to shaping the product direction and refining the experience through iterative design." },
       { type: "text", heading: "Problem Context \u2014 Why This Matters", text: "Freelancing is rapidly growing, yet **financial tooling has not kept pace**." },
       { type: "list", items: [ "~70.4 million freelancers in the U.S. today, projected to exceed 90 million by 2028", "Freelancers spend roughly 10\u201320% of their time on administrative tasks", "About 60% report taxes and financial management as a top struggle", "On average, freelancers overpay taxes by ~21% due to missed deductions" ] },
       { type: "text", text: "Existing tools create friction:" },
@@ -286,7 +288,7 @@ const projectsData = [
     id: "foodiecam",
     title: "FoodieCam",
     modalTitle: "FoodieCam",
-    shortDesc: "An AI Camera That Turns Food into Printed Recipes",
+    shortDesc: "The Camera Eats First? Saving Memories as Recipes!",
     cardDesc: "A camera that saves food as printed recipes.",
     cardImage: "assets/project-cards/foodiecam.webp",
 
@@ -302,6 +304,27 @@ const projectsData = [
       { type: "text", heading: "Overview", text: "I've always liked saving memories as physical artifacts, like Polaroids or small souvenirs. When it comes to food, though, we usually just take photos; **the camera eats first**. But photos only capture how something looked, **not what it tasted like**." },
       { type: "text", text: "FoodieCam explores a different way of preserving food memories: **saving them in a form you can recreate later**. The camera uses **computer vision and an AI API** to recognize a dish and generate a recipe, which is **printed instantly as a receipt**." },
       { type: "text", text: "Built using an **Arduino Uno Q, AI image recognition and computer vision, and a thermal receipt printer**, the device turns a quick food photo into a physical recipe — so you can **relive the meal by cooking it again**." }
+    ]
+  },
+
+  {
+    id: "node",
+    title: "NODE",
+    modalTitle: "NODE",
+    shortDesc: "How Can We Bridge the Gap Between Design and Engineering?",
+    cardDesc: "Learning kit teaching design and engineering.",
+    cardImage: "assets/project-cards/node.webp",
+
+    metadata: {
+      role: "Lead Product Designer, Hardware & Software Specialist",
+      timeline: "Ongoing",
+      collaborators: "Jialong Lai, Ruijia Diao",
+      tools: "Arduino, 3D Printing, Laser Cutting, User Research, Physical Fabrication"
+    },
+
+    content: [
+      { type: "image", src: "assets/project-images/node/1.webp", size: "large" },
+      { type: "text", heading: "Overview", text: "Ongoing Project, description coming soon." }
     ]
   },
 ];
