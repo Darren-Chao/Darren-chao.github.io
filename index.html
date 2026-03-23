@@ -52,15 +52,15 @@
           <img src="assets/buttons/projects-hover.webp" class="btn-img-hover" alt="Projects Hover">
           <img src="assets/buttons/projects-press.webp" class="btn-img-press" alt="Projects Press">
         </button>
+        <button class="nav-btn" data-target="crafts" aria-label="Crafts">
+          <img src="assets/buttons/crafts.webp" class="btn-img-default" alt="Crafts">
+          <img src="assets/buttons/crafts-hover.webp" class="btn-img-hover" alt="Crafts Hover">
+          <img src="assets/buttons/crafts-press.webp" class="btn-img-press" alt="Crafts Press">
+        </button>
         <button class="nav-btn" data-target="about" aria-label="About Me">
           <img src="assets/buttons/about-me.webp" class="btn-img-default" alt="About Me">
           <img src="assets/buttons/about-me-hover.webp" class="btn-img-hover" alt="About Me Hover">
           <img src="assets/buttons/about-me-press.webp" class="btn-img-press" alt="About Me Press">
-        </button>
-        <button class="nav-btn" data-target="illustrations" aria-label="Assorted Illustrations">
-          <img src="assets/buttons/assorted-illustrations.webp" class="btn-img-default" alt="Illustrations">
-          <img src="assets/buttons/assorted-illustrations-hover.webp" class="btn-img-hover" alt="Illustrations Hover">
-          <img src="assets/buttons/assorted-illustrations-press.webp" class="btn-img-press" alt="Illustrations Press">
         </button>
       </div>
     </header>
@@ -80,6 +80,15 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="projects-cta">
+          <span>Also check out my other</span>
+          <a href="#" class="cta-link cta-btn" data-target="crafts" aria-label="Crafts">
+            <img src="assets/buttons/crafts.webp" class="btn-img-default" alt="Crafts">
+            <img src="assets/buttons/crafts-hover.webp" class="btn-img-hover" alt="Crafts Hover">
+            <img src="assets/buttons/crafts-press.webp" class="btn-img-press" alt="Crafts Press">
+          </a>
+          <span>!</span>
         </div>
         <div class="resume-container">
           <a href="assets/resume.pdf" target="_blank" class="resume-btn" aria-label="Resume">
@@ -125,10 +134,22 @@
         </div>
       </section>
 
-      <section id="illustrations" class="tab-section">
-        <h2>Assorted Illustrations (Including everything on this website!)</h2>
-        <div class="illustrations-grid">
-          <p>Loading...</p>
+      <section id="crafts" class="tab-section">
+        <h2 class="crafts-hero">I've always been into making <a href="#dioramas-and-stuff-section" class="craft-link">dioramas and stuff</a>, I just started my <a href="#ceramics-section" class="craft-link">ceramics</a> journy, and of course I <a href="#draw-section" class="craft-link">draw</a>!</h2>
+        
+        <div id="dioramas-and-stuff-section" class="craft-category">
+          <h3 class="category-title">Dioramas and Stuff</h3>
+          <div class="illustrations-grid"></div>
+        </div>
+
+        <div id="ceramics-section" class="craft-category">
+          <h3 class="category-title">Ceramics</h3>
+          <div class="illustrations-grid"></div>
+        </div>
+
+        <div id="draw-section" class="craft-category">
+          <h3 class="category-title">Draw</h3>
+          <div class="illustrations-grid"></div>
         </div>
       </section>
 

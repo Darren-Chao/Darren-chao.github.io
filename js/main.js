@@ -603,10 +603,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // =========================================
-  // === 7. ILLUSTRATIONS & LIGHTBOX =========
+  // === 7. CRAFTS GALLERY & LIGHTBOX ========
   // =========================================
-  const galleryGrid = document.querySelector('.illustrations-grid');
-  if (galleryGrid) {
+  const craftsSection = document.getElementById('crafts');
+  if (craftsSection) {
     const lightbox    = document.createElement('div'); lightbox.className = 'illustration-lightbox';
     const lightboxImg = document.createElement('img'); lightboxImg.className = 'lightbox-img';
     const backBtn     = document.createElement('button'); backBtn.className = 'lightbox-back-btn'; backBtn.textContent = '← Back';
@@ -621,16 +621,81 @@ document.addEventListener('DOMContentLoaded', () => {
     backBtn.addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
 
-    galleryGrid.innerHTML = '';
-    for (let i = 1; i <= 14; i++) {
-      const img = document.createElement('img');
-      img.src = `assets/assorted-illustrations/${i}.webp`;
-      img.loading = 'lazy';
-      img.style.opacity   = '0';
-      img.style.animation = `fadeIn 0.5s ease forwards ${i * 0.1}s`;
-      img.addEventListener('click', () => { lightboxImg.src = img.src; lightbox.classList.add('active'); document.body.style.overflow = 'hidden'; });
-      galleryGrid.appendChild(img);
-    }
+    // Smooth scroll for hero links
+    craftsSection.querySelectorAll('.craft-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Helper: load images from a specific folder into a grid
+    const loadCategory = (folder, targetGridId, fileList) => {
+      const grid = document.getElementById(targetGridId)?.querySelector('.illustrations-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      fileList.forEach((file, index) => {
+        const img = document.createElement('img');
+        img.src = `assets/${folder}/${file}`;
+        img.loading = 'lazy';
+        img.style.opacity   = '0';
+        img.style.animation = `fadeIn 0.5s ease forwards ${index * 0.1}s`;
+        img.addEventListener('click', () => {
+          lightboxImg.src = img.src;
+          lightbox.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+        grid.appendChild(img);
+      });
+    };
+
+    // Dioramas and Stuff (combined from assets/crafts)
+    const dioramaAndStuffFiles = [
+      'IMG_0828 2.webp', 'IMG_0829 2.webp', 'IMG_0830 2.webp', 'IMG_0831 2.webp',
+      'IMG_0832 2.webp', 'IMG_0833 2.webp', 'IMG_0834 2.webp', 'IMG_0835 2.webp',
+      'IMG_0836 2.webp', 'IMG_0837 2.webp', 'IMG_0838 2.webp', 'IMG_0839 2.webp',
+      'IMG_0842 2.webp', 'IMG_1430.webp', 'IMG_1831.webp', 'IMG_2033.webp',
+      'IMG_2183.webp', 'IMG_2785.webp', 'IMG_5548.webp', 'IMG_5650.webp',
+      'IMG_6097.webp', 'IMG_7004.webp', 'IMG_7009.webp'
+    ];
+    loadCategory('crafts', 'dioramas-and-stuff-section', dioramaAndStuffFiles);
+
+    // Ceramics
+    const ceramicsFiles = [
+      'Darren-Chao greenware 1.png .webp', 'Darren-Chao greenware 2.webp', 'Darren-Chao greenware 3.webp',
+      'Darren-Chao handbuilding wood fired.webp', 'Darren-Chao reduction 1.webp', 'Darren-Chao reduction 2.webp',
+      'Darren-Chao reduction 3.webp', 'Darren-Chao reduction 4.webp', 'Darren-Chao reduction 5.webp',
+      'Darren-Chao reduction 6.webp', 'Darren-Chao reduction 7.webp', 'Darren-Chao woodfired 1.webp',
+      'Darren-Chao woodfired 2.webp', 'Darren-Chao woodfired 3.webp', 'Darren-Chao woodfired 4.webp',
+      'Darren-Chao woodfired 5.webp', 'IMG_0698 3.webp', 'IMG_0699 3.webp', 'IMG_0827 2.webp'
+    ];
+    loadCategory('ceramics', 'ceramics-section', ceramicsFiles);
+
+    // Draw
+    const drawFiles = [
+      '1.webp', '10.webp', '11.webp', '12.webp', '13.webp', '14.webp',
+      '2.webp', '3.webp', '4.webp', '5.webp', '6.webp', '7.webp', '8.webp', '9.webp',
+      'E98A8A96-46E7-4F36-A71A-54493E62149B.webp', 'IMG_0332.webp', 'IMG_0333.webp',
+      'IMG_0840 2.webp', 'IMG_5654.webp'
+    ];
+    loadCategory('assorted-illustrations', 'draw-section', drawFiles);
+
+    // CTA Listener for Projects -> Crafts
+    document.querySelectorAll('.cta-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = link.getAttribute('data-target');
+        const navBtn = document.querySelector(`.nav-btn[data-target="${target}"]`);
+        if (navBtn) {
+          navBtn.click();
+          window.scrollTo(0, 0);
+        }
+      });
+    });
   }
 
 
