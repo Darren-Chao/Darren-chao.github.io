@@ -406,6 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.transform = 'none';
       card.style.translate = 'none';
       card.style.opacity = '0';
+      card.style.pointerEvents = 'none';
     });
 
     if (window._dealerScrollListener) {
@@ -499,6 +500,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => { 
                   card.style.transform = ''; 
                   card.style.translate = '';
+                  card.style.pointerEvents = '';
                   
                   // Clean up listener after the very last card lands
                   if (arrayIndex === deckData.length - 1) {
