@@ -379,22 +379,138 @@ document.addEventListener('DOMContentLoaded', () => {
   function runDealingAnimation() {
     const cards = document.querySelectorAll('.project-card');
     if (!cards.length) return;
-    cards.forEach(card => {
-      const rot = Math.random() * 20 - 10;
-      card.style.transition = 'none';
-      card.style.transform  = `translate(0px,100px) rotateZ(${rot}deg) scale(0.5)`;
-      card.style.opacity    = '0';
-    });
-    setTimeout(() => {
-      cards.forEach((card, i) => {
-        setTimeout(() => {
-          card.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
-          card.style.transform  = 'translate(0,0) rotateZ(0deg) scale(1)';
-          card.style.opacity    = '1';
-          setTimeout(() => { card.style.transform = ''; }, 650);
-        }, i * 100);
+
+    if (isMobile) {
+      cards.forEach(card => {
+        const rot = Math.random() * 20 - 10;
+        card.style.transition = 'none';
+        card.style.transform  = `translate(0px,100px) rotateZ(${rot}deg) scale(0.5)`;
+        card.style.opacity    = '0';
       });
-    }, 100);
+      setTimeout(() => {
+        cards.forEach((card, i) => {
+          setTimeout(() => {
+            card.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            card.style.transform  = 'translate(0,0) rotateZ(0deg) scale(1)';
+            card.style.opacity    = '1';
+            setTimeout(() => { card.style.transform = ''; }, 650);
+          }, i * 100);
+        });
+      }, 100);
+      return;
+    }
+
+    // Desktop Shuffling Animation
+    cards.forEach(card => {
+      card.style.transition = 'none';
+      card.style.transform = 'none';
+      card.style.translate = 'none';
+      card.style.opacity = '0';
+    });
+
+    if (window._dealerScrollListener) {
+      window.removeEventListener('scroll', window._dealerScrollListener);
+    }
+    const initialScrollY = window.scrollY;
+    document.documentElement.style.setProperty('--scroll-comp-y', '0px');
+    window._dealerScrollListener = () => {
+      document.documentElement.style.setProperty('--scroll-comp-y', `${window.scrollY - initialScrollY}px`);
+    };
+    window.addEventListener('scroll', window._dealerScrollListener, { passive: true });
+
+    // Force layout to get accurate grid positions
+    void cards[0].offsetWidth;
+
+    const deckData = Array.from(cards).map((card, i) => {
+      const rect = card.getBoundingClientRect();
+      return { card, rect, initialIndex: i };
+    });
+
+    const centerX = window.innerWidth / 2;
+
+    // Gather cards into a stack at the bottom of the screen
+    deckData.forEach(({ card, rect, initialIndex }) => {
+      const dx = centerX - (rect.left + rect.width / 2);
+      // Place center of card so that top 2/3 is visible
+      const targetCenterY = window.innerHeight - (rect.height / 6);
+      const dy = targetCenterY - (rect.top + rect.height / 2);
+      const rot = Math.random() * 20 - 10;
+      card.style.transform = `translate(${dx}px, ${dy}px) rotateZ(${rot}deg)`;
+      card.style.translate = `0px var(--scroll-comp-y, 0px)`;
+      card.style.zIndex = cards.length - initialIndex;
+    });
+
+    // Fade in the center stack and start shuffling
+    setTimeout(() => {
+      deckData.forEach(({ card }) => {
+        card.style.transition = 'opacity 0.3s ease';
+        card.style.opacity = '1';
+      });
+
+      let shuffleCount = 0;
+      const maxShuffles = 6;
+
+      const shuffleInterval = setInterval(() => {
+        shuffleCount++;
+        deckData.forEach(({ card, rect, initialIndex }) => {
+          const dx = centerX - (rect.left + rect.width / 2);
+          const targetCenterY = window.innerHeight - (rect.height / 6);
+          const dy = targetCenterY - (rect.top + rect.height / 2);
+          
+          let offsetX, offsetY, rot;
+          if (shuffleCount === maxShuffles) {
+            // Square up the deck for the final deal
+            offsetX = Math.random() * 10 - 5;
+            offsetY = Math.random() * 10 - 5;
+            rot = Math.random() * 6 - 3;
+          } else {
+            // Split out and pull in to simulate shuffling
+            const isOut = shuffleCount % 2 === 1;
+            const side = initialIndex % 2 === 0 ? -1 : 1;
+            const spread = isOut ? 80 : 10;
+            
+            offsetX = (side * spread) + (Math.random() * 30 - 15);
+            offsetY = Math.random() * 30 - 15;
+            rot = (side * (isOut ? 15 : 5)) + (Math.random() * 20 - 10);
+          }
+          
+          card.style.transition = 'transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+          // POV style, keep the scale at 1
+          card.style.transform = `translate(${dx + offsetX}px, ${dy + offsetY}px) rotateZ(${rot}deg)`;
+          
+          // Randomize z-index occasionally
+          if (shuffleCount % 2 === 0 && Math.random() > 0.5) {
+            card.style.zIndex = Math.floor(Math.random() * cards.length);
+          }
+        });
+
+        if (shuffleCount >= maxShuffles) {
+          clearInterval(shuffleInterval);
+          
+          // Deal out to grid positions
+          setTimeout(() => {
+            deckData.forEach(({ card, initialIndex }, arrayIndex) => {
+              setTimeout(() => {
+                card.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), translate 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease';
+                card.style.transform = 'translate(0px, 0px) rotateZ(0deg)';
+                card.style.translate = '0px 0px';
+                card.style.zIndex = '';
+                
+                setTimeout(() => { 
+                  card.style.transform = ''; 
+                  card.style.translate = '';
+                  
+                  // Clean up listener after the very last card lands
+                  if (arrayIndex === deckData.length - 1) {
+                    window.removeEventListener('scroll', window._dealerScrollListener);
+                  }
+                }, 650);
+              }, initialIndex * 120);
+            });
+          }, 300);
+        }
+      }, 160);
+    }, 50);
   }
 
   runDealingAnimation();
