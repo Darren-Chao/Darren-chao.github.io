@@ -376,7 +376,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  let hasDealt = false;
   function runDealingAnimation() {
+    if (hasDealt) return;
+    hasDealt = true;
+    
     const cards = document.querySelectorAll('.project-card');
     if (!cards.length) return;
 
