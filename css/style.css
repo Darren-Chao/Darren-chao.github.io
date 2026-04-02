@@ -322,9 +322,6 @@ h1, h2, h3 { transform: rotate(-0.5deg); color: #1a1a1a; }
 }
 .craft-category {
   margin-top: 50px;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 0.8s ease forwards;
 }
 .category-title {
   font-family: 'DarrenHand', sans-serif;
@@ -534,6 +531,25 @@ footer { text-align: center; margin-top: 80px; color: #555; padding-bottom: 40px
   .metadata-item {
     padding-right: 0;
   }
+}
+
+/* === EXPERIENCES SECTION === */
+.under-construction {
+  text-align: center;
+  padding: 100px 20px;
+}
+.construction-emoji {
+  font-size: 4rem;
+  margin-bottom: 16px;
+}
+.under-construction h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+.under-construction p {
+  font-size: 1.2rem;
+  color: #777;
+  font-family: 'DarrenHand', sans-serif;
 }
 
 /* === PROJECTS CTA === */

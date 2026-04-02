@@ -338,11 +338,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const sections = document.querySelectorAll('.tab-section');
 
   navBtns.forEach(btn => {
+    btn.addEventListener('mousedown', () => btn.classList.add('pressing'));
+    btn.addEventListener('mouseup',   () => btn.classList.remove('pressing'));
+    btn.addEventListener('mouseleave',() => btn.classList.remove('pressing'));
+
     btn.addEventListener('click', () => {
       const targetId      = btn.getAttribute('data-target');
       const alreadyActive = btn.classList.contains('active');
-      btn.classList.add('pressing');
-      setTimeout(() => btn.classList.remove('pressing'), 200);
       navBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       sections.forEach(sec => sec.classList.remove('active'));
@@ -760,12 +762,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const grid = document.getElementById(targetGridId)?.querySelector('.illustrations-grid');
       if (!grid) return;
       grid.innerHTML = '';
-      fileList.forEach((file, index) => {
+      fileList.forEach((file) => {
         const img = document.createElement('img');
         img.src = `assets/${folder}/${file}`;
-        img.loading = 'lazy';
-        img.style.opacity   = '0';
-        img.style.animation = `fadeIn 0.5s ease forwards ${index * 0.1}s`;
         img.addEventListener('click', () => {
           lightboxImg.src = img.src;
           lightbox.classList.add('active');
@@ -805,6 +804,31 @@ document.addEventListener('DOMContentLoaded', () => {
       'IMG_0840 2.webp', 'IMG_5654.webp'
     ];
     loadCategory('assorted-illustrations', 'draw-section', drawFiles);
+
+    // -----------------------------------------
+    // Preload all crafts images in the background
+    // so they're already cached when the user opens the tab.
+    // We stagger with requestIdleCallback (or setTimeout fallback)
+    // to avoid blocking the main thread during the initial page load.
+    // -----------------------------------------
+    const preloadQueue = [
+      ...dioramaAndStuffFiles.map(f => `assets/crafts/${f}`),
+      ...ceramicsFiles.map(f => `assets/ceramics/${f}`),
+      ...drawFiles.map(f => `assets/assorted-illustrations/${f}`),
+    ];
+
+    const runPreload = () => {
+      preloadQueue.forEach(src => {
+        const img = new Image();
+        img.src = src;
+      });
+    };
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(runPreload, { timeout: 3000 });
+    } else {
+      setTimeout(runPreload, 1500);
+    }
 
     // CTA Listener for Projects -> Crafts
     document.querySelectorAll('.cta-link').forEach(link => {
