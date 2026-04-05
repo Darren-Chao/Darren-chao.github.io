@@ -149,7 +149,7 @@ const projectsData = [
     metadata: {
       role: "Product Developer",
       timeline: "3 Weeks",
-      collaborators: "Solo",
+      collaborators: "Angela Zhang",
       tools: "Laser Cutter, 3D Printing, Fusion 360, User Research, Prototyping"
     },
 
