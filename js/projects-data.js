@@ -124,8 +124,13 @@ const projectsData = [
       tools: "Three.js, Google Firebase, AI Agent Simulation, JavaScript"
     },
 
+    liveSite: "https://idle-earth-601582214608.us-west1.run.app/",
     content: [
-      { type: "image", src: "assets/project-images/idle-earth/1.webp", size: "large" },
+      { 
+        type: "video", 
+        webm: "assets/project-images/idle-earth/video.webm", 
+        mp4: "assets/project-images/idle-earth/video.mp4" 
+      },
       { type: "text", heading: "Inspiration", text: "I was inspired by the idea that people often leave little digital artifacts online and return to them from time to time. But most of these artifacts **stay completely static**. They do not change, they do not really represent a person over time, and they do not give someone much reason to keep checking back. I started wondering if **artificial intelligence could create something more alive**. Instead of leaving a static trace online, what if people could **anchor a small digital version of themselves** somewhere on the internet that continues evolving." },
       { type: "text", heading: "Overview", text: "Idle Earth is a **web experience where users create a small AI-driven digital self** that lives on a shared virtual planet. Users define attributes like age, personality, and identity traits, and **the system generates a small agent that continues living on the platform**. It is not really a game. Instead, users create their digital self and occasionally return to see what it has been up to. Over time, **the planet slowly fills with these small autonomous digital lives**, creating a quiet world populated by many different users." },
       { type: "images-row", images: [ "assets/project-images/idle-earth/3.webp", "assets/project-images/idle-earth/4.webp" ] },
@@ -324,7 +329,11 @@ const projectsData = [
 
     content: [
       { type: "image", src: "assets/project-images/node/1.webp", size: "large" },
-      { type: "text", heading: "Overview", text: "Ongoing Project, description coming soon." }
+      { type: "text", heading: "Problem & Background", text: "Design and engineering are often taught separately, especially in middle school education. While students may learn coding through robotics kits or creativity through craft, they rarely experience how these disciplines come together in real-world problem solving. Existing tools tend to focus on either programming or building, limiting opportunities for integrated learning." },
+      { type: "text", heading: "Who It’s For", text: "NODE is designed for middle school students (ages 11–14) in both classroom and at-home environments. It also supports educators looking for structured, hands-on STEAM tools, and parents seeking engaging, creative learning experiences beyond screens." },
+      { type: "text", heading: "Our Solution", text: "NODE is a modular design engineering kit that combines cardboard construction with simple programmable electronics. Students build physical structures using accessible materials, then control them through a beginner-friendly coding system. A guided booklet scaffolds the experience from step-by-step building to open-ended invention, encouraging experimentation and creativity." },
+      { type: "image", src: "assets/project-images/node/2.webp", size: "medium" },
+      { type: "images-row", images: [ "assets/project-images/node/3.webp", "assets/project-images/node/4.webp" ] }
     ]
   },
 ];

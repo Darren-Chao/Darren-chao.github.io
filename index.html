@@ -9,6 +9,7 @@
   <meta property="og:title" content="Darren Chao — Portfolio">
   <meta property="og:description" content="Darren Chao is a design engineer, software engineer, and artist. Explore his projects in design, software, and interactive experiences.">
   <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -56,6 +57,11 @@
           <img src="assets/buttons/crafts.webp" class="btn-img-default" alt="Crafts">
           <img src="assets/buttons/crafts-hover.webp" class="btn-img-hover" alt="Crafts Hover">
           <img src="assets/buttons/crafts-press.webp" class="btn-img-press" alt="Crafts Press">
+        </button>
+        <button class="nav-btn" data-target="experience" aria-label="Experience">
+          <img src="assets/buttons/experiences.webp" class="btn-img-default" alt="Experience">
+          <img src="assets/buttons/experiences-hover.webp" class="btn-img-hover" alt="Experience Hover">
+          <img src="assets/buttons/experiences-press.webp" class="btn-img-press" alt="Experience Press">
         </button>
         <button class="nav-btn" data-target="about" aria-label="About Me">
           <img src="assets/buttons/about-me.webp" class="btn-img-default" alt="About Me">
@@ -134,6 +140,10 @@
         </div>
       </section>
 
+      <section id="experience" class="tab-section">
+        <div class="experience-folder-container"></div>
+      </section>
+
       <section id="crafts" class="tab-section">
         <h2 class="crafts-hero">I've always been into making <a href="#dioramas-and-stuff-section" class="craft-link">dioramas and stuff</a>, I just started my <a href="#ceramics-section" class="craft-link">ceramics</a> journy, and of course I <a href="#draw-section" class="craft-link">draw</a>!</h2>
         
@@ -161,6 +171,7 @@
   </div>
 
   <script src="js/projects-data.js"></script>
+  <script src="js/experience-data.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

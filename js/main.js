@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const cursorArrow = document.getElementById('cursor-arrow');
   const cursorPoint = document.getElementById('cursor-point');
   const cursorClick = document.getElementById('cursor-click');
-  const follower    = document.getElementById('cursor-follower');
+  const follower = document.getElementById('cursor-follower');
   let isClicking = false;
 
   function setCursorState(state) {
@@ -43,24 +43,24 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   document.addEventListener('mousemove', (e) => {
     mainCursor.style.opacity = 1;
-    mainCursor.style.top  = e.clientY + 'px';
+    mainCursor.style.top = e.clientY + 'px';
     mainCursor.style.left = e.clientX + 'px';
     if (follower) { follower.style.top = e.clientY + 'px'; follower.style.left = e.clientX + 'px'; }
   });
   document.addEventListener('mouseover', (e) => {
     const t = e.target;
     const clickable = t.closest('a') || t.closest('button') || t.closest('.social-btn') ||
-                      t.closest('.nav-btn') || t.closest('.download-btn') ||
-                      t.closest('.modal-close-btn') || t.closest('.lightbox-back-btn') ||
-                      t.closest('.illustrations-grid img');
+      t.closest('.nav-btn') || t.closest('.download-btn') ||
+      t.closest('.modal-close-btn') || t.closest('.lightbox-back-btn') ||
+      t.closest('.illustrations-grid img') || t.closest('.exp-tab');  // ← add this
     setCursorState(clickable ? 'point' : 'arrow');
   });
   function isInteractive(el) {
     return el.closest('a') || el.closest('button') || el.closest('.social-btn') ||
-           el.closest('.nav-btn') || el.closest('.download-btn') ||
-           el.closest('.modal-close-btn') || el.closest('.lightbox-back-btn') ||
-           el.closest('.illustrations-grid img');
-  }
+      el.closest('.nav-btn') || el.closest('.download-btn') ||
+      el.closest('.modal-close-btn') || el.closest('.lightbox-back-btn') ||
+      el.closest('.illustrations-grid img') || el.closest('.exp-tab');  // ← add this
+  } 
   document.addEventListener('mousedown', (e) => {
     if (isInteractive(e.target)) {
       isClicking = true;
@@ -91,12 +91,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const SPRITES = {
     walk1: 'assets/sprite/walk1.webp',
     walk2: 'assets/sprite/walk2.webp',
-    idle:  'assets/sprite/idle.webp',
-    jump:  'assets/sprite/jump.webp',
+    idle: 'assets/sprite/idle.webp',
+    jump: 'assets/sprite/jump.webp',
   };
 
   const WALK_SPEED_NORMAL = 160;
-  const TEXT_GAP          = 18;
+  const TEXT_GAP = 18;
 
   let walkFrame = 0, walkInterval = null;
   let idleLineEl = null;
@@ -117,15 +117,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function getSpriteTop(lineEl) {
-    const lineTop    = lineEl.offsetTop;
+    const lineTop = lineEl.offsetTop;
     const lineHeight = lineEl.offsetHeight;
-    const baseline   = lineTop + lineHeight * 0.82;
+    const baseline = lineTop + lineHeight * 0.82;
     return baseline - sprite.offsetHeight;
   }
 
   function placeSprite(x, lineEl) {
     sprite.style.left = x + 'px';
-    sprite.style.top  = getSpriteTop(lineEl) + 'px';
+    sprite.style.top = getSpriteTop(lineEl) + 'px';
   }
 
   function measureTextWidth(text, refEl) {
@@ -143,11 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('resize', () => {
     if (!animationDone || !idleLineEl) return;
-    const x   = measureTextWidth(idleLineEl.textContent, idleLineEl) + TEXT_GAP;
+    const x = measureTextWidth(idleLineEl.textContent, idleLineEl) + TEXT_GAP;
     const top = getSpriteTop(idleLineEl);
     sprite.style.transition = 'none';
     sprite.style.left = x + 'px';
-    sprite.style.top  = top + 'px';
+    sprite.style.top = top + 'px';
   });
 
   let isJumping = false;
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sprite.style.transform = 'scaleX(1.25) scaleY(0.75)';
         setTimeout(() => {
           sprite.style.transition = 'transform 0.12s ease';
-          sprite.style.transform  = 'scale(1)';
+          sprite.style.transform = 'scale(1)';
           setTimeout(() => {
             sprite.style.transition = 'none';
             sprite.src = SPRITES.idle;
@@ -190,9 +190,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const baseLine1 = getSpriteTop(line1El);
     const baseLine2 = getSpriteTop(line2El);
     const PEAK_OFFSET = sprite.offsetHeight * 1.0;
-    const RISE_MS  = 230;
-    const FADE_MS  = 130;
-    const FALL_MS  = 260;
+    const RISE_MS = 230;
+    const FADE_MS = 130;
+    const FALL_MS = 260;
 
     sprite.src = SPRITES.jump;
     sprite.style.transition = `top ${RISE_MS}ms cubic-bezier(0.2, 0.9, 0.4, 1)`;
@@ -200,20 +200,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setTimeout(() => {
       sprite.style.transition = `transform ${FADE_MS}ms ease-in, opacity ${FADE_MS}ms ease-in`;
-      sprite.style.transform  = 'scale(0)';
-      sprite.style.opacity    = '0';
+      sprite.style.transform = 'scale(0)';
+      sprite.style.opacity = '0';
 
       setTimeout(() => {
         sprite.style.transition = 'none';
-        sprite.style.left      = line2X + 'px';
-        sprite.style.top       = (baseLine2 - PEAK_OFFSET) + 'px';
+        sprite.style.left = line2X + 'px';
+        sprite.style.top = (baseLine2 - PEAK_OFFSET) + 'px';
         sprite.style.transform = 'scale(0)';
 
         void sprite.offsetWidth;
 
         sprite.style.transition = `transform ${FADE_MS}ms ease-out, opacity ${FADE_MS}ms ease-out`;
-        sprite.style.transform  = 'scale(1)';
-        sprite.style.opacity    = '1';
+        sprite.style.transform = 'scale(1)';
+        sprite.style.opacity = '1';
 
         setTimeout(() => {
           sprite.style.transition = `top ${FALL_MS}ms cubic-bezier(0.4, 0, 0.8, 0.6)`;
@@ -221,10 +221,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
           setTimeout(() => {
             sprite.style.transition = 'none';
-            sprite.style.transform  = 'scaleX(1.25) scaleY(0.75)';
+            sprite.style.transform = 'scaleX(1.25) scaleY(0.75)';
             setTimeout(() => {
               sprite.style.transition = 'transform 0.12s ease';
-              sprite.style.transform  = 'scale(1)';
+              sprite.style.transform = 'scale(1)';
               setTimeout(() => {
                 sprite.style.transition = 'none';
                 sprite.src = SPRITES.idle;
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================
   const lines = document.querySelectorAll('#typing-text .line');
   const TYPING_SPEED = 40;
-  const LINE_PAUSE   = 300;
+  const LINE_PAUSE = 300;
 
   function typeLine(lineEl, onChar, onDone) {
     const fullText = lineEl.textContent;
@@ -274,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         sprite.classList.add('walking');
         placeSprite(TEXT_GAP, line1);
-        sprite.style.opacity   = '1';
+        sprite.style.opacity = '1';
         sprite.style.transform = 'scale(1)';
         setWalkSpeed(WALK_SPEED_NORMAL);
 
@@ -315,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
                       sprite.classList.remove('walking');
                       stopWalking();
                       animationDone = true;
-                      idleLineEl    = line2;
+                      idleLineEl = line2;
                     }
                   );
                 }, 150);
@@ -334,21 +334,85 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================
   // === 4. TAB SWITCHING ====================
   // =========================================
-  const navBtns  = document.querySelectorAll('.nav-btn');
+  const navBtns = document.querySelectorAll('.nav-btn');
   const sections = document.querySelectorAll('.tab-section');
+
+  const renderExperiences = () => {
+    const container = document.querySelector('.experience-folder-container');
+    if (!container || !experienceData) return;
+    container.innerHTML = '';
+
+    // Folder Tabs (selection)
+    const folderTabs = document.createElement('div');
+    folderTabs.className = 'experience-tabs';
+    
+    experienceData.forEach((exp, i) => {
+      const tab = document.createElement('div');
+      tab.className = `exp-tab ${i === 0 ? 'active' : ''}`;
+      tab.dataset.id = exp.id;
+      // Using hand-drawn tab image as background
+      tab.style.backgroundImage = `url('${exp.tabAsset}')`;
+      // tab.textContent = exp.company; // REMOVED: Text is on the drawing
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.exp-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        updateDossier(exp);
+      });
+      folderTabs.appendChild(tab);
+    });
+    container.appendChild(folderTabs);
+
+    // The Dossier Base
+    const dossier = document.createElement('div');
+    dossier.className = 'dossier-folder';
+    container.appendChild(dossier);
+
+    const updateDossier = (exp) => {
+      // Set the hand-drawn folder background
+      dossier.style.backgroundImage = `url('${exp.folderAsset || 'assets/experiences/base.webp'}')`;
+      
+      dossier.innerHTML = `
+        <div class="dossier-inner">
+          <div class="dossier-sheet">
+            <div class="dossier-header">
+              <h3>MISSION REPORT: ${exp.company.toUpperCase()}</h3>
+              <div class="dossier-meta">
+                <span>ROLE: ${exp.role.toUpperCase()}</span>
+                <span>TIMELINE: ${exp.timeline}</span>
+              </div>
+            </div>
+            <div class="dossier-content">
+              <h4>OBJECTIVE BRIEF</h4>
+              <p>${exp.missionBriefing}</p>
+              
+              <h4>OPERATIONAL INTEL</h4>
+              <ul class="dossier-list">
+                ${exp.keyNotes.map(note => `<li>${note}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+        </div>
+      `;
+    };
+
+    // Initial render
+    updateDossier(experienceData[0]);
+  };
 
   navBtns.forEach(btn => {
     btn.addEventListener('mousedown', () => btn.classList.add('pressing'));
-    btn.addEventListener('mouseup',   () => btn.classList.remove('pressing'));
-    btn.addEventListener('mouseleave',() => btn.classList.remove('pressing'));
+    btn.addEventListener('mouseup', () => btn.classList.remove('pressing'));
+    btn.addEventListener('mouseleave', () => btn.classList.remove('pressing'));
 
     btn.addEventListener('click', () => {
-      const targetId      = btn.getAttribute('data-target');
+      const targetId = btn.getAttribute('data-target');
       const alreadyActive = btn.classList.contains('active');
       navBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       sections.forEach(sec => sec.classList.remove('active'));
       document.getElementById(targetId).classList.add('active');
+      
+      if (targetId === 'experience') renderExperiences();
       if (targetId === 'projects' && !alreadyActive) runDealingAnimation();
     });
   });
@@ -382,7 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function runDealingAnimation() {
     if (hasDealt) return;
     hasDealt = true;
-    
+
     const cards = document.querySelectorAll('.project-card');
     if (!cards.length) return;
 
@@ -390,15 +454,15 @@ document.addEventListener('DOMContentLoaded', () => {
       cards.forEach(card => {
         const rot = Math.random() * 20 - 10;
         card.style.transition = 'none';
-        card.style.transform  = `translate(0px,100px) rotateZ(${rot}deg) scale(0.5)`;
-        card.style.opacity    = '0';
+        card.style.transform = `translate(0px,100px) rotateZ(${rot}deg) scale(0.5)`;
+        card.style.opacity = '0';
       });
       setTimeout(() => {
         cards.forEach((card, i) => {
           setTimeout(() => {
             card.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
-            card.style.transform  = 'translate(0,0) rotateZ(0deg) scale(1)';
-            card.style.opacity    = '1';
+            card.style.transform = 'translate(0,0) rotateZ(0deg) scale(1)';
+            card.style.opacity = '1';
             setTimeout(() => { card.style.transform = ''; }, 650);
           }, i * 100);
         });
@@ -463,7 +527,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const dx = centerX - (rect.left + rect.width / 2);
           const targetCenterY = window.innerHeight - (rect.height / 6);
           const dy = targetCenterY - (rect.top + rect.height / 2);
-          
+
           let offsetX, offsetY, rot;
           if (shuffleCount === maxShuffles) {
             // Square up the deck for the final deal
@@ -475,16 +539,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const isOut = shuffleCount % 2 === 1;
             const side = initialIndex % 2 === 0 ? -1 : 1;
             const spread = isOut ? 80 : 10;
-            
+
             offsetX = (side * spread) + (Math.random() * 30 - 15);
             offsetY = Math.random() * 30 - 15;
             rot = (side * (isOut ? 15 : 5)) + (Math.random() * 20 - 10);
           }
-          
+
           card.style.transition = 'transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
           // POV style, keep the scale at 1
           card.style.transform = `translate(${dx + offsetX}px, ${dy + offsetY}px) rotateZ(${rot}deg)`;
-          
+
           // Randomize z-index occasionally
           if (shuffleCount % 2 === 0 && Math.random() > 0.5) {
             card.style.zIndex = Math.floor(Math.random() * cards.length);
@@ -493,7 +557,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (shuffleCount >= maxShuffles) {
           clearInterval(shuffleInterval);
-          
+
           // Deal out to grid positions
           setTimeout(() => {
             deckData.forEach(({ card, initialIndex }, arrayIndex) => {
@@ -502,12 +566,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.style.transform = 'translate(0px, 0px) rotateZ(0deg)';
                 card.style.translate = '0px 0px';
                 card.style.zIndex = '';
-                
-                setTimeout(() => { 
-                  card.style.transform = ''; 
+
+                setTimeout(() => {
+                  card.style.transform = '';
                   card.style.translate = '';
                   card.style.pointerEvents = '';
-                  
+
                   // Clean up listener after the very last card lands
                   if (arrayIndex === deckData.length - 1) {
                     window.removeEventListener('scroll', window._dealerScrollListener);
@@ -533,10 +597,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // === 6. PROJECT MODAL ====================
   // =========================================
   const modalOverlay = document.getElementById('project-modal-overlay');
-  const modalTitle   = document.getElementById('modal-title');
-  const modalDesc    = document.getElementById('modal-desc');
+  const modalTitle = document.getElementById('modal-title');
+  const modalDesc = document.getElementById('modal-desc');
   const modalGallery = document.getElementById('modal-gallery');
-  const closeBtn     = document.getElementById('modal-close-btn');
+  const closeBtn = document.getElementById('modal-close-btn');
 
   // -----------------------------------------
   // Helper: build the metadata bar
@@ -549,9 +613,9 @@ document.addEventListener('DOMContentLoaded', () => {
     bar.className = 'project-metadata-bar';
 
     const items = [
-      { label: 'Role',           value: role },
-      { label: 'Timeline',       value: timeline },
-      { label: 'Collaborators',  value: collaborators },
+      { label: 'Role', value: role },
+      { label: 'Timeline', value: timeline },
+      { label: 'Collaborators', value: collaborators },
       { label: 'Tools & Skills', value: tools },
     ];
 
@@ -582,7 +646,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.project-card').forEach(card => {
     card.addEventListener('click', () => {
-      const pid  = card.getAttribute('data-id');
+      const pid = card.getAttribute('data-id');
       const data = projectsData.find(p => p.id === pid);
       if (!data) return;
 
@@ -596,38 +660,59 @@ document.addEventListener('DOMContentLoaded', () => {
       modalGallery.innerHTML = '';
 
       if (data.content && data.content.length > 0) {
-        let firstImageInserted = false;
-        let metadataInserted   = false;
+        let heroMediaInserted = false;
+        let metadataInserted = false;
 
         data.content.forEach(block => {
 
           // -------------------------------------------------------
-          // FEATURE 1 + 2: First image gets hero treatment,
+          // FEATURE 1 + 2: First image/video gets hero treatment,
           // metadata bar injected immediately after it.
           // -------------------------------------------------------
-          if (block.type === 'image' && !firstImageInserted) {
-            firstImageInserted = true;
+          if ((block.type === 'image' || block.type === 'video') && !heroMediaInserted) {
+            heroMediaInserted = true;
 
-            // Full-width hero image (overrides the size attr on block 0)
             const heroWrap = document.createElement('div');
-            heroWrap.className = 'content-image-block modal-hero-image';
 
-            const img = document.createElement('img');
-            img.src = block.src;
-            img.alt = data.title;
-            img.loading = 'lazy';
+            if (block.type === 'image') {
+              heroWrap.className = 'content-image-block modal-hero-image';
+              const img = document.createElement('img');
+              img.src = block.src;
+              img.alt = data.title;
+              img.loading = 'lazy';
+              heroWrap.appendChild(img);
+            } else {
+              heroWrap.className = 'content-video-block modal-hero-image';
+              const video = document.createElement('video');
+              video.autoplay = true; video.muted = true; video.loop = true; video.playsInline = true;
+              video.setAttribute('webkit-playsinline', 'true');
+              if (block.webm) { const s = document.createElement('source'); s.src = block.webm; s.type = 'video/webm'; video.appendChild(s); }
+              if (block.mp4) { const s = document.createElement('source'); s.src = block.mp4; s.type = 'video/mp4'; video.appendChild(s); }
+              heroWrap.appendChild(video);
+            }
 
-            heroWrap.appendChild(img);
             modalDesc.appendChild(heroWrap);
 
-            // Metadata bar goes right after first image
+            // Visit site link if it exists
+            if (data.liveSite) {
+              const linkWrap = document.createElement('div');
+              linkWrap.className = 'modal-live-link';
+              linkWrap.style.textAlign = 'center';
+              linkWrap.style.margin = '20px 0 10px 0';
+              linkWrap.style.fontFamily = "'Nunito', sans-serif";
+              linkWrap.style.fontSize = '1.1rem';
+              linkWrap.innerHTML = `Visit <a href="${data.liveSite}" target="_blank" rel="noopener noreferrer" style="color: #0066cc; text-decoration: underline; font-weight: 700;">site</a>`;
+              modalDesc.appendChild(linkWrap);
+            }
+
+            // Metadata bar goes right after first media (or after live link)
             if (!metadataInserted) {
               metadataInserted = true;
               const bar = buildMetadataBar(data);
               if (bar) modalDesc.appendChild(bar);
             }
 
-            return; // skip normal rendering for this block
+            return;
           }
 
           // Normal block rendering (all remaining blocks unchanged)
@@ -668,10 +753,18 @@ document.addEventListener('DOMContentLoaded', () => {
             lb.appendChild(ul); modalDesc.appendChild(lb);
           }
           else if (block.type === 'image') {
-            // Subsequent images render with their own size class normally
             const ic = document.createElement('div'); ic.className = `content-image-block ${block.size || 'medium'}`;
             const img = document.createElement('img'); img.src = block.src; img.alt = data.title; img.loading = 'lazy';
             ic.appendChild(img); modalDesc.appendChild(ic);
+          }
+          else if (block.type === 'video') {
+            const vc = document.createElement('div'); vc.className = `content-video-block ${block.size || 'medium'}`;
+            const video = document.createElement('video');
+            video.autoplay = true; video.muted = true; video.loop = true; video.playsInline = true;
+            video.setAttribute('webkit-playsinline', 'true');
+            if (block.webm) { const s = document.createElement('source'); s.src = block.webm; s.type = 'video/webm'; video.appendChild(s); }
+            if (block.mp4) { const s = document.createElement('source'); s.src = block.mp4; s.type = 'video/mp4'; video.appendChild(s); }
+            vc.appendChild(video); modalDesc.appendChild(vc);
           }
           else if (block.type === 'images-row') {
             const rc = document.createElement('div'); rc.className = 'content-images-row';
@@ -731,9 +824,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================
   const craftsSection = document.getElementById('crafts');
   if (craftsSection) {
-    const lightbox    = document.createElement('div'); lightbox.className = 'illustration-lightbox';
+    const lightbox = document.createElement('div'); lightbox.className = 'illustration-lightbox';
     const lightboxImg = document.createElement('img'); lightboxImg.className = 'lightbox-img';
-    const backBtn     = document.createElement('button'); backBtn.className = 'lightbox-back-btn'; backBtn.textContent = '← Back';
+    const backBtn = document.createElement('button'); backBtn.className = 'lightbox-back-btn'; backBtn.textContent = '← Back';
     lightbox.appendChild(backBtn); lightbox.appendChild(lightboxImg);
     document.body.appendChild(lightbox);
 
@@ -849,14 +942,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // === 8. ABOUT CARD 3D TILT ===============
   // =========================================
   const aboutCardWrapper = document.querySelector('.about-card-wrapper');
-  const aboutCard        = document.querySelector('.about-card-inner');
-  const glare            = document.querySelector('.about-card-glare');
+  const aboutCard = document.querySelector('.about-card-inner');
+  const glare = document.querySelector('.about-card-glare');
 
   if (aboutCardWrapper && aboutCard) {
     aboutCardWrapper.addEventListener('mousemove', (e) => {
-      const rect    = aboutCardWrapper.getBoundingClientRect();
-      const rotateX = (((e.clientY - rect.top)  / rect.height) - 0.5) * -20;
-      const rotateY = (((e.clientX - rect.left) / rect.width)  - 0.5) *  20;
+      const rect = aboutCardWrapper.getBoundingClientRect();
+      const rotateX = (((e.clientY - rect.top) / rect.height) - 0.5) * -20;
+      const rotateY = (((e.clientX - rect.left) / rect.width) - 0.5) * 20;
       aboutCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
       if (glare) glare.style.background = `linear-gradient(${125 + rotateY * 2}deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 60%)`;
     });
