@@ -332,7 +332,8 @@ const projectsData = [
       { type: "text", heading: "Problem & Background", text: "Design and engineering are often taught separately, especially in middle school education. While students may learn coding through robotics kits or creativity through craft, they rarely experience how these disciplines come together in real-world problem solving. Existing tools tend to focus on either programming or building, limiting opportunities for integrated learning." },
       { type: "text", heading: "Who It’s For", text: "NODE is designed for middle school students (ages 11–14) in both classroom and at-home environments. It also supports educators looking for structured, hands-on STEAM tools, and parents seeking engaging, creative learning experiences beyond screens." },
       { type: "text", heading: "Our Solution", text: "NODE is a modular design engineering kit that combines cardboard construction with simple programmable electronics. Students build physical structures using accessible materials, then control them through a beginner-friendly coding system. A guided booklet scaffolds the experience from step-by-step building to open-ended invention, encouraging experimentation and creativity." },
-      { type: "image", src: "assets/project-images/node/2.webp", size: "medium" },
+      { type: "images-row", images: [ "assets/project-images/node/2.webp", "assets/project-images/node/7.webp" ] },
+      { type: "images-row", images: [ "assets/project-images/node/5.webp", "assets/project-images/node/6.webp", "assets/project-images/node/8.webp" ] },
       { type: "images-row", images: [ "assets/project-images/node/3.webp", "assets/project-images/node/4.webp" ] }
     ]
   },
