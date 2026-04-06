@@ -332,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // =========================================
-  // === 4. TAB SWITCHING ====================
+  // === 4. DEEP LINKING & NAVIGATION ========
   // =========================================
   const navBtns = document.querySelectorAll('.nav-btn');
   const sections = document.querySelectorAll('.tab-section');
@@ -350,9 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const tab = document.createElement('div');
       tab.className = `exp-tab ${i === 0 ? 'active' : ''}`;
       tab.dataset.id = exp.id;
-      // Using hand-drawn tab image as background
       tab.style.backgroundImage = `url('${exp.tabAsset}')`;
-      // tab.textContent = exp.company; // REMOVED: Text is on the drawing
       tab.addEventListener('click', () => {
         document.querySelectorAll('.exp-tab').forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
@@ -362,15 +360,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     container.appendChild(folderTabs);
 
-    // The Dossier Base
     const dossier = document.createElement('div');
     dossier.className = 'dossier-folder';
     container.appendChild(dossier);
 
     const updateDossier = (exp) => {
-      // Set the hand-drawn folder background
       dossier.style.backgroundImage = `url('${exp.folderAsset || 'assets/experiences/base.webp'}')`;
-      
       dossier.innerHTML = `
         <div class="dossier-inner">
           <div class="dossier-sheet">
@@ -384,7 +379,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="dossier-content">
               <h4>OBJECTIVE BRIEF</h4>
               <p>${exp.missionBriefing}</p>
-              
               <h4>OPERATIONAL INTEL</h4>
               <ul class="dossier-list">
                 ${exp.keyNotes.map(note => `<li>${note}</li>`).join('')}
@@ -394,8 +388,6 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `;
     };
-
-    // Initial render
     updateDossier(experienceData[0]);
   };
 
@@ -406,14 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     btn.addEventListener('click', () => {
       const targetId = btn.getAttribute('data-target');
-      const alreadyActive = btn.classList.contains('active');
-      navBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      sections.forEach(sec => sec.classList.remove('active'));
-      document.getElementById(targetId).classList.add('active');
-      
-      if (targetId === 'experience') renderExperiences();
-      if (targetId === 'projects' && !alreadyActive) runDealingAnimation();
+      switchTab(targetId);
     });
   });
 
@@ -607,7 +592,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // -----------------------------------------
   function buildMetadataBar(data) {
     if (!data.metadata) return null;
-
     const { role, timeline, collaborators, tools } = data.metadata;
     const bar = document.createElement('div');
     bar.className = 'project-metadata-bar';
@@ -623,11 +607,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!item.value) return;
       const cell = document.createElement('div');
       cell.className = 'metadata-cell';
-
       const label = document.createElement('div');
       label.className = 'metadata-label';
       label.textContent = item.label;
-
       const valueWrap = document.createElement('div');
       valueWrap.className = 'metadata-value';
       item.value.split(',').forEach(part => {
@@ -635,167 +617,214 @@ document.addEventListener('DOMContentLoaded', () => {
         line.textContent = part.trim();
         valueWrap.appendChild(line);
       });
-
       cell.appendChild(label);
       cell.appendChild(valueWrap);
       bar.appendChild(cell);
     });
-
     return bar;
   }
 
-  document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const pid = card.getAttribute('data-id');
-      const data = projectsData.find(p => p.id === pid);
-      if (!data) return;
+  const switchTab = (targetId, updateHash = true) => {
+    const navBtn = document.querySelector(`.nav-btn[data-target="${targetId}"]`);
+    if (!navBtn) return;
 
-      modalTitle.textContent = data.shortDesc
-        ? `${data.modalTitle || data.title} — ${data.shortDesc}`
-        : (data.modalTitle || data.title);
+    const alreadyActive = navBtn.classList.contains('active');
+    navBtns.forEach(b => b.classList.remove('active'));
+    navBtn.classList.add('active');
 
-      const existingSub = document.getElementById('modal-subtitle');
-      if (existingSub) existingSub.remove();
-      modalDesc.innerHTML = '';
-      modalGallery.innerHTML = '';
+    sections.forEach(sec => sec.classList.remove('active'));
+    document.getElementById(targetId).classList.add('active');
 
-      if (data.content && data.content.length > 0) {
-        let heroMediaInserted = false;
-        let metadataInserted = false;
+    if (targetId === 'experience') renderExperiences();
+    if (targetId === 'projects' && !alreadyActive) runDealingAnimation();
 
-        data.content.forEach(block => {
+    if (updateHash) {
+      history.pushState(null, null, `#${targetId}`);
+    }
+  };
 
-          // -------------------------------------------------------
-          // FEATURE 1 + 2: First image/video gets hero treatment,
-          // metadata bar injected immediately after it.
-          // -------------------------------------------------------
-          if ((block.type === 'image' || block.type === 'video') && !heroMediaInserted) {
-            heroMediaInserted = true;
+  const handleHashChange = () => {
+    const hash = window.location.hash.substring(1);
+    if (!hash) {
+      switchTab('projects', false);
+      return;
+    }
 
-            const heroWrap = document.createElement('div');
+    if (hash.startsWith('p-')) {
+      const pid = hash.substring(2);
+      switchTab('projects', false);
+      openProjectById(pid, false);
+    } else {
+      closeProjectModal(false);
+      switchTab(hash, false);
+    }
+  };
 
-            if (block.type === 'image') {
-              heroWrap.className = 'content-image-block modal-hero-image';
-              const img = document.createElement('img');
-              img.src = block.src;
-              img.alt = data.title;
-              img.loading = 'lazy';
-              heroWrap.appendChild(img);
-            } else {
-              heroWrap.className = 'content-video-block modal-hero-image';
-              const video = document.createElement('video');
-              video.autoplay = true; video.muted = true; video.loop = true; video.playsInline = true;
-              video.setAttribute('webkit-playsinline', 'true');
-              if (block.webm) { const s = document.createElement('source'); s.src = block.webm; s.type = 'video/webm'; video.appendChild(s); }
-              if (block.mp4) { const s = document.createElement('source'); s.src = block.mp4; s.type = 'video/mp4'; video.appendChild(s); }
-              heroWrap.appendChild(video);
-            }
+  window.addEventListener('popstate', handleHashChange);
 
-            modalDesc.appendChild(heroWrap);
+  // -----------------------------------------
+  // Helper: Open Modal by Project ID
+  // -----------------------------------------
+  const openProjectById = (pid, updateHash = true) => {
+    const data = projectsData.find(p => p.id === pid);
+    if (!data) return;
 
-            // Visit site link if it exists
-            if (data.liveSite) {
-              const linkWrap = document.createElement('div');
-              linkWrap.className = 'modal-live-link';
-              linkWrap.style.textAlign = 'center';
-              linkWrap.style.margin = '20px 0 10px 0';
-              linkWrap.style.fontFamily = "'Nunito', sans-serif";
-              linkWrap.style.fontSize = '1.1rem';
-              linkWrap.innerHTML = `Visit <a href="${data.liveSite}" target="_blank" rel="noopener noreferrer" style="color: #0066cc; text-decoration: underline; font-weight: 700;">site</a>`;
-              modalDesc.appendChild(linkWrap);
-            }
+    modalTitle.textContent = data.shortDesc
+      ? `${data.modalTitle || data.title} — ${data.shortDesc}`
+      : (data.modalTitle || data.title);
 
-            // Metadata bar goes right after first media (or after live link)
-            if (!metadataInserted) {
-              metadataInserted = true;
-              const bar = buildMetadataBar(data);
-              if (bar) modalDesc.appendChild(bar);
-            }
+    const existingSub = document.getElementById('modal-subtitle');
+    if (existingSub) existingSub.remove();
+    modalDesc.innerHTML = '';
+    modalGallery.innerHTML = '';
 
-            return;
-          }
+    if (data.content && data.content.length > 0) {
+      let heroMediaInserted = false;
+      let metadataInserted = false;
 
-          // Normal block rendering (all remaining blocks unchanged)
-          if (block.type === 'text') {
-            const tb = document.createElement('div'); tb.className = 'content-text-block';
-            if (block.heading) { const h = document.createElement('h4'); h.textContent = block.heading; tb.appendChild(h); }
-            const p = document.createElement('p');
-            const urlRx = /(https?:\/\/[^\s]+)/g;
-            if (block.text && urlRx.test(block.text)) {
-              block.text.split(urlRx).forEach(part => {
-                if (part.match(urlRx)) {
-                  const a = document.createElement('a');
-                  a.href = part; a.target = '_blank'; a.rel = 'noopener noreferrer';
-                  a.textContent = part; a.style.color = '#0066cc'; a.style.textDecoration = 'underline';
-                  p.appendChild(a);
-                } else { p.appendChild(document.createTextNode(part)); }
-              });
-            } else { p.innerHTML = (block.text || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>'); }
-            tb.appendChild(p); modalDesc.appendChild(tb);
-          }
-          else if (block.type === 'list') {
-            const lb = document.createElement('div'); lb.className = 'content-list-block';
-            if (block.heading) { const h = document.createElement('h4'); h.textContent = block.heading; lb.appendChild(h); }
-            const ul = document.createElement('ul'); ul.className = 'content-list';
-            block.items.forEach(item => {
-              const li = document.createElement('li');
-              if (typeof item === 'string') { li.textContent = item; }
-              else if (item.text) {
-                li.innerHTML = item.text;
-                if (item.subItems && item.subItems.length) {
-                  const sub = document.createElement('ul'); sub.className = 'content-sublist';
-                  item.subItems.forEach(s => { const sli = document.createElement('li'); sli.textContent = s; sub.appendChild(sli); });
-                  li.appendChild(sub);
-                }
-              }
-              ul.appendChild(li);
-            });
-            lb.appendChild(ul); modalDesc.appendChild(lb);
-          }
-          else if (block.type === 'image') {
-            const ic = document.createElement('div'); ic.className = `content-image-block ${block.size || 'medium'}`;
-            const img = document.createElement('img'); img.src = block.src; img.alt = data.title; img.loading = 'lazy';
-            ic.appendChild(img); modalDesc.appendChild(ic);
-          }
-          else if (block.type === 'video') {
-            const vc = document.createElement('div'); vc.className = `content-video-block ${block.size || 'medium'}`;
+      data.content.forEach(block => {
+        if ((block.type === 'image' || block.type === 'video') && !heroMediaInserted) {
+          heroMediaInserted = true;
+          const heroWrap = document.createElement('div');
+          if (block.type === 'image') {
+            heroWrap.className = 'content-image-block modal-hero-image';
+            const img = document.createElement('img');
+            img.src = block.src; img.alt = data.title; img.loading = 'lazy';
+            heroWrap.appendChild(img);
+          } else {
+            heroWrap.className = 'content-video-block modal-hero-image';
             const video = document.createElement('video');
             video.autoplay = true; video.muted = true; video.loop = true; video.playsInline = true;
             video.setAttribute('webkit-playsinline', 'true');
             if (block.webm) { const s = document.createElement('source'); s.src = block.webm; s.type = 'video/webm'; video.appendChild(s); }
             if (block.mp4) { const s = document.createElement('source'); s.src = block.mp4; s.type = 'video/mp4'; video.appendChild(s); }
-            vc.appendChild(video); modalDesc.appendChild(vc);
+            heroWrap.appendChild(video);
           }
-          else if (block.type === 'images-row') {
-            const rc = document.createElement('div'); rc.className = 'content-images-row';
-            block.images.forEach(src => { const img = document.createElement('img'); img.src = src; img.alt = data.title; img.loading = 'lazy'; rc.appendChild(img); });
-            modalDesc.appendChild(rc);
-          }
-        });
+          modalDesc.appendChild(heroWrap);
 
-        // Edge case: project has no image block — inject metadata at the very top
-        if (!metadataInserted) {
-          const bar = buildMetadataBar(data);
-          if (bar) modalDesc.insertBefore(bar, modalDesc.firstChild);
+          if (data.liveSite) {
+            const linkWrap = document.createElement('div');
+            linkWrap.className = 'modal-live-link';
+            linkWrap.style.textAlign = 'center'; linkWrap.style.margin = '20px 0 10px 0';
+            linkWrap.style.fontFamily = "'Nunito', sans-serif"; linkWrap.style.fontSize = '1.1rem';
+            linkWrap.innerHTML = `Visit <a href="${data.liveSite}" target="_blank" rel="noopener noreferrer" style="color: #0066cc; text-decoration: underline; font-weight: 700;">site</a>`;
+            modalDesc.appendChild(linkWrap);
+          }
+          if (!metadataInserted) {
+            metadataInserted = true;
+            const bar = buildMetadataBar(data);
+            if (bar) modalDesc.appendChild(bar);
+          }
+          return;
         }
 
-      } else {
-        modalDesc.textContent = data.fullDesc || '';
-        (data.galleryImages || []).forEach(src => { const img = document.createElement('img'); img.src = src; img.loading = 'lazy'; modalGallery.appendChild(img); });
+        if (block.type === 'text') {
+          const tb = document.createElement('div'); tb.className = 'content-text-block';
+          if (block.heading) { const h = document.createElement('h4'); h.textContent = block.heading; tb.appendChild(h); }
+          const p = document.createElement('p');
+          const urlRx = /(https?:\/\/[^\s]+)/g;
+          if (block.text && urlRx.test(block.text)) {
+            block.text.split(urlRx).forEach(part => {
+              if (part.match(urlRx)) {
+                const a = document.createElement('a');
+                a.href = part; a.target = '_blank'; a.rel = 'noopener noreferrer';
+                a.textContent = part; a.style.color = '#0066cc'; a.style.textDecoration = 'underline';
+                p.appendChild(a);
+              } else { p.appendChild(document.createTextNode(part)); }
+            });
+          } else { p.innerHTML = (block.text || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>'); }
+          tb.appendChild(p); modalDesc.appendChild(tb);
+        }
+        else if (block.type === 'list') {
+          const lb = document.createElement('div'); lb.className = 'content-list-block';
+          if (block.heading) { const h = document.createElement('h4'); h.textContent = block.heading; lb.appendChild(h); }
+          const ul = document.createElement('ul'); ul.className = 'content-list';
+          block.items.forEach(item => {
+            const li = document.createElement('li');
+            if (typeof item === 'string') { li.textContent = item; }
+            else if (item.text) {
+              li.innerHTML = item.text;
+              if (item.subItems && item.subItems.length) {
+                const sub = document.createElement('ul'); sub.className = 'content-sublist';
+                item.subItems.forEach(s => { const sli = document.createElement('li'); sli.textContent = s; sub.appendChild(sli); });
+                li.appendChild(sub);
+              }
+            }
+            ul.appendChild(li);
+          });
+          lb.appendChild(ul); modalDesc.appendChild(lb);
+        }
+        else if (block.type === 'image') {
+          const ic = document.createElement('div'); ic.className = `content-image-block ${block.size || 'medium'}`;
+          const img = document.createElement('img'); img.src = block.src; img.alt = data.title; img.loading = 'lazy';
+          ic.appendChild(img); modalDesc.appendChild(ic);
+        }
+        else if (block.type === 'video') {
+          const vc = document.createElement('div'); vc.className = `content-video-block ${block.size || 'medium'}`;
+          const video = document.createElement('video');
+          video.autoplay = true; video.muted = true; video.loop = true; video.playsInline = true;
+          video.setAttribute('webkit-playsinline', 'true');
+          if (block.webm) { const s = document.createElement('source'); s.src = block.webm; s.type = 'video/webm'; video.appendChild(s); }
+          if (block.mp4) { const s = document.createElement('source'); s.src = block.mp4; s.type = 'video/mp4'; video.appendChild(s); }
+          vc.appendChild(video); modalDesc.appendChild(vc);
+        }
+        else if (block.type === 'images-row') {
+          const rc = document.createElement('div'); rc.className = 'content-images-row';
+          block.images.forEach(src => { const img = document.createElement('img'); img.src = src; img.alt = data.title; img.loading = 'lazy'; rc.appendChild(img); });
+          modalDesc.appendChild(rc);
+        }
+      });
+
+      if (!metadataInserted) {
+        const bar = buildMetadataBar(data);
+        if (bar) modalDesc.insertBefore(bar, modalDesc.firstChild);
       }
+    } else {
+      modalDesc.textContent = data.fullDesc || '';
+      (data.galleryImages || []).forEach(src => { const img = document.createElement('img'); img.src = src; img.loading = 'lazy'; modalGallery.appendChild(img); });
+    }
 
-      modalOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
+    modalOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
 
-      const rowImgs = modalDesc.querySelectorAll('.content-images-row img');
-      let loaded = 0;
-      if (!rowImgs.length) return;
+    const rowImgs = modalDesc.querySelectorAll('.content-images-row img');
+    let loaded = 0;
+    if (rowImgs.length > 0) {
       rowImgs.forEach(img => {
         if (img.complete) { loaded++; if (loaded === rowImgs.length) equalizeImageRows(); }
         else { img.addEventListener('load', () => { loaded++; if (loaded === rowImgs.length) equalizeImageRows(); }); }
       });
+    }
+
+    if (updateHash) {
+      history.pushState(null, null, `#p-${pid}`);
+    }
+  };
+
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const pid = card.getAttribute('data-id');
+      openProjectById(pid);
     });
   });
+
+  const closeProjectModal = (updateHash = true) => {
+    modalOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+    const modal = document.querySelector('.project-modal');
+    if (modal) modal.scrollTop = 0;
+
+    if (updateHash) {
+      const currentTab = document.querySelector('.nav-btn.active').getAttribute('data-target');
+      history.pushState(null, null, `#${currentTab}`);
+    }
+  };
+
+  if (closeBtn) closeBtn.addEventListener('click', () => closeProjectModal());
+  if (modalOverlay) modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) closeProjectModal(); });
+
+  // Handle initial page load
+  handleHashChange();
 
   function equalizeImageRows() {
     document.querySelectorAll('.content-images-row').forEach(row => {
@@ -808,15 +837,6 @@ document.addEventListener('DOMContentLoaded', () => {
       imgs.forEach(img => { img.style.height = Math.round(avg) + 'px'; img.style.objectFit = 'contain'; });
     });
   }
-
-  const closeModal = () => {
-    modalOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-    const modal = document.querySelector('.project-modal');
-    if (modal) modal.scrollTop = 0;
-  };
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  if (modalOverlay) modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) closeModal(); });
 
 
   // =========================================
