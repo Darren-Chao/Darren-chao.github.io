@@ -684,6 +684,30 @@ document.addEventListener('DOMContentLoaded', () => {
     modalDesc.innerHTML = '';
     modalGallery.innerHTML = '';
 
+    let appendTarget = modalDesc;
+    let sidebar = null;
+    let tocLinks = [];
+    let headings = [];
+
+    const hasHeadings = data.content && data.content.some(b => b.heading);
+
+    if (hasHeadings) {
+      const splitLayout = document.createElement('div');
+      splitLayout.className = 'modal-layout-split';
+      
+      sidebar = document.createElement('aside');
+      sidebar.className = 'modal-sidebar';
+      
+      const mainContent = document.createElement('div');
+      mainContent.className = 'modal-main-content';
+      
+      splitLayout.appendChild(sidebar);
+      splitLayout.appendChild(mainContent);
+      modalDesc.appendChild(splitLayout);
+      
+      appendTarget = mainContent;
+    }
+
     if (data.content && data.content.length > 0) {
       let heroMediaInserted = false;
       let metadataInserted = false;
@@ -697,6 +721,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const img = document.createElement('img');
             img.src = block.src; img.alt = data.title; img.loading = 'lazy';
             heroWrap.appendChild(img);
+            if (block.caption) {
+              const cap = document.createElement('div'); cap.className = 'image-caption'; cap.innerHTML = block.caption;
+              heroWrap.appendChild(cap);
+            }
           } else {
             heroWrap.className = 'content-video-block modal-hero-image';
             const video = document.createElement('video');
@@ -705,8 +733,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (block.webm) { const s = document.createElement('source'); s.src = block.webm; s.type = 'video/webm'; video.appendChild(s); }
             if (block.mp4) { const s = document.createElement('source'); s.src = block.mp4; s.type = 'video/mp4'; video.appendChild(s); }
             heroWrap.appendChild(video);
+            if (block.caption) {
+              const cap = document.createElement('div'); cap.className = 'image-caption'; cap.innerHTML = block.caption;
+              heroWrap.appendChild(cap);
+            }
           }
-          modalDesc.appendChild(heroWrap);
+          modalDesc.insertBefore(heroWrap, modalDesc.querySelector('.modal-layout-split'));
 
           if (data.liveSite) {
             const linkWrap = document.createElement('div');
@@ -714,40 +746,89 @@ document.addEventListener('DOMContentLoaded', () => {
             linkWrap.style.textAlign = 'center'; linkWrap.style.margin = '20px 0 10px 0';
             linkWrap.style.fontFamily = "'Nunito', sans-serif"; linkWrap.style.fontSize = '1.1rem';
             linkWrap.innerHTML = `Visit <a href="${data.liveSite}" target="_blank" rel="noopener noreferrer" style="color: #0066cc; text-decoration: underline; font-weight: 700;">site</a>`;
-            modalDesc.appendChild(linkWrap);
+            appendTarget.appendChild(linkWrap);
           }
           if (!metadataInserted) {
             metadataInserted = true;
             const bar = buildMetadataBar(data);
-            if (bar) modalDesc.appendChild(bar);
+            if (bar) modalDesc.insertBefore(bar, modalDesc.querySelector('.modal-layout-split'));
           }
           return;
         }
 
         if (block.type === 'text') {
           const tb = document.createElement('div'); tb.className = 'content-text-block';
-          if (block.heading) { const h = document.createElement('h4'); h.textContent = block.heading; tb.appendChild(h); }
+          if (block.heading) { 
+            const h = document.createElement('h4'); 
+            h.textContent = block.heading; 
+            if (block.level) h.classList.add(`heading-${block.level}`); 
+            
+            if (hasHeadings && sidebar) {
+              const slug = block.heading.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+              h.id = slug;
+              const link = document.createElement('a');
+              link.href = `#${slug}`;
+              link.className = `toc-link toc-link-${block.level || 'primary'}`;
+              link.textContent = block.heading;
+              sidebar.appendChild(link);
+              tocLinks.push(link);
+              headings.push(h);
+            }
+            
+            tb.appendChild(h); 
+          }
           const p = document.createElement('p');
-          const urlRx = /(https?:\/\/[^\s]+)/g;
-          if (block.text && urlRx.test(block.text)) {
-            block.text.split(urlRx).forEach(part => {
-              if (part.match(urlRx)) {
-                const a = document.createElement('a');
-                a.href = part; a.target = '_blank'; a.rel = 'noopener noreferrer';
-                a.textContent = part; a.style.color = '#0066cc'; a.style.textDecoration = 'underline';
-                p.appendChild(a);
-              } else { p.appendChild(document.createTextNode(part)); }
-            });
-          } else { p.innerHTML = (block.text || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>'); }
-          tb.appendChild(p); modalDesc.appendChild(tb);
+          const markdownLinkRx = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
+          const rawUrlRx = /(?<!href=")(https?:\/\/[^\s<]+)/g;
+          
+          let content = (block.text || '')
+            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+            .replace(markdownLinkRx, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color: #0066cc; text-decoration: underline;">$1</a>');
+          
+          // Only auto-link if not already inside an <a> tag (simple check)
+          if (!content.includes('<a')) {
+            content = content.replace(rawUrlRx, '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: #0066cc; text-decoration: underline;">$1</a>');
+          }
+          
+          p.innerHTML = content;
+          tb.appendChild(p); appendTarget.appendChild(tb);
         }
         else if (block.type === 'list') {
           const lb = document.createElement('div'); lb.className = 'content-list-block';
-          if (block.heading) { const h = document.createElement('h4'); h.textContent = block.heading; lb.appendChild(h); }
+          if (block.heading) { 
+            const h = document.createElement('h4'); 
+            h.textContent = block.heading; 
+            if (block.level) h.classList.add(`heading-${block.level}`); 
+            
+            if (hasHeadings && sidebar) {
+              const slug = block.heading.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+              h.id = slug;
+              const link = document.createElement('a');
+              link.href = `#${slug}`;
+              link.className = `toc-link toc-link-${block.level || 'primary'}`;
+              link.textContent = block.heading;
+              sidebar.appendChild(link);
+              tocLinks.push(link);
+              headings.push(h);
+            }
+            
+            lb.appendChild(h); 
+          }
           const ul = document.createElement('ul'); ul.className = 'content-list';
           block.items.forEach(item => {
             const li = document.createElement('li');
             if (typeof item === 'string') { li.textContent = item; }
+            else if (item.type === 'image') {
+              const imgWrap = document.createElement('div'); imgWrap.className = 'list-image-wrap';
+              const img = document.createElement('img'); img.src = item.src; img.alt = 'List image'; img.style.maxWidth = '100%'; img.style.borderRadius = '8px';
+              imgWrap.appendChild(img);
+              if (item.caption) {
+                const cap = document.createElement('div'); cap.className = 'image-caption'; cap.innerHTML = item.caption;
+                imgWrap.appendChild(cap);
+              }
+              li.appendChild(imgWrap);
+              li.style.listStyle = 'none'; // Optional: remove bullet for images
+            }
             else if (item.text) {
               li.innerHTML = item.text;
               if (item.subItems && item.subItems.length) {
@@ -758,12 +839,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             ul.appendChild(li);
           });
-          lb.appendChild(ul); modalDesc.appendChild(lb);
+          lb.appendChild(ul); appendTarget.appendChild(lb);
         }
         else if (block.type === 'image') {
           const ic = document.createElement('div'); ic.className = `content-image-block ${block.size || 'medium'}`;
           const img = document.createElement('img'); img.src = block.src; img.alt = data.title; img.loading = 'lazy';
-          ic.appendChild(img); modalDesc.appendChild(ic);
+          ic.appendChild(img);
+          if (block.caption) {
+            const cap = document.createElement('div'); cap.className = 'image-caption'; cap.innerHTML = block.caption;
+            ic.appendChild(cap);
+          }
+          appendTarget.appendChild(ic);
         }
         else if (block.type === 'video') {
           const vc = document.createElement('div'); vc.className = `content-video-block ${block.size || 'medium'}`;
@@ -772,35 +858,131 @@ document.addEventListener('DOMContentLoaded', () => {
           video.setAttribute('webkit-playsinline', 'true');
           if (block.webm) { const s = document.createElement('source'); s.src = block.webm; s.type = 'video/webm'; video.appendChild(s); }
           if (block.mp4) { const s = document.createElement('source'); s.src = block.mp4; s.type = 'video/mp4'; video.appendChild(s); }
-          vc.appendChild(video); modalDesc.appendChild(vc);
+          vc.appendChild(video); appendTarget.appendChild(vc);
         }
         else if (block.type === 'images-row') {
+          const rcWrapper = document.createElement('div'); rcWrapper.className = 'content-images-row-wrapper';
           const rc = document.createElement('div'); rc.className = 'content-images-row';
-          block.images.forEach(src => { const img = document.createElement('img'); img.src = src; img.alt = data.title; img.loading = 'lazy'; rc.appendChild(img); });
-          modalDesc.appendChild(rc);
+          
+          block.images.forEach(imgData => {
+            const container = document.createElement('div');
+            container.className = 'row-image-container';
+            
+            const src = typeof imgData === 'string' ? imgData : imgData.src;
+            const img = document.createElement('img');
+            img.src = src; img.alt = data.title; img.loading = 'lazy';
+            container.appendChild(img);
+            
+            if (typeof imgData !== 'string' && imgData.caption) {
+              const cap = document.createElement('div');
+              cap.className = 'image-caption row-caption';
+              cap.innerHTML = imgData.caption;
+              container.appendChild(cap);
+            }
+            
+            rc.appendChild(container);
+          });
+          
+          rcWrapper.appendChild(rc);
+          if (block.caption) {
+            const cap = document.createElement('div'); cap.className = 'image-caption'; cap.innerHTML = block.caption;
+            rcWrapper.appendChild(cap);
+          }
+          appendTarget.appendChild(rcWrapper);
+        }
+        else if (block.type === 'iframe') {
+          const iframeWrapper = document.createElement('div'); iframeWrapper.className = 'content-iframe-block';
+          const iframe = document.createElement('iframe'); iframe.src = block.src; iframe.width = '100%'; iframe.height = block.height || '600px';
+          iframeWrapper.appendChild(iframe);
+          appendTarget.appendChild(iframeWrapper);
         }
       });
 
       if (!metadataInserted) {
         const bar = buildMetadataBar(data);
-        if (bar) modalDesc.insertBefore(bar, modalDesc.firstChild);
+        if (bar) {
+          modalDesc.insertBefore(bar, modalDesc.querySelector('.modal-layout-split'));
+          if (hasHeadings) {
+            const hr = document.createElement('hr');
+            hr.style.border = 'none';
+            hr.style.borderTop = '1px solid #eaeaea';
+            hr.style.margin = '30px 0';
+            modalDesc.insertBefore(hr, modalDesc.querySelector('.modal-layout-split'));
+          }
+        }
+      }
+      
+      if (hasHeadings && headings.length > 0) {
+        const observerOptions = {
+          root: document.querySelector('.project-modal'),
+          rootMargin: '0px 0px -75% 0px',
+          threshold: 0
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const id = entry.target.id;
+              tocLinks.forEach(l => l.classList.remove('active'));
+              const activeLink = tocLinks.find(l => l.getAttribute('href') === `#${id}`);
+              if (activeLink) activeLink.classList.add('active');
+            }
+          });
+        }, observerOptions);
+        
+        headings.forEach(h => observer.observe(h));
+        
+        tocLinks.forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) {
+              targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        });
+        
+        if (tocLinks.length > 0) {
+          tocLinks[0].classList.add('active');
+        }
       }
     } else {
       modalDesc.textContent = data.fullDesc || '';
       (data.galleryImages || []).forEach(src => { const img = document.createElement('img'); img.src = src; img.loading = 'lazy'; modalGallery.appendChild(img); });
     }
 
+    // Add "Next Project" Button
+    const currentIndex = projectsData.findIndex(p => p.id === pid);
+    const nextIndex = (currentIndex + 1) % projectsData.length;
+    const nextProject = projectsData[nextIndex];
+
+    const nextBtnContainer = document.createElement('div');
+    nextBtnContainer.className = 'next-project-container';
+    nextBtnContainer.style.textAlign = 'center';
+    nextBtnContainer.style.marginTop = '80px';
+    nextBtnContainer.style.paddingBottom = '40px';
+    nextBtnContainer.style.borderTop = '1px solid #eee';
+    nextBtnContainer.style.paddingTop = '60px';
+
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'next-project-btn';
+    nextBtn.innerHTML = `I think you'll also like my project <strong>${nextProject.title}</strong>!`;
+    
+    nextBtn.addEventListener('click', () => {
+      const modal = document.querySelector('.project-modal');
+      if (modal) {
+        modal.scrollTo(0, 0);
+      }
+      openProjectById(nextProject.id);
+    });
+
+    nextBtnContainer.appendChild(nextBtn);
+    // For projects with a sidebar, put it in the main content area; otherwise in modalDesc
+    (appendTarget || modalDesc).appendChild(nextBtnContainer);
+
     modalOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
-
-    const rowImgs = modalDesc.querySelectorAll('.content-images-row img');
-    let loaded = 0;
-    if (rowImgs.length > 0) {
-      rowImgs.forEach(img => {
-        if (img.complete) { loaded++; if (loaded === rowImgs.length) equalizeImageRows(); }
-        else { img.addEventListener('load', () => { loaded++; if (loaded === rowImgs.length) equalizeImageRows(); }); }
-      });
-    }
 
     if (updateHash) {
       history.pushState(null, null, `#p-${pid}`);
@@ -832,17 +1014,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handle initial page load
   handleHashChange();
 
-  function equalizeImageRows() {
-    document.querySelectorAll('.content-images-row').forEach(row => {
-      const imgs = Array.from(row.querySelectorAll('img'));
-      if (!imgs.length) return;
-      imgs.forEach(img => img.style.height = 'auto');
-      const ready = imgs.filter(img => img.complete && img.naturalHeight > 0);
-      if (!ready.length) return;
-      const avg = ready.reduce((s, img) => s + img.offsetHeight, 0) / ready.length;
-      imgs.forEach(img => { img.style.height = Math.round(avg) + 'px'; img.style.objectFit = 'contain'; });
-    });
-  }
 
 
   // =========================================
