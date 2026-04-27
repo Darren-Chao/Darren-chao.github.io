@@ -18,15 +18,15 @@ const projectsData = [
 
     content: [
       { type: "image", src: "assets/project-images/node/1.webp", size: "large", caption: "Final NODE truck build using cardboard structure, motors, and NODE connectors." },
-      { type: "text", text: "<span class=\"notice-tag\">NOTICE:</span> This is an **ongoing project**. What’s shown here is a working system in development, not a finalized product." },
+      { type: "text", text: "<span class=\"notice-tag\">NOTICE:</span> This is an **ongoing project**. What’s shown here is a working system in development, not a finalized product. The final product would be showcased at the **RISD Grad Show from 5/22 to 5/30**" },
       { type: "text", heading: "Overview", level: "primary", text: "NODE is a **modular robotics system designed for middle school students** to learn **design, engineering, and iteration** through building physical, interactive cardboard structures." },
       { type: "text", text: "The system combines **cardboard-based construction, plug-and-play electronics, and simple programming** to help students move from physical ideas to working systems." },
       { type: "text", text: "At its core, NODE is trying to answer a simple question: **what if building robots felt as natural as building with cardboard?**" },
 
+      { type: "image", src: "assets/project-images/node/kit-lay-flat.webp", size: "large", caption: "NODE starter kit components including motors, connectors, and microcontroller unit." },
       { type: "text", heading: "What the system includes", level: "secondary", text: "The NODE system is made up of three main parts:" },
       { type: "list", items: ["A central microcontroller module (the “brain”)", "DC motors with color-coded plug-and-play connections", "Custom structural connectors for cardboard construction"] },
       { type: "text", text: "The kit also includes pre-cut cardboard for the first guided build, which is a small truck designed to introduce movement, structure, and basic system thinking." },
-      { type: "image", src: "assets/project-images/node/kit-lay-flat.webp", size: "large", caption: "NODE starter kit components including motors, connectors, and microcontroller unit." },
       { type: "text", text: "The first guided build is a **small truck** because it is familiar and easy to understand, providing a natural entry point into robotics through simple movement and structure." },
 
       { type: "text", heading: "Why this matters", level: "secondary", text: "Most robotics kits today fall into **two extremes**." },
@@ -50,6 +50,11 @@ const projectsData = [
       { type: "list", items: ["building structure", "connecting motors", "seeing movement happen in real time"] },
       { type: "text", text: "Once complete, students can connect the system to a computer and begin adjusting behavior like speed and direction." },
       { type: "text", text: "From there, the system **gradually becomes more open-ended, encouraging students to modify, redesign, and eventually build their own projects**." },
+
+      { type: "text", heading: "Landing page and product system", level: "primary", text: "As part of the project, I also designed a full landing page to communicate the system and simulate how this product would launch in real world scenarios." },
+      { type: "text", text: "It connects education, makers, and product information into one ecosystem." },
+      { type: "iframe", src: "https://darrenchao.com/node.github.io/" },
+      { type: "text", text: "[Click here to open the landing page in a new tab ↗](https://darrenchao.com/node.github.io/)" },
 
       { type: "text", heading: "Design process", level: "primary", text: "This project went through **multiple physical and digital iterations across hardware, structure, and system design**." },
 
@@ -100,10 +105,6 @@ const projectsData = [
       { type: "text", text: "We explored multiple color systems and settled on green, white, pink, and gray as a way to balance clarity and approachability." },
       { type: "text", text: "The goal was to **avoid making it feel like a “toy kit” or an overly technical engineering tool**." },
 
-      { type: "text", heading: "Landing page and product system", level: "primary", text: "As part of the project, I also designed a full landing page to communicate the system and simulate how this product would launch in real world scenarios." },
-      { type: "text", text: "It connects education, makers, and product information into one ecosystem." },
-      { type: "iframe", src: "https://darrenchao.com/node.github.io/" },
-      { type: "text", text: "[Click here to open the landing page in a new tab ↗](https://darrenchao.com/node.github.io/)" },
 
       { type: "text", heading: "Current status", level: "primary", text: "NODE is still in active development." },
       { type: "text", text: "We are currently iterating on:" },
