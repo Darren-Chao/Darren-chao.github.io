@@ -18,7 +18,7 @@ const projectsData = [
 
     content: [
       { type: "image", src: "assets/project-images/node/1.webp", size: "large", caption: "Final NODE truck build using cardboard structure, motors, and NODE connectors." },
-      { type: "text", text: "This is an **ongoing project**. What’s shown here is a working system in development, not a finalized product." },
+      { type: "text", text: "<span class=\"notice-tag\">NOTICE:</span> This is an **ongoing project**. What’s shown here is a working system in development, not a finalized product." },
       { type: "text", heading: "Overview", level: "primary", text: "NODE is a **modular robotics system designed for middle school students** to learn **design, engineering, and iteration** through building physical, interactive cardboard structures." },
       { type: "text", text: "The system combines **cardboard-based construction, plug-and-play electronics, and simple programming** to help students move from physical ideas to working systems." },
       { type: "text", text: "At its core, NODE is trying to answer a simple question: **what if building robots felt as natural as building with cardboard?**" },
@@ -230,31 +230,35 @@ const projectsData = [
   },
 
   {
-    id: "idleearth",
-    title: "Idle Earth",
-    modalTitle: "Idle Earth",
-    shortDesc: "A Living World Built from Every Visitor",
-    cardDesc: "Every visitor creates a digital self that continues living on Earth while you're away.",
-    cardImage: "assets/project-cards/idle-earth.webp",
+    id: "sandsiege",
+    title: "Sand Siege",
+    modalTitle: "Sand Siege",
+    shortDesc: "Making a Beach Day More Competitive... and Fun!",
+    cardDesc: "A modular beach game that reimagines sandcastle building as collaborative play.",
+    cardImage: "assets/project-cards/sand-siege.webp",
 
     metadata: {
-      role: "Front-End Developer",
-      timeline: "Ongoing",
-      collaborators: "Solo",
-      tools: "Three.js, Google Firebase, AI Agent Simulation, JavaScript"
+      role: "Product Developer",
+      timeline: "3 Weeks",
+      collaborators: "Angela Zhang, Aubrey Wong, Sage Rebello, Tong Song",
+      tools: "3D Printing, Cardboard Prototyping, Fusion 360, User Testing"
     },
 
-    liveSite: "https://idle-earth-601582214608.us-west1.run.app/",
     content: [
-      {
-        type: "video",
-        webm: "assets/project-images/idle-earth/video.webm",
-        mp4: "assets/project-images/idle-earth/video.mp4"
-      },
-      { type: "text", heading: "Inspiration", text: "I was inspired by the idea that people often leave little digital artifacts online and return to them from time to time. But most of these artifacts **stay completely static**. They do not change, they do not really represent a person over time, and they do not give someone much reason to keep checking back. I started wondering if **artificial intelligence could create something more alive**. Instead of leaving a static trace online, what if people could **anchor a small digital version of themselves** somewhere on the internet that continues evolving." },
-      { type: "text", heading: "Overview", text: "Idle Earth is a **web experience where users create a small AI-driven digital self** that lives on a shared virtual planet. Users define attributes like age, personality, and identity traits, and **the system generates a small agent that continues living on the platform**. It is not really a game. Instead, users create their digital self and occasionally return to see what it has been up to. Over time, **the planet slowly fills with these small autonomous digital lives**, creating a quiet world populated by many different users." },
-      { type: "images-row", images: ["assets/project-images/idle-earth/3.webp", "assets/project-images/idle-earth/4.webp"] },
-      { type: "text", heading: "Process", text: "The project combines a **custom visual environment with an AI-driven simulation layer**. I built the interactive Earth using **3D rendering and hand-drawn visual assets**, then integrated an AI system that **generates updates about each digital self over time**. Users log in, create their digital self, and can later return to view its activity log. Each visit updates the state of the world and reveals what their digital self is currently doing, while other users appear on the planet with **limited, privacy-safe summaries**." },
+      { type: "image", src: "assets/project-images/sand-siege/1.webp", size: "large" },
+      { type: "text", heading: "Overview", text: "Sand Siege **reimagines sandcastle play as a creative and competitive beach game for kids**." },
+      { type: "text", text: "We began by observing that most sandcastle kits feel **repetitive and prescriptive**, often limiting creativity to the shapes provided by buckets and molds. Our goal was to design a system that **encourages open ended building while introducing light competition and game mechanics** to make a day at the beach more engaging." },
+      { type: "text", text: "Inspired by modular building systems and puzzle logic, we created **a game where players build sand structures, hide treasure items, and take turns attacking or building** using action prompts, blending imaginative play with simple strategy." },
+      { type: "text", heading: "Gameplay and System", text: "Players construct bases using **modular sand bricks**, place treasures within their structures, and take turns rolling a die that determines actions such as building, attacking, or modifying the playfield. A **hand powered catapult** is used to launch sand and attempt to knock down opponents' structures or reveal treasures." },
+      { type: "text", text: "The rules were intentionally designed to be **understandable with minimal reading** so children can quickly start playing." },
+      { type: "list", heading: "Key Design Considerations", items: ["Make gameplay intuitive without heavy instructions", "Ensure pieces are large, visible, and safe for beach environments", "Prevent parts from being easily washed away", "Design sand interaction to be safe and low force", "Encourage creativity rather than constrain building"] },
+      { type: "text", text: "A standout feature is the catapult, which **only functions when anchored into sand**. On hard surfaces it cannot stand, reinforcing that the toy belongs to the beach context. The launching action is **powered purely by children's hands** rather than springs or rubber bands, keeping forces gentle and safe." },
+      { type: "text", heading: "Prototyping the Bricks", text: "We iterated extensively on the modular building blocks, **starting with cardboard prototypes** to explore scale, ergonomics, and play patterns. This helped us quickly test how children might stack, carry, and connect pieces." },
+      { type: "images-row", images: ["assets/project-images/sand-siege/2.webp", "assets/project-images/sand-siege/3.webp", "assets/project-images/sand-siege/4.webp", "assets/project-images/sand-siege/5.webp"] },
+      { type: "text", text: "We explored connection strategies including magnets, which were **abandoned due to corrosion risks near saltwater**. The design shifted toward **pressure fit connections**, leading to multiple rounds of 3D modeling and printing to refine tolerances." },
+      { type: "text", heading: "Testing and Iteration", text: "**Field testing at the beach** revealed critical insights. Early versions included **interior bumps that trapped sand** and prevented smooth release, so the geometry was redesigned to allow clean packing and dumping. We repeatedly tested fit, durability, and usability in **real sand conditions** until the system felt reliable and satisfying." },
+      { type: "images-row", images: ["assets/project-images/sand-siege/6.webp", "assets/project-images/sand-siege/7.webp", "assets/project-images/sand-siege/8.webp"] },
+      { type: "text", heading: "Outcome", text: "The final system is a playful, modular game that **transforms sandcastle building into a social experience** that blends creativity, strategy, and physical play. By grounding the mechanics in the **natural affordances of sand and children's intuition**, Sand Siege creates a flexible play environment that feels both structured and open ended." },
     ]
   },
 
@@ -302,35 +306,31 @@ const projectsData = [
   },
 
   {
-    id: "sandsiege",
-    title: "Sand Siege",
-    modalTitle: "Sand Siege",
-    shortDesc: "Making a Beach Day More Competitive... and Fun!",
-    cardDesc: "A modular beach game that reimagines sandcastle building as collaborative play.",
-    cardImage: "assets/project-cards/sand-siege.webp",
+    id: "idleearth",
+    title: "Idle Earth",
+    modalTitle: "Idle Earth",
+    shortDesc: "A Living World Built from Every Visitor",
+    cardDesc: "Every visitor creates a digital self that continues living on Earth while you're away.",
+    cardImage: "assets/project-cards/idle-earth.webp",
 
     metadata: {
-      role: "Product Developer",
-      timeline: "3 Weeks",
-      collaborators: "Angela Zhang, Aubrey Wong, Sage Rebello, Tong Song",
-      tools: "3D Printing, Cardboard Prototyping, Fusion 360, User Testing"
+      role: "Front-End Developer",
+      timeline: "Ongoing",
+      collaborators: "Solo",
+      tools: "Three.js, Google Firebase, AI Agent Simulation, JavaScript"
     },
 
+    liveSite: "https://idle-earth-601582214608.us-west1.run.app/",
     content: [
-      { type: "image", src: "assets/project-images/sand-siege/1.webp", size: "large" },
-      { type: "text", heading: "Overview", text: "Sand Siege **reimagines sandcastle play as a creative and competitive beach game for kids**." },
-      { type: "text", text: "We began by observing that most sandcastle kits feel **repetitive and prescriptive**, often limiting creativity to the shapes provided by buckets and molds. Our goal was to design a system that **encourages open ended building while introducing light competition and game mechanics** to make a day at the beach more engaging." },
-      { type: "text", text: "Inspired by modular building systems and puzzle logic, we created **a game where players build sand structures, hide treasure items, and take turns attacking or building** using action prompts, blending imaginative play with simple strategy." },
-      { type: "text", heading: "Gameplay and System", text: "Players construct bases using **modular sand bricks**, place treasures within their structures, and take turns rolling a die that determines actions such as building, attacking, or modifying the playfield. A **hand powered catapult** is used to launch sand and attempt to knock down opponents' structures or reveal treasures." },
-      { type: "text", text: "The rules were intentionally designed to be **understandable with minimal reading** so children can quickly start playing." },
-      { type: "list", heading: "Key Design Considerations", items: ["Make gameplay intuitive without heavy instructions", "Ensure pieces are large, visible, and safe for beach environments", "Prevent parts from being easily washed away", "Design sand interaction to be safe and low force", "Encourage creativity rather than constrain building"] },
-      { type: "text", text: "A standout feature is the catapult, which **only functions when anchored into sand**. On hard surfaces it cannot stand, reinforcing that the toy belongs to the beach context. The launching action is **powered purely by children's hands** rather than springs or rubber bands, keeping forces gentle and safe." },
-      { type: "text", heading: "Prototyping the Bricks", text: "We iterated extensively on the modular building blocks, **starting with cardboard prototypes** to explore scale, ergonomics, and play patterns. This helped us quickly test how children might stack, carry, and connect pieces." },
-      { type: "images-row", images: ["assets/project-images/sand-siege/2.webp", "assets/project-images/sand-siege/3.webp", "assets/project-images/sand-siege/4.webp", "assets/project-images/sand-siege/5.webp"] },
-      { type: "text", text: "We explored connection strategies including magnets, which were **abandoned due to corrosion risks near saltwater**. The design shifted toward **pressure fit connections**, leading to multiple rounds of 3D modeling and printing to refine tolerances." },
-      { type: "text", heading: "Testing and Iteration", text: "**Field testing at the beach** revealed critical insights. Early versions included **interior bumps that trapped sand** and prevented smooth release, so the geometry was redesigned to allow clean packing and dumping. We repeatedly tested fit, durability, and usability in **real sand conditions** until the system felt reliable and satisfying." },
-      { type: "images-row", images: ["assets/project-images/sand-siege/6.webp", "assets/project-images/sand-siege/7.webp", "assets/project-images/sand-siege/8.webp"] },
-      { type: "text", heading: "Outcome", text: "The final system is a playful, modular game that **transforms sandcastle building into a social experience** that blends creativity, strategy, and physical play. By grounding the mechanics in the **natural affordances of sand and children's intuition**, Sand Siege creates a flexible play environment that feels both structured and open ended." },
+      {
+        type: "video",
+        webm: "assets/project-images/idle-earth/video.webm",
+        mp4: "assets/project-images/idle-earth/video.mp4"
+      },
+      { type: "text", heading: "Inspiration", text: "I was inspired by the idea that people often leave little digital artifacts online and return to them from time to time. But most of these artifacts **stay completely static**. They do not change, they do not really represent a person over time, and they do not give someone much reason to keep checking back. I started wondering if **artificial intelligence could create something more alive**. Instead of leaving a static trace online, what if people could **anchor a small digital version of themselves** somewhere on the internet that continues evolving." },
+      { type: "text", heading: "Overview", text: "Idle Earth is a **web experience where users create a small AI-driven digital self** that lives on a shared virtual planet. Users define attributes like age, personality, and identity traits, and **the system generates a small agent that continues living on the platform**. It is not really a game. Instead, users create their digital self and occasionally return to see what it has been up to. Over time, **the planet slowly fills with these small autonomous digital lives**, creating a quiet world populated by many different users." },
+      { type: "images-row", images: ["assets/project-images/idle-earth/3.webp", "assets/project-images/idle-earth/4.webp"] },
+      { type: "text", heading: "Process", text: "The project combines a **custom visual environment with an AI-driven simulation layer**. I built the interactive Earth using **3D rendering and hand-drawn visual assets**, then integrated an AI system that **generates updates about each digital self over time**. Users log in, create their digital self, and can later return to view its activity log. Each visit updates the state of the world and reveals what their digital self is currently doing, while other users appear on the planet with **limited, privacy-safe summaries**." },
     ]
   },
 

@@ -488,6 +488,14 @@ h3 {
   margin: 0;
 }
 
+.notice-tag {
+  color: #ffb300; /* Brighter orangy yellow */
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-right: 4px;
+  display: inline-block;
+}
+
 .content-list-block {
   margin-bottom: 30px;
   max-width: 800px;
