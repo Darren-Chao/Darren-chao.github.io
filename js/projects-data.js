@@ -130,14 +130,6 @@ const projectsData = [
 
     content: [
       { type: "image", src: "assets/project-images/jukebox/1.webp", size: "large" },
-      { 
-        type: "images-row", 
-        images: [
-          { src: "assets/project-images/jukebox/2.webp", caption: "CAD Model of Jukebox2.0" },
-          { src: "assets/project-images/jukebox/3.webp", caption: "Circuit Prototype and Testing on Breadboard" },
-          { src: "assets/project-images/jukebox/4.webp", caption: "Breadboard Connected to Jukebox Prototype" }
-        ] 
-      },
       { type: "text", heading: "Context", text: "Many people never try composing music because traditional instruments and software require training. We wanted to explore whether **music creation could start from something much more familiar**." },
       { type: "text", text: "Drawing felt like the most natural place to begin. Children and beginners already use colors and patterns to express ideas, so we asked **whether those drawings could become music**." },
       { type: "text", heading: "The Idea", text: "Jukebox 2.0 is an interactive record player that **translates hand drawn color doodles into melodies**. Instead of writing musical notes, users draw long color patterns on paper and feed the strip into the device." },
@@ -146,6 +138,14 @@ const projectsData = [
       { type: "text", text: "The project was later exhibited as part of the **Connections** exhibition, which explored how **technology can bridge people and creative expression**." },
       { type: "image", src: "assets/project-images/jukebox/5.webp", size: "small" },
       { type: "text", heading: "Early Prototyping", text: "Development began with **rapid experimentation** to validate the sensing and sound system. I built early **breadboard prototypes that combined an RGB color sensor, microcontroller, and simple audio output** to test how color data could translate into tones." },
+      { 
+        type: "images-row", 
+        images: [
+          { src: "assets/project-images/jukebox/2.webp", caption: "CAD Model of Jukebox2.0" },
+          { src: "assets/project-images/jukebox/3.webp", caption: "Circuit Prototype and Testing on Breadboard" },
+          { src: "assets/project-images/jukebox/4.webp", caption: "Breadboard Connected to Jukebox Prototype" }
+        ] 
+      },
       { type: "text", text: "At the same time, we started exploring the physical form of the object through **quick enclosure sketches and 3D models**. We iterated through several shapes and proportions to create something that felt **playful and understandable as an interactive device** rather than a traditional instrument." },
       { type: "text", text: "The **color to sound algorithm was revised multiple times** to create melodies that felt more musically coherent while still preserving the spontaneity of drawing." },
       { type: "text", heading: "Final Fabrication", text: "As the system matured, I transitioned the electronics from prototyping boards to a **custom PCB** for stability and cleaner integration. I **soldered and assembled** the board, integrated the sensing and audio components." },

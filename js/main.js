@@ -612,7 +612,7 @@ document.addEventListener('DOMContentLoaded', () => {
     items.forEach(item => {
       if (!item.value) return;
       const cell = document.createElement('div');
-      cell.className = 'metadata-cell';
+      cell.className = 'metadata-item';
       const label = document.createElement('div');
       label.className = 'metadata-label';
       label.textContent = item.label;

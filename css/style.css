@@ -466,8 +466,6 @@ h3 {
 .content-text-block {
   margin-bottom: 12px;
   max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .content-text-block h4 {
@@ -479,6 +477,12 @@ h3 {
   margin-bottom: 10px;
   transform: none;
   letter-spacing: -0.01em;
+}
+
+/* Remove top margin if it's the first heading in the main content area */
+.modal-main-content > .content-text-block:first-child h4,
+.modal-main-content > .content-list-block:first-child h4 {
+  margin-top: 0;
 }
 
 .content-text-block p {
@@ -500,8 +504,6 @@ h3 {
 .content-list-block {
   margin-bottom: 12px;
   max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .content-list-block h4 {
@@ -569,15 +571,11 @@ h3 {
 .content-image-block.large,
 .content-video-block.large {
   max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .content-image-block.full,
 .content-video-block.full {
   max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 /* Allow hero image to remain larger */
@@ -590,8 +588,6 @@ h3 {
 
 .content-images-row-wrapper {
   max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
   margin-bottom: 2rem;
 }
 
@@ -1393,15 +1389,17 @@ footer {
 }
 
 .content-iframe-block {
-  margin: 30px auto;
-  max-width: 800px;
+  margin: 40px auto; /* Centered */
+  max-width: 600px; /* 75% of 800px */
   width: 100%;
 }
 
 .content-iframe-block iframe {
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border: 2px solid #333;
+  border-radius: 12px;
   display: block;
+  height: 450px; /* 75% of 600px */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
 .list-image-wrap {
