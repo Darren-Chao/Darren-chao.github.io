@@ -17,7 +17,7 @@ const projectsData = [
     },
 
     content: [
-      { type: "image", src: "assets/project-images/node/1.webp", size: "large", caption: "Final NODE truck build using cardboard structure, motors, and NODE connectors." },
+      { type: "image", src: "assets/project-images/node/1.webp", size: "large" },
       { type: "text", text: "<span class=\"notice-tag\">NOTICE:</span> This is an **ongoing project**. What’s shown here is a working system in development, not a finalized product. The final product would be showcased at the **RISD Grad Show from 5/22 to 5/30**" },
       { type: "text", heading: "Overview", level: "primary", text: "NODE is a **modular robotics system designed for middle school students** to learn **design, engineering, and iteration** through building physical, interactive cardboard structures." },
       { type: "text", text: "The system combines **cardboard-based construction, plug-and-play electronics, and simple programming** to help students move from physical ideas to working systems." },
@@ -38,6 +38,7 @@ const projectsData = [
       { type: "text", heading: "Who this is for", level: "secondary", text: "NODE is designed for **middle school students**, but it also works in **high school classrooms, maker environments, and home learning setups**." },
       { type: "text", text: "It is especially useful in settings where students are new to engineering concepts and need something tangible to start from." },
       { type: "text", text: "Teachers can use it for structured lessons, while individual users can explore it more freely." },
+      { type: "images-row", images: ["assets/project-images/node/classroom-1.webp", "assets/project-images/node/classroom-2.webp", "assets/project-images/node/classroom-3.webp"], caption: "NODE being used in a middle school classroom" },
 
       { type: "text", heading: "Why cardboard", level: "secondary", text: "Cardboard is often the first prototyping material for designers and engineers." },
       { type: "text", text: "It is **fast, cheap, and forgiving**, which makes it ideal for early-stage experimentation." },
@@ -59,7 +60,7 @@ const projectsData = [
       { type: "text", heading: "Design process", level: "primary", text: "This project went through **multiple physical and digital iterations across hardware, structure, and system design**." },
 
       { type: "text", heading: "Connector system iteration", level: "secondary", text: "We started with a more **boxy connector design**, but it was difficult for students to assemble and sometimes **caused sharp edges** during use." },
-      { type: "images-row", images: ["assets/project-images/node/connector-iteration-1.webp", "assets/project-images/node/connector-iteration-2.webp", "assets/project-images/node/connector-iteration-3.webp"], caption: "Evolution of NODE connectors from early rigid geometry to final claw-based flexible system." },
+      { type: "images-row", images: ["assets/project-images/node/6.webp", "assets/project-images/node/connector-iteration-1.webp", "assets/project-images/node/connector-iteration-2.webp", "assets/project-images/node/connector-iteration-3.webp"], caption: "Evolution of NODE connectors from early sketches to final claw-based flexible system." },
       { type: "text", text: "We moved toward a **rounded claw-based system** that grips cardboard more safely and allows for faster assembly and disassembly." },
       { type: "text", text: "The final design uses a **tension-based mechanism** where inserting cardboard naturally tightens the grip, making the structure more stable once built." },
 
@@ -87,8 +88,9 @@ const projectsData = [
       { type: "image", src: "assets/project-images/node/microcontroller-shell-iteration.webp", size: "large", caption: "Iterative development of the NODE microcontroller enclosure." },
 
       { type: "text", heading: "System testing", level: "secondary", text: "We tested how students interact with the system, especially **how easily they can attach connectors and understand movement feedback**." },
-      { type: "image", src: "assets/project-images/node/user-test-placeholder.webp", size: "large", caption: "Early user testing with students assembling and modifying builds." },
+      { type: "images-row", images: ["assets/project-images/node/test1.webp", "assets/project-images/node/test2.webp", "assets/project-images/node/test3.webp"], caption: "NODE connectors tested at Wheeler School 7th grade science class." },
       { type: "text", text: "This **informed decisions around connector tightness, motor responsiveness, and overall usability**." },
+      { type: "text", text: "During the tests, students shared that the connectors were **fun to play with, super fast to build, and very intuitive**. The teacher was so impressed that he even asked to be **first on the list to purchase the kit** once it is finalized!" },
       { type: "text", heading: "Packaging and system design", level: "secondary", text: "We also designed a **fold-out toolkit style box that opens into an organized workspace**." },
       { type: "text", text: "The goal was to make the kit feel like a **usable workstation rather than just storage**." },
       {
