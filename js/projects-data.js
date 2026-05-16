@@ -65,7 +65,7 @@ const projectsData = [
       { type: "text", text: "The final design uses a **tension-based mechanism** where inserting cardboard naturally tightens the grip, making the structure more stable once built." },
 
       { type: "text", heading: "Motor system iteration", level: "secondary", text: "We initially used generic DC motors, but later moved toward a **more controlled modular motor unit with a protective shell**." },
-      { type: "images-row", images: ["assets/project-images/node/dc-motor-without-shell.webp", "assets/project-images/node/dc-motor-with-shell.webp"], caption: "Motor system evolution showing exposed motor prototype and final protected modular casing." },
+      { type: "images-row", images: ["assets/project-images/node/dc-motor-without-shell.webp", "assets/project-images/node/dc-motor-with-shell.webp", "assets/project-images/node/motor-3.webp"], caption: "Motor system evolution showing exposed motor prototype and final protected modular casing." },
       { type: "text", text: "The updated design allows for **dual-direction mounting and better structural integration** into cardboard builds." },
       { type: "text", text: "This also made it easier for students to **think in terms of directional motion instead of just wiring**." },
 
@@ -111,7 +111,8 @@ const projectsData = [
       { type: "text", heading: "Current status", level: "primary", text: "NODE is still in active development." },
       { type: "text", text: "We are currently iterating on:" },
       { type: "list", items: ["microcontroller shell design", "curriculum and instruction booklet", "production readiness of components", "packaging and manufacturing workflow"] },
-      { type: "text", text: "We are also speaking with educators to refine how the system fits into real classroom environments." }
+      { type: "text", text: "We are also speaking with educators to refine how the system fits into real classroom environments." },
+      { type: "image", src: "assets/project-images/node/team.webp", size: "medium", caption: "The team at the MADE mini exhibition." }
     ]
   },
 
