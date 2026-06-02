@@ -18,7 +18,6 @@ const projectsData = [
 
     content: [
       { type: "image", src: "assets/project-images/node/1.webp", size: "large" },
-      { type: "text", text: "<span class=\"notice-tag\">NOTICE:</span> This is an **ongoing project**. What’s shown here is a working system in development, not a finalized product. The final product would be showcased at the **RISD Grad Show from 5/22 to 5/30**" },
       { type: "text", heading: "Overview", level: "primary", text: "NODE is a **modular robotics system designed for middle school students** to learn **design, engineering, and iteration** through building physical, interactive cardboard structures." },
       { type: "text", text: "The system combines **cardboard-based construction, plug-and-play electronics, and simple programming** to help students move from physical ideas to working systems." },
       { type: "text", text: "At its core, NODE is trying to answer a simple question: **what if building robots felt as natural as building with cardboard?**" },
@@ -108,11 +107,13 @@ const projectsData = [
       { type: "text", text: "The goal was to **avoid making it feel like a “toy kit” or an overly technical engineering tool**." },
 
 
-      { type: "text", heading: "Current status", level: "primary", text: "NODE is still in active development." },
-      { type: "text", text: "We are currently iterating on:" },
-      { type: "list", items: ["microcontroller shell design", "curriculum and instruction booklet", "production readiness of components", "packaging and manufacturing workflow"] },
-      { type: "text", text: "We are also speaking with educators to refine how the system fits into real classroom environments." },
-      { type: "image", src: "assets/project-images/node/team.webp", size: "medium", caption: "The team at the MADE mini exhibition." }
+      { type: "image", src: "assets/project-images/node/team.webp", size: "medium", caption: "The team at the MADE mini exhibition." },
+
+      { type: "text", heading: "Exhibition Gallery", level: "primary", text: "NODE was showcased as a completed working prototype at the **RISD Grad Show** (graduating exhibition), highlighting the full hardware ecosystem, classroom test prototypes, and interactive packaging system." },
+      { type: "images-row", images: ["assets/project-images/node/exhibition/DSC_4260.webp", "assets/project-images/node/exhibition/DSC_4296.webp"] },
+      { type: "images-row", images: ["assets/project-images/node/exhibition/DSC_4301.webp", "assets/project-images/node/exhibition/DSC_4377.webp"] },
+      { type: "images-row", images: ["assets/project-images/node/exhibition/NODE-4.webp", "assets/project-images/node/exhibition/NODE-6.webp"] },
+      { type: "image", src: "assets/project-images/node/exhibition/NODE-2.webp", size: "medium" }
     ]
   },
 

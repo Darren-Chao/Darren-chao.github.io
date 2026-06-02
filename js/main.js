@@ -6,6 +6,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   window.scrollTo(0, 0);
 
+  // Create a global lightbox element for image viewing (used across projects modal and crafts gallery)
+  const lightbox = document.createElement('div'); lightbox.className = 'illustration-lightbox';
+  const lightboxImg = document.createElement('img'); lightboxImg.className = 'lightbox-img';
+  const backBtn = document.createElement('button'); backBtn.className = 'lightbox-back-btn'; backBtn.textContent = '← Back';
+  lightbox.appendChild(backBtn); lightbox.appendChild(lightboxImg);
+  document.body.appendChild(lightbox);
+
+  const closeLightbox = () => {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+    setTimeout(() => { lightboxImg.src = ''; }, 300);
+  };
+  backBtn.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
   // =========================================
   // === 0. MOBILE DETECTION =================
   // =========================================
@@ -58,14 +73,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const clickable = t.closest('a') || t.closest('button') || t.closest('.social-btn') ||
       t.closest('.nav-btn') || t.closest('.download-btn') ||
       t.closest('.modal-close-btn') || t.closest('.lightbox-back-btn') ||
-      t.closest('.illustrations-grid img') || t.closest('.exp-tab');  // ← add this
+      t.closest('.illustrations-grid img') || t.closest('.exp-tab') ||
+      t.closest('.content-images-row img') || t.closest('.content-image-block img');
     setCursorState(clickable ? 'point' : 'arrow');
   });
   function isInteractive(el) {
     return el.closest('a') || el.closest('button') || el.closest('.social-btn') ||
       el.closest('.nav-btn') || el.closest('.download-btn') ||
       el.closest('.modal-close-btn') || el.closest('.lightbox-back-btn') ||
-      el.closest('.illustrations-grid img') || el.closest('.exp-tab');  // ← add this
+      el.closest('.illustrations-grid img') || el.closest('.exp-tab') ||
+      el.closest('.content-images-row img') || el.closest('.content-image-block img');
   } 
   document.addEventListener('mousedown', (e) => {
     if (isInteractive(e.target)) {
@@ -720,6 +737,12 @@ document.addEventListener('DOMContentLoaded', () => {
             heroWrap.className = 'content-image-block modal-hero-image';
             const img = document.createElement('img');
             img.src = block.src; img.alt = data.title; img.loading = 'lazy';
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', () => {
+              lightboxImg.src = img.src;
+              lightbox.classList.add('active');
+              document.body.style.overflow = 'hidden';
+            });
             heroWrap.appendChild(img);
             if (block.caption) {
               const cap = document.createElement('div'); cap.className = 'image-caption'; cap.innerHTML = block.caption;
@@ -844,6 +867,12 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (block.type === 'image') {
           const ic = document.createElement('div'); ic.className = `content-image-block ${block.size || 'medium'}`;
           const img = document.createElement('img'); img.src = block.src; img.alt = data.title; img.loading = 'lazy';
+          img.style.cursor = 'zoom-in';
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+          });
           ic.appendChild(img);
           if (block.caption) {
             const cap = document.createElement('div'); cap.className = 'image-caption'; cap.innerHTML = block.caption;
@@ -871,6 +900,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const src = typeof imgData === 'string' ? imgData : imgData.src;
             const img = document.createElement('img');
             img.src = src; img.alt = data.title; img.loading = 'lazy';
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', () => {
+              lightboxImg.src = img.src;
+              lightbox.classList.add('active');
+              document.body.style.overflow = 'hidden';
+            });
             container.appendChild(img);
             
             if (typeof imgData !== 'string' && imgData.caption) {
@@ -1021,20 +1056,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================
   const craftsSection = document.getElementById('crafts');
   if (craftsSection) {
-    const lightbox = document.createElement('div'); lightbox.className = 'illustration-lightbox';
-    const lightboxImg = document.createElement('img'); lightboxImg.className = 'lightbox-img';
-    const backBtn = document.createElement('button'); backBtn.className = 'lightbox-back-btn'; backBtn.textContent = '← Back';
-    lightbox.appendChild(backBtn); lightbox.appendChild(lightboxImg);
-    document.body.appendChild(lightbox);
-
-    const closeLightbox = () => {
-      lightbox.classList.remove('active');
-      document.body.style.overflow = '';
-      setTimeout(() => { lightboxImg.src = ''; }, 300);
-    };
-    backBtn.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
-
     // Smooth scroll for hero links
     craftsSection.querySelectorAll('.craft-link').forEach(link => {
       link.addEventListener('click', (e) => {
