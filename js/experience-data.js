@@ -3,7 +3,7 @@ const experienceData = [
     id: "replastic",
     company: "RE/PLASTIC",
     role: "Co-Founder & PLA Sustainability Researcher",
-    timeline: "August 2025 - Present",
+    timeline: "August 2025 - June 2026",
     missionBriefing: "Co-founded a closed-loop PLA recycling initiative at Brown's Design Workshop, a Rhode Island makerspace network transforming plastic waste into retail-ready consumer goods.",
     keyNotes: [
       "Architected an end-to-end IoT monitoring system using Particle microcontrollers to track environmental variables during PLA processing, routing real-time sensor data to Azure IoT Hub.",
